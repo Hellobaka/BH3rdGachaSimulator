@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.IO.Compression;
 using System.IO;
 
-namespace me.luohuaming.Gacha.UI
+namespace me.luohuaming.Gacha.Code
 {
     class GetUpdate
     {
