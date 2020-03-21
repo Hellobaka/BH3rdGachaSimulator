@@ -1,0 +1,360 @@
+        public GachaResult JZ_GachaMain()
+        {
+            Random rd = new Random(GetRandomSeed());
+            //初始概率1 初始值0-100.00000
+            double pro_1 = rd.Next(0, 10000000) / (double)100000;
+            Count_JZ++;
+            GachaResult gr = new GachaResult();
+            //保底标志为false且保底次数小于10
+            if (Count_JZ < 10)
+            {
+                //概率1命中四星武器
+                if (pro_1 < Probablity_Weapon4Total)
+                {
+                    //保底标志为真 保底次数归零
+                    GetTargetItem = true;
+                    Count_JZ = 0;
+                    rd = new Random(GetRandomSeed());
+                    //初始概率2 初始值0-四星武器概率(4.95800)                    
+                    double pro_2 = rd.Next(0, Convert.ToInt32((Probablity_Weapon4Total) * 100000)) / (double)100000;
+                    //概率2命中up武器(2.479)
+                    if (pro_2 < Probablity_JZUpWeapon4)
+                    {
+                        gr.name = Text_UpWeapon; ;
+                        gr.value = 28000;
+                        gr.count = 1;
+                        gr.type = TypeS.Weapon.ToString();
+                        return gr;
+                    }
+                    //概率2命中up外武器4.958-2.479=2.479 2.479/6=0.413
+                    else
+                    {
+                        //概率3初始化
+                        double pro_3 = rd.Next(0, 6);
+                        gr.value = 27000;
+                        gr.count = 1;
+                        gr.type = TypeS.Weapon.ToString();
+                        switch (pro_3)
+                        {
+                            case 0:
+                                gr.name = Text_Weapon1;
+                                break;
+                            case 1:
+                                gr.name = Text_Weapon2;
+                                break;
+                            case 2:
+                                gr.name = Text_Weapon3;
+                                break;
+                            case 3:
+                                gr.name = Text_Weapon4;
+                                break;
+                            case 4:
+                                gr.name = Text_Weapon5;
+                                break;
+                            case 5:
+                                gr.name = Text_Weapon6;
+                                break;
+                        }
+                        return gr;
+                    }
+                }
+                //概率1命中四星圣痕 7.437+4.958=12.395   4.958-12.395
+                else if (pro_1 < Probablity_Stigmata4Total + Probablity_Weapon4Total)
+                {
+                    //保底标志为真 保底次数归零
+                    GetTargetItem = true;
+                    Count_JZ = 0;
+                    rd = new Random(GetRandomSeed());
+                    //概率2初始化 0-(1.24000+0.31000=1.55000)
+                    double pro_2 = rd.Next(0, Convert.ToInt32((Probablity_JZUpStigmata4 + Probablity_JZStigmata4) * 100000)) / (double)100000;
+                    //概率2命中Up圣痕单件(1.240) 1.240*3=3.72 7.437-3.72=3.717 3.717/12=0.30975
+                    //与乘以三应该相同
+                    if (pro_2 < Probablity_JZUpStigmata4)
+                    {
+                        switch (rd.Next(0, 3))
+                        {
+                            case 0:
+                                gr.name = Text_UpStigmata + " 上";
+                                break;
+                            case 1:
+                                gr.name = Text_UpStigmata + " 中";
+                                break;
+                            case 2:
+                                gr.name = Text_UpStigmata + " 下";
+                                break;
+                        }
+                        gr.value = 2800;
+                        gr.count = 1;
+                        gr.type = TypeS.Stigmata.ToString();
+                        return gr;
+                    }
+                    //概率2命中普通圣痕单件(0.310)
+                    else
+                    {
+                        string temp = "";
+                        switch (rd.Next(0, 4))
+                        {
+                            case 0:
+                                temp = Text_Stigmata1;
+                                break;
+                            case 1:
+                                temp = Text_Stigmata2;
+                                break;
+                            case 2:
+                                temp = Text_Stigmata3;
+                                break;
+                            case 3:
+                                temp = Text_Stigmata4;
+                                break;
+                        }
+                        switch (rd.Next(0, 3))
+                        {
+                            case 0:
+                                gr.name = temp + " 上";
+                                break;
+                            case 1:
+                                gr.name = temp + " 中";
+                                break;
+                            case 2:
+                                gr.name = temp + " 下";
+                                break;
+                        }
+                        gr.value = 2700;
+                        gr.count = 1;
+                        gr.type = TypeS.Stigmata.ToString();
+                        return gr;
+                    }
+                }
+                //概率1命中三星武器 4.958+7.437+11.231=23.626 12.395-23.626
+                else if (pro_1 < Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
+                {
+                    gr.name = INIhelper.IniRead("详情", $"Weapon3_Item{rd.Next(0, 18)}", "3星武器", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    gr.count = 1;
+                    gr.type = TypeS.Weapon.ToString();
+                    gr.value = 26000;
+                    return gr;
+                }
+                //概率1命中三星圣痕 4.958+7.437+11.231+33.694=57.32 23.626-57.32
+                else if (pro_1 < Probablity_Stigmata3Total + Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
+                {
+                    gr.name = INIhelper.IniRead("详情", $"Stigmata3_Item{rd.Next(0, 12)}", "3星圣痕", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    switch (rd.Next(0, 3))
+                    {
+                        case 0:
+                            gr.name += "上";
+                            break;
+                        case 1:
+                            gr.name += "中";
+                            break;
+                        case 2:
+                            gr.name += "下";
+                            break;
+                    }
+                    gr.count = 1;
+                    gr.type = TypeS.Stigmata.ToString();
+                    gr.value = 2600;
+                    return gr;
+                }
+                //逻辑1命中二星装备与二星圣痕 4.958+7.437+11.231+33.694+17.072+17.072+8.536=100
+                //感觉逻辑上没什么问题……
+                else
+                {
+                    rd = new Random(GetRandomSeed());
+                    double pro_0 = rd.Next(0, 10000) / (double)100;
+                    if (pro_0 <= 50)
+                    {
+                        gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, 20)}", "2星武器", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                        gr.value = 25000;
+                        gr.count = 1;
+                        gr.type = TypeS.Weapon.ToString();
+                        return gr;
+                    }
+                    else
+                    {
+                        gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, 5)}", "2星圣痕", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                        switch (rd.Next(0, 3))
+                        {
+                            case 0:
+                                gr.name += "上";
+                                break;
+                            case 1:
+                                gr.name += "中";
+                                break;
+                            case 2:
+                                gr.name += "下";
+                                break;
+                        }
+                        gr.value = 2500;
+                        gr.count = 1;
+                        gr.type = TypeS.Stigmata.ToString();
+                        return gr;
+                    }
+                }
+            }
+            //
+            else
+            {
+                //保底
+                Count_JZ = 0;
+                GetTargetItem = false;
+                rd = new Random(GetRandomSeed());
+                //概率0初始化 0-（4星武器+4星圣痕）
+                double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_Weapon4Total + Probablity_Stigmata4Total) * 1000000)) / (double)1000000;
+                //概率0命中四星武器
+                if (pro_0 < Probablity_Weapon4Total)
+                {
+                    double pro_2 = rd.Next(0, Convert.ToInt32((Probablity_Weapon4Total) * 1000000)) / (double)1000000;
+                    if (pro_2 < Probablity_JZUpWeapon4)
+                    {
+                        gr.name = Text_UpWeapon; ;
+                        gr.value = 28000;
+                        gr.count = 1;
+                        gr.type = TypeS.Weapon.ToString();
+                        return gr;
+                    }
+                    else
+                    {
+                        double pro_3 = rd.Next(0, 6);
+                        gr.value = 27000;
+                        gr.count = 1;
+                        gr.type = TypeS.Chararcter.ToString();
+                        switch (pro_3)
+                        {
+                            case 0:
+                                gr.name = Text_Weapon1;
+                                break;
+                            case 1:
+                                gr.name = Text_Weapon2;
+                                break;
+                            case 2:
+                                gr.name = Text_Weapon3;
+                                break;
+                            case 3:
+                                gr.name = Text_Weapon4;
+                                break;
+                            case 4:
+                                gr.name = Text_Weapon5;
+                                break;
+                            case 5:
+                                gr.name = Text_Weapon6;
+                                break;
+                        }
+                        return gr;
+                    }
+                }
+                else
+                {
+                    rd = new Random(GetRandomSeed());
+                    if (rd.Next(0, Convert.ToInt32((Probablity_Stigmata4Total) * 1000000)) / (double)1000000 < Probablity_JZUpWeapon4 * 3)
+                    {
+                        switch (rd.Next(0, 3))
+                        {
+                            case 0:
+                                gr.name = Text_UpStigmata + " 上";
+                                break;
+                            case 1:
+                                gr.name = Text_UpStigmata + " 中";
+                                break;
+                            case 2:
+                                gr.name = Text_UpStigmata + " 下";
+                                break;
+                        }
+                        gr.value = 20000;
+                        gr.count = 1;
+                        gr.type = TypeS.Stigmata.ToString();
+                        return gr;
+                    }
+                    else
+                    {
+                        string temp = "";
+                        switch (rd.Next(0, 4))
+                        {
+                            case 0:
+                                temp = Text_Stigmata1;
+                                break;
+                            case 1:
+                                temp = Text_Stigmata2;
+                                break;
+                            case 2:
+                                temp = Text_Stigmata3;
+                                break;
+                            case 3:
+                                temp = Text_Stigmata4;
+                                break;
+                        }
+                        switch (rd.Next(0, 3))
+                        {
+                            case 0:
+                                gr.name = temp + " 上";
+                                break;
+                            case 1:
+                                gr.name = temp + " 中";
+                                break;
+                            case 2:
+                                gr.name = temp + " 下";
+                                break;
+                        }
+                        gr.value = 19000;
+                        gr.count = 1;
+                        gr.type = TypeS.Stigmata.ToString();
+                        return gr;
+                    }
+                }
+            }
+        }
+
+        public GachaResult JZ_GachaMaterial()
+        {
+            //概率1命中通用进化材料 装备经验 金币
+            Random rd = new Random(GetRandomSeed());
+            double pro_0 = Probablity_JZ装备经验 + Probablity_JZ通用进化材料 + Probablity_JZGold;
+            double pro_1 = rd.Next(0, Convert.ToInt32(pro_0 * 100)) / (double)100;
+            GachaResult gr = new GachaResult();
+            if (pro_1 < Probablity_JZ通用进化材料)
+            {
+                gr.name = "镜面";
+                gr.count = 1;
+                gr.type = TypeS.Material.ToString();
+                gr.value = 1200;
+                return gr;
+            }
+            else if (pro_1 < Probablity_JZ装备经验 + Probablity_JZ通用进化材料)
+            {
+                double db = rd.NextDouble();
+                gr.name = (db <= 0.5) ? "紫色经验材料" : "蓝色经验材料";
+                gr.count = 1;
+                gr.type = TypeS.Material.ToString();
+                gr.value = (db <= 0.5) ? 1100 : 1000;
+                return gr;
+            }
+            else
+            {
+                rd = new Random(GetRandomSeed());
+                double pro_2 = rd.Next(0, Convert.ToInt32((Probablity_JZGold) * 1000)) / (double)1000;
+                if (pro_2 < Probablity_Material吼咪宝藏)
+                {
+                    gr.name = "吼咪宝藏";
+                    gr.value = 700;
+                    gr.count = 1;
+                    gr.type = TypeS.Material.ToString();
+                    return gr;
+                }
+                else if (pro_2 < Probablity_Material吼美宝藏 + Probablity_Material吼咪宝藏)
+                {
+                    gr.name = "吼美宝藏";
+                    gr.value = 600;
+                    gr.count = 1;
+                    gr.type = TypeS.Material.ToString();
+                    return gr;
+                }
+                else
+                {
+                    gr.name = "吼姆宝藏";
+                    gr.value = 500;
+                    gr.count = 1;
+                    gr.type = TypeS.Material.ToString();
+                    return gr;
+                }
+            }
+        }
+
