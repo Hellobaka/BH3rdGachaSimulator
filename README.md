@@ -39,9 +39,12 @@
 5.将数据包解压到插件的数据目录下 ...\CQP-xiaoi\酷Q Pro\data\app\me.cqp.luohuaming.Gacha 下<br>
 ![说明图片2](https://i.loli.net/2020/03/21/xeFt4rOMNIQpfbV.png)<br>
 6.解压字体包，全选右键安装<br>
+## data.db文件如何打开
+百度下载SQLite Expert Personal，之后把文件拖进去即可<br>
+
 ## 项目如何使用
 酷Q开启开发模式，参考[酷Q文库](https://docs.cqp.im/dev/v9/devmode/)的方法开启<br>
-visual studio的最小版本为2019<br>
+visual studio的最低版本为2019<br>
 clone下载之后，设置Native.Csharp项目的生成目录为 ...\CQP-xiaoi\酷Q Pro\dev<br>
 ### 具体方法为:
 >1.右击Native.Csharp项目，点击属性<br>
