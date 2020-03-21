@@ -48,7 +48,7 @@
 visual studio的最低版本为2019<br>
 clone下载之后，设置Native.Csharp项目的生成目录为 ...\CQP-xiaoi\酷Q Pro\dev<br>
 ### 具体方法为:
->1.右击Native.Csharp项目，点击属性<br>
+>1.右击Native.Core项目，点击属性<br>
 ![说明图片3](https://i.loli.net/2020/03/21/PlNBCAHV1JWmLsO.png)<br>
 2.右侧点击生成一栏，设置输出路径<br>
 ![说明图片4](https://i.loli.net/2020/03/21/mtCeRTWDHAh2Irg.png)<br>
