@@ -5,7 +5,7 @@
 受到我之前使用过的[插件](https://cqp.cc/t/43414)启发，想开发一个属于自己的抽卡模拟插件<br>
 目前输出结果只是图片，所以仅限于[CQP](https://cqp.cc/t/14901)，免费的CQA由于无法发送图片而不能使用<br>
 根据官方公布的概率修改(下调至五分之一)之后能更符合实际游戏内的抽卡情况:unamused:<br>
-如何上手使用请往下看
+如何上手使用请往下看<br>
 ## 功能实装情况
 ### 抽卡系统
 - [x] 扩充补给
@@ -31,13 +31,22 @@
 ### 尚未想到的功能……
 
 ## 如何使用
-1.注册酷Q论坛[账号](https://cqp.me/register)<br>
-2.购买CQP[授权](https://cqp.me/user/)<br>
-3.下载[CQP](https://dlsec.cqp.me/cqp-xiaoi)<br>
-4.下载插件[本体](https://cqp.cc/t/47221) 扩展名为cpk<br>
-5.下载插件必须的[数据包](https://www.lanzous.com/iadd8ba)<br>
-6.下载插件需要的[字体](https://www.lanzous.com/i9hl6ve)<br>
-7.登录CQP，填入自己的QQ账号与密码<br>
-8.将cpk复制到酷Q的插件目录 ...\CQP-xiaoi\酷Q Pro\app下<br>
-9.将数据包解压到插件的数据目录下 ...\CQP-xiaoi\酷Q Pro\data\app\me.cqp.luohuaming.Gacha 下<br>
-10.解压字体包，全选右键安装<br>
+1.下载插件[本体](https://cqp.cc/t/47221) 扩展名为cpk<br>
+2.下载插件所必须的[数据包](https://www.lanzous.com/iadd8ba)<br>
+3.下载插件需要的[字体](https://www.lanzous.com/i9hl6ve)<br>
+4.将cpk复制到酷Q的插件目录 ...\CQP-xiaoi\酷Q Pro\app下<br>
+![说明图片1](https://i.loli.net/2020/03/21/QfVBumNkZ54j1bP.png)<br>
+5.将数据包解压到插件的数据目录下 ...\CQP-xiaoi\酷Q Pro\data\app\me.cqp.luohuaming.Gacha 下<br>
+![说明图片2](https://i.loli.net/2020/03/21/xeFt4rOMNIQpfbV.png)<br>
+6.解压字体包，全选右键安装<br>
+## 项目如何使用
+酷Q开启开发模式，参考[酷Q文库](https://docs.cqp.im/dev/v9/devmode/)的方法开启<br>
+visual studio的最小版本为2019<br>
+clone下载之后，设置Native.Csharp项目的生成目录为 ...\CQP-xiaoi\酷Q Pro\dev<br>
+### 具体方法为:
+>1.右击Native.Csharp项目，点击属性<br>
+![说明图片3](https://i.loli.net/2020/03/21/PlNBCAHV1JWmLsO.png)<br>
+2.右侧点击生成一栏，设置输出路径<br>
+![说明图片4](https://i.loli.net/2020/03/21/mtCeRTWDHAh2Irg.png)<br>
+
+点击生成-重新生成解决方案，之后酷Q重载应用即可
