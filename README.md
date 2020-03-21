@@ -2,6 +2,7 @@
 基于Jie2GG的[Native.FrameWork](https://github.com/Jie2GG/Native.Framework)框架，依托于酷Q平台进行开发
 
 ## 引言
+交流群:671467200<br>
 受到我之前使用过的[插件](https://cqp.cc/t/43414)启发，想开发一个属于自己的抽卡模拟插件<br>
 目前输出结果只是图片，所以仅限于[CQP](https://cqp.cc/t/14901)，免费的CQA由于无法发送图片而不能使用<br>
 根据官方公布的概率修改(下调至五分之一)之后能更符合实际游戏内的抽卡情况:unamused:<br>
@@ -32,8 +33,8 @@
 
 ## 如何使用
 1.下载插件[本体](https://cqp.cc/t/47221) 扩展名为cpk<br>
-2.下载插件所必须的[数据包](https://www.lanzous.com/iadd8ba)<br>
-3.下载插件需要的[字体](https://www.lanzous.com/i9hl6ve)<br>
+2.下载插件所必须的[数据包](https://www.lanzous.com/iadd8ba) (2020.3.18)<br>
+3.下载插件需要的[字体](https://www.lanzous.com/i9hl6ve) (2020.2.19)<br>
 4.将cpk复制到酷Q的插件目录 ...\CQP-xiaoi\酷Q Pro\app下<br>
 ![说明图片1](https://i.loli.net/2020/03/21/QfVBumNkZ54j1bP.png)<br>
 5.将数据包解压到插件的数据目录下 ...\CQP-xiaoi\酷Q Pro\data\app\me.cqp.luohuaming.Gacha 下<br>
@@ -53,3 +54,10 @@ clone下载之后，设置Native.Csharp项目的生成目录为 ...\CQP-xiaoi\�
 ![说明图片4](https://i.loli.net/2020/03/21/mtCeRTWDHAh2Irg.png)<br>
 
 点击生成-重新生成解决方案，之后酷Q重载应用即可
+### 特别鸣谢
+>\[SDK]Native.SDK --最贴近酷Q的C# SDK<br>
+作者：Jie2GG<br>
+交流群：@947295340<br>
+GitHub：https://github.com/Jie2GG/Native.Framework<br>
+
+感谢解包大佬提供的解包！没有解包图片就没有这个项目了
