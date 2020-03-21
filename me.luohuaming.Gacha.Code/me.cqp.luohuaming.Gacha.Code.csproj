@@ -48,6 +48,7 @@
     <Compile Include="Event_PrivateMessage.cs" />
     <Compile Include="Event_StartUp.cs" />
     <Compile Include="GetDragon.cs" />
+    <Compile Include="GetUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

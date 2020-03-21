@@ -55,7 +55,6 @@
     <Compile Include="CQSave.cs" />
     <Compile Include="Event_MenuCall.cs" />
     <Compile Include="Gacha.cs" />
-    <Compile Include="GetUpdate.cs" />
     <Compile Include="ImportGroupList.cs">
       <SubType>Form</SubType>
     </Compile>
