@@ -46,7 +46,7 @@
 ## 项目如何使用
 酷Q开启开发模式，参考[酷Q文库](https://docs.cqp.im/dev/v9/devmode/)的方法开启<br>
 visual studio的最低版本为2019<br>
-clone下载之后，设置Native.Csharp项目的生成目录为 ...\CQP-xiaoi\酷Q Pro\dev<br>
+clone下载之后，设置Native.Core项目的生成目录为 ...\CQP-xiaoi\酷Q Pro\dev<br>
 ### 具体方法为:
 >1.右击Native.Core项目，点击属性<br>
 ![说明图片3](https://i.loli.net/2020/03/21/PlNBCAHV1JWmLsO.png)<br>
