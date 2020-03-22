@@ -37,7 +37,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox_KuochongBaodi = new System.Windows.Forms.CheckBox();
             this.checkBox_KuochongAt = new System.Windows.Forms.CheckBox();
-            this.pictureBox_KuoChong = new System.Windows.Forms.PictureBox();
             this.button_KuochongUpAPic = new System.Windows.Forms.Button();
             this.button_KuochongUpSPic = new System.Windows.Forms.Button();
             this.textBox_KuochongProbablity = new System.Windows.Forms.TextBox();
@@ -57,7 +56,6 @@
             this.checkBox_JZAAt = new System.Windows.Forms.CheckBox();
             this.button_JZAWeaponUpPic = new System.Windows.Forms.Button();
             this.button_JZAStigmataUpPic = new System.Windows.Forms.Button();
-            this.pictureBox_JZA = new System.Windows.Forms.PictureBox();
             this.textBox_JZAWeapon = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.button_JZAStigmataSub = new System.Windows.Forms.Button();
@@ -80,7 +78,6 @@
             this.checkBox_JingzhunAt = new System.Windows.Forms.CheckBox();
             this.button_JingzhunUpWeaponPic = new System.Windows.Forms.Button();
             this.button_JingzhunUpStigmataPic = new System.Windows.Forms.Button();
-            this.pictureBox_JingZhun = new System.Windows.Forms.PictureBox();
             this.textBox_JingzhunWeapon = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.button_JingzhunStigmataSub = new System.Windows.Forms.Button();
@@ -116,7 +113,6 @@
             this.button_BPSSub = new System.Windows.Forms.Button();
             this.button_BPSPlus = new System.Windows.Forms.Button();
             this.textBox_BPS = new System.Windows.Forms.TextBox();
-            this.pictureBox_BP = new System.Windows.Forms.PictureBox();
             this.button_Save = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -125,6 +121,7 @@
             this.textBox_ControlGroup = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.button_AdminSub = new System.Windows.Forms.Button();
             this.button_AdminPlus = new System.Windows.Forms.Button();
             this.textBox_Admin = new System.Windows.Forms.TextBox();
@@ -140,26 +137,35 @@
             this.批量导入群列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.label_NowVersion = new System.Windows.Forms.Label();
+            this.label_NewVersion = new System.Windows.Forms.Label();
+            this.button_GetUpdate = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.关于界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox_KuoChong = new System.Windows.Forms.PictureBox();
+            this.pictureBox_JZA = new System.Windows.Forms.PictureBox();
+            this.pictureBox_JingZhun = new System.Windows.Forms.PictureBox();
+            this.pictureBox_BP = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KuoChong)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JZA)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JingZhun)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_BP)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KuoChong)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JZA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JingZhun)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_BP)).BeginInit();
             this.SuspendLayout();
             // 
             // listBox_Result
@@ -271,15 +277,6 @@
             this.checkBox_KuochongAt.TabIndex = 0;
             this.checkBox_KuochongAt.Text = "出结果时at";
             this.checkBox_KuochongAt.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox_KuoChong
-            // 
-            this.pictureBox_KuoChong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_KuoChong.Location = new System.Drawing.Point(599, 10);
-            this.pictureBox_KuoChong.Name = "pictureBox_KuoChong";
-            this.pictureBox_KuoChong.Size = new System.Drawing.Size(169, 206);
-            this.pictureBox_KuoChong.TabIndex = 13;
-            this.pictureBox_KuoChong.TabStop = false;
             // 
             // button_KuochongUpAPic
             // 
@@ -407,12 +404,12 @@
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.button_JZAWeaponUpPic);
             this.tabPage2.Controls.Add(this.button_JZAStigmataUpPic);
-            this.tabPage2.Controls.Add(this.pictureBox_JZA);
             this.tabPage2.Controls.Add(this.textBox_JZAWeapon);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.button_JZAStigmataSub);
             this.tabPage2.Controls.Add(this.button_JZAStigmataPlus);
             this.tabPage2.Controls.Add(this.textBox_JZAStigmata);
+            this.tabPage2.Controls.Add(this.pictureBox_JZA);
             this.tabPage2.Controls.Add(this.listBox_JZAStigmata);
             this.tabPage2.Controls.Add(this.textBox_JZAProbablity);
             this.tabPage2.Controls.Add(this.button_JZAGetProbablity);
@@ -482,15 +479,6 @@
             this.button_JZAStigmataUpPic.Text = "图";
             this.button_JZAStigmataUpPic.UseVisualStyleBackColor = true;
             this.button_JZAStigmataUpPic.Click += new System.EventHandler(this.button_JZAStigmataUpPic_Click);
-            // 
-            // pictureBox_JZA
-            // 
-            this.pictureBox_JZA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_JZA.Location = new System.Drawing.Point(568, 9);
-            this.pictureBox_JZA.Name = "pictureBox_JZA";
-            this.pictureBox_JZA.Size = new System.Drawing.Size(169, 210);
-            this.pictureBox_JZA.TabIndex = 63;
-            this.pictureBox_JZA.TabStop = false;
             // 
             // textBox_JZAWeapon
             // 
@@ -647,12 +635,12 @@
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.button_JingzhunUpWeaponPic);
             this.tabPage3.Controls.Add(this.button_JingzhunUpStigmataPic);
-            this.tabPage3.Controls.Add(this.pictureBox_JingZhun);
             this.tabPage3.Controls.Add(this.textBox_JingzhunWeapon);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.button_JingzhunStigmataSub);
             this.tabPage3.Controls.Add(this.button_JingzhunStigmataPlus);
             this.tabPage3.Controls.Add(this.textBox_JingzhunStigmata);
+            this.tabPage3.Controls.Add(this.pictureBox_JingZhun);
             this.tabPage3.Controls.Add(this.listBox_JingzhunStigmata);
             this.tabPage3.Controls.Add(this.textBox_JingzhunProbablity);
             this.tabPage3.Controls.Add(this.button_JingzhunGetProbablity);
@@ -722,15 +710,6 @@
             this.button_JingzhunUpStigmataPic.Text = "图";
             this.button_JingzhunUpStigmataPic.UseVisualStyleBackColor = true;
             this.button_JingzhunUpStigmataPic.Click += new System.EventHandler(this.button_JingzhunUpStigmataPic_Click);
-            // 
-            // pictureBox_JingZhun
-            // 
-            this.pictureBox_JingZhun.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_JingZhun.Location = new System.Drawing.Point(568, 9);
-            this.pictureBox_JingZhun.Name = "pictureBox_JingZhun";
-            this.pictureBox_JingZhun.Size = new System.Drawing.Size(169, 210);
-            this.pictureBox_JingZhun.TabIndex = 43;
-            this.pictureBox_JingZhun.TabStop = false;
             // 
             // textBox_JingzhunWeapon
             // 
@@ -1087,15 +1066,6 @@
             this.textBox_BPS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_BPS_KeyDown);
             this.textBox_BPS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_BPS_KeyPress);
             // 
-            // pictureBox_BP
-            // 
-            this.pictureBox_BP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox_BP.Location = new System.Drawing.Point(620, 16);
-            this.pictureBox_BP.Name = "pictureBox_BP";
-            this.pictureBox_BP.Size = new System.Drawing.Size(151, 210);
-            this.pictureBox_BP.TabIndex = 44;
-            this.pictureBox_BP.TabStop = false;
-            // 
             // button_Save
             // 
             this.button_Save.Location = new System.Drawing.Point(716, 27);
@@ -1180,6 +1150,15 @@
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "管理员";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(4, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(149, 12);
+            this.label16.TabIndex = 19;
+            this.label16.Text = "编辑群:1234567890 群管中";
             // 
             // button_AdminSub
             // 
@@ -1273,7 +1252,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.自定义指令与回答ToolStripMenuItem});
+            this.自定义指令与回答ToolStripMenuItem,
+            this.关于ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 25);
@@ -1323,20 +1303,104 @@
             this.checkBox2.Text = "群聊接口";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // label16
+            // label_NowVersion
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(4, 20);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(149, 12);
-            this.label16.TabIndex = 19;
-            this.label16.Text = "编辑群:1234567890 群管中";
+            this.label_NowVersion.AutoSize = true;
+            this.label_NowVersion.Location = new System.Drawing.Point(518, 482);
+            this.label_NowVersion.Name = "label_NowVersion";
+            this.label_NowVersion.Size = new System.Drawing.Size(89, 12);
+            this.label_NowVersion.TabIndex = 15;
+            this.label_NowVersion.Text = "当前版本:x.x.x";
+            // 
+            // label_NewVersion
+            // 
+            this.label_NewVersion.AutoSize = true;
+            this.label_NewVersion.Location = new System.Drawing.Point(613, 482);
+            this.label_NewVersion.Name = "label_NewVersion";
+            this.label_NewVersion.Size = new System.Drawing.Size(89, 12);
+            this.label_NewVersion.TabIndex = 16;
+            this.label_NewVersion.Text = "最新版本:x.x.x";
+            this.label_NewVersion.Visible = false;
+            // 
+            // button_GetUpdate
+            // 
+            this.button_GetUpdate.Location = new System.Drawing.Point(715, 477);
+            this.button_GetUpdate.Name = "button_GetUpdate";
+            this.button_GetUpdate.Size = new System.Drawing.Size(75, 23);
+            this.button_GetUpdate.TabIndex = 17;
+            this.button_GetUpdate.Text = "检查更新";
+            this.button_GetUpdate.UseVisualStyleBackColor = true;
+            this.button_GetUpdate.Click += new System.EventHandler(this.button_GetUpdate_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 482);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(347, 12);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "获取更新是访问GitHub拉取版本号，可设置hosts以加快访问速度";
+            // 
+            // 关于ToolStripMenuItem
+            // 
+            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关于界面ToolStripMenuItem});
+            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.关于ToolStripMenuItem.Text = "关于";
+            // 
+            // 关于界面ToolStripMenuItem
+            // 
+            this.关于界面ToolStripMenuItem.Name = "关于界面ToolStripMenuItem";
+            this.关于界面ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.关于界面ToolStripMenuItem.Text = "关于界面";
+            this.关于界面ToolStripMenuItem.Click += new System.EventHandler(this.关于界面ToolStripMenuItem_Click);
+            // 
+            // pictureBox_KuoChong
+            // 
+            this.pictureBox_KuoChong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_KuoChong.Location = new System.Drawing.Point(599, 10);
+            this.pictureBox_KuoChong.Name = "pictureBox_KuoChong";
+            this.pictureBox_KuoChong.Size = new System.Drawing.Size(169, 206);
+            this.pictureBox_KuoChong.TabIndex = 13;
+            this.pictureBox_KuoChong.TabStop = false;
+            // 
+            // pictureBox_JZA
+            // 
+            this.pictureBox_JZA.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_JZA.Location = new System.Drawing.Point(568, 9);
+            this.pictureBox_JZA.Name = "pictureBox_JZA";
+            this.pictureBox_JZA.Size = new System.Drawing.Size(169, 210);
+            this.pictureBox_JZA.TabIndex = 63;
+            this.pictureBox_JZA.TabStop = false;
+            // 
+            // pictureBox_JingZhun
+            // 
+            this.pictureBox_JingZhun.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_JingZhun.Location = new System.Drawing.Point(568, 9);
+            this.pictureBox_JingZhun.Name = "pictureBox_JingZhun";
+            this.pictureBox_JingZhun.Size = new System.Drawing.Size(169, 210);
+            this.pictureBox_JingZhun.TabIndex = 43;
+            this.pictureBox_JingZhun.TabStop = false;
+            // 
+            // pictureBox_BP
+            // 
+            this.pictureBox_BP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox_BP.Location = new System.Drawing.Point(620, 16);
+            this.pictureBox_BP.Name = "pictureBox_BP";
+            this.pictureBox_BP.Size = new System.Drawing.Size(151, 210);
+            this.pictureBox_BP.TabIndex = 44;
+            this.pictureBox_BP.TabStop = false;
             // 
             // 抽卡
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 483);
+            this.ClientSize = new System.Drawing.Size(800, 502);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.button_GetUpdate);
+            this.Controls.Add(this.label_NewVersion);
+            this.Controls.Add(this.label_NowVersion);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox1);
@@ -1362,17 +1426,14 @@
             this.tabPage1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KuoChong)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JZA)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JingZhun)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
@@ -1382,13 +1443,16 @@
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_BP)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_KuoChong)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JZA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_JingZhun)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_BP)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1509,5 +1573,11 @@
         private System.Windows.Forms.Button button_BPSPlus;
         private System.Windows.Forms.TextBox textBox_BPS;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label_NowVersion;
+        private System.Windows.Forms.Label label_NewVersion;
+        private System.Windows.Forms.Button button_GetUpdate;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 关于界面ToolStripMenuItem;
     }
 }

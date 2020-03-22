@@ -16,7 +16,7 @@ namespace me.luohuaming.Gacha.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new 抽卡());
+            Application.Run(new Aboutme());
         }
     }
 }

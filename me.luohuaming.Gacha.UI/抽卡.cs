@@ -172,6 +172,9 @@ namespace me.luohuaming.Gacha.UI
             path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
             checkBox_KuochongBaodi.Checked = (INIhelper.IniRead("详情", "Baodi", "1", path) == "1") ? true : false;
             checkBox_KuochongAt.Checked = (INIhelper.IniRead("详情", "ResultAt", "0", path) == "1") ? true : false;
+
+            AppInfo appInfo=cq.CQApi.AppInfo;
+            label_NowVersion.Text = $"当前版本:{appInfo.Version.ToString()}";
         }
 
         private void button_GetKuochong_Click(object sender, EventArgs e)
@@ -2642,6 +2645,44 @@ namespace me.luohuaming.Gacha.UI
                 if (temp == 0) return;
                 listBox_Admin.SelectedIndex = temp - 1;
             }
+        }
+
+        private void button_GetUpdate_Click(object sender, EventArgs e)
+        {
+            label_NewVersion.Visible = true;
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                GetUpdate_button();
+            }).Start();
+            MessageBox.Show("开始拉取版本号，请耐心等待，不要关闭控制台");
+        }
+        void GetUpdate_button()
+        {
+            GetUpdate getUpdate = new GetUpdate();
+            try
+            {
+                GetUpdate.Update update = getUpdate.GetVersion(cq);
+                label_NewVersion.Text = $"最新版本:{update.GachaVersion}";
+                if(update.GachaVersion!=cq.CQApi.AppInfo.Version.ToString())
+                {
+                    MessageBox.Show($"有更新了！\n\n新版本:{update.GachaVersion}\n\n更新时间:{update.Date}\n\n更新内容:{update.Whatsnew}\n\n前往论坛或者GitHub下载吧","有新版本",MessageBoxButtons.OK);
+                }
+                else
+                {
+                    MessageBox.Show("当前就是最新了哦");
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show($"拉取版本号失败\n错误信息:{e.Message}");
+            }
+        }
+
+        private void 关于界面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Aboutme fm = new Aboutme();
+            fm.Show();
         }
     }
 }
