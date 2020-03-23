@@ -23,7 +23,8 @@ namespace me.luohuaming.Gacha.UI
         public Update GetVersion(CQMenuCallEventArgs e)
         {
             cq = e;
-            string str=GetHtmlWithUtf("https://raw.githubusercontent.com/Hellobaka/BH3rdGachaSimulator/master/New.json");
+            //string str=GetHtmlWithUtf("https://raw.githubusercontent.com/Hellobaka/BH3rdGachaSimulator/master/New.json");
+            string str = GetHtmlWithUtf("https://gitee.com/Hellobaka/BH3rdGachaSimulator/raw/master/New.json");
             //string version = str.Substring(str.IndexOf("<div class=\"app_name\">水银崩坏三抽卡模拟<span class=\"app_version app_monospace\">")+ "<div class=\"app_name\">水银崩坏三抽卡模拟<span class=\"app_version app_monospace\">".Length, 5);
             Update version= JsonConvert.DeserializeObject<Update>(str);
             return version;

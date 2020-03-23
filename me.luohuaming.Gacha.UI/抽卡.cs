@@ -2655,7 +2655,7 @@ namespace me.luohuaming.Gacha.UI
                 Thread.CurrentThread.IsBackground = true;
                 GetUpdate_button();
             }).Start();
-            MessageBox.Show("开始拉取版本号，请耐心等待，不要关闭控制台");
+            //MessageBox.Show("开始拉取版本号，请耐心等待，不要关闭控制台");
         }
         void GetUpdate_button()
         {
@@ -2675,7 +2675,7 @@ namespace me.luohuaming.Gacha.UI
             }
             catch(Exception e)
             {
-                MessageBox.Show($"拉取版本号失败\n错误信息:{e.Message}");
+                MessageBox.Show($"拉取版本号失败\n错误信息:{e.Message}\n请稍后再试");
             }
         }
 
