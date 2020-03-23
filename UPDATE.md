@@ -1,4 +1,5 @@
 # 水银崩坏三抽卡模拟
+#### 记着更新[gitee](https://gitee.com/Hellobaka/BH3rdGachaSimulator)
 >* 1.3.1 2020.3.22<br>
 新增关于窗口<br>
 新增更新检测功能<br>
