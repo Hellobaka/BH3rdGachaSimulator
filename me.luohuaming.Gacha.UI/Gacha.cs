@@ -1325,7 +1325,15 @@ namespace me.luohuaming.Gacha.UI
 
         public void Read_Kuochong()
         {
-            string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
+            string path;
+            if(cq!=null)
+            {
+                path= $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
+            }
+            else
+            {
+                path= $@"{CQSave.cq_private.CQApi.AppDirectory}\概率\扩充概率.txt";
+            }
             Probablity_KC角色卡 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色卡", "15.00", path).Replace("%", ""));
             Probablity_KC角色碎片 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色碎片", "26.25", path).Replace("%", ""));
             Probablity_KC材料 = Convert.ToDouble(INIhelper.IniRead("综合概率", "材料", "58.75", path).Replace("%", ""));
@@ -1350,7 +1358,15 @@ namespace me.luohuaming.Gacha.UI
 
         public void Read_Jingzhun(int pos)
         {
-            string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
+            string path = "";
+            if (cq!=null)
+            {
+                path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
+            }
+            else
+            {
+                path = $@"{CQSave.cq_private.CQApi.AppDirectory}\概率\精准概率.txt";
+            }
             Probablity_Weapon4Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "4星武器", "4.958", path).Replace("%", ""));
             Probablity_Stigmata4Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "4星圣痕", "7.437", path).Replace("%", ""));
             Probablity_Weapon3Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "3星武器", "11.231", path).Replace("%", ""));
@@ -1416,7 +1432,15 @@ namespace me.luohuaming.Gacha.UI
 
         public void Read_BP()
         {
-            string path = $@"{cq.CQApi.AppDirectory}概率\标配概率.txt";
+            string path = "";
+            if (cq!=null)
+            {
+                path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
+            }
+            else
+            {
+                path = $@"{CQSave.cq_private.CQApi.AppDirectory}\概率\标配概率.txt";
+            }
             Probablity_BP角色卡 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色卡", "6.00", path).Replace("%", ""));
             Probablity_BP角色碎片 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色碎片", "17.25", path).Replace("%", ""));
             Probablity_BP装备 = Convert.ToDouble(INIhelper.IniRead("综合概率", "四星装备", "1.19", path).Replace("%", ""));

@@ -63,6 +63,12 @@
     <Compile Include="CombinePng.cs" />
     <Compile Include="CQSave.cs" />
     <Compile Include="Event_MenuCall.cs" />
+    <Compile Include="ExtraConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtraConfig.Designer.cs">
+      <DependentUpon>ExtraConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gacha.cs" />
     <Compile Include="GetUpdate.cs" />
     <Compile Include="ImportGroupList.cs">
@@ -91,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AnswerDIY.resx">
       <DependentUpon>AnswerDIY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtraConfig.resx">
+      <DependentUpon>ExtraConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportGroupList.resx">
       <DependentUpon>ImportGroupList.cs</DependentUpon>

@@ -68,6 +68,7 @@ namespace me.luohuaming.Gacha.Code
         public void PrivateMessage(object sender, CQPrivateMessageEventArgs e)
         {
             cq = e;
+            CQSave.cq_private = e;
             if (INIhelper.IniRead("接口", "Private", "0", $"{e.CQApi.AppDirectory}Config.ini") == "0") return;
             bool exist = IDExist(e.FromQQ.Id);
             ReadConfig();
@@ -98,7 +99,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 1, diamond - 280)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 1, diamond - 280)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个扩充单抽";
@@ -142,7 +150,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 10, diamond - 2800)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 10, diamond - 2800)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个扩充十连";
@@ -172,7 +187,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 1, diamond - 280)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 1, diamond - 280)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个精准单抽";
@@ -218,7 +240,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 10, diamond - 2800)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 10, diamond - 2800)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个精准十连";
@@ -248,7 +277,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个精准单抽";
@@ -293,7 +329,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个精准十连";
@@ -337,7 +380,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个标配十连";
@@ -366,7 +416,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
-                e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
+                if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "1")
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, TextGacha(ls));
+                }
+                else
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
+                }
                 cp = null;
                 GC.Collect();
                 str = $"QQ:{e.FromQQ.Id} 申请了一个标配单抽";
@@ -505,6 +562,68 @@ namespace me.luohuaming.Gacha.Code
             registermax = Convert.ToInt32(INIhelper.IniRead("GetDiamond", "RegisterMax", "14000", path));
             signmin = Convert.ToInt32(INIhelper.IniRead("GetDiamond", "SignMin", "0", path));
             signmax = Convert.ToInt32(INIhelper.IniRead("GetDiamond", "SignMax", "14000", path));
+        }
+
+        string TextGacha(List<UI.Gacha.GachaResult> ls)
+        {
+            string str = "";
+            foreach (var item in ls)
+            {
+                string type = item.type;
+                switch (type)
+                {
+                    case "Chararcter":
+                        switch (item.class_)
+                        {
+                            case "S":
+                                type = "[S角色卡]";
+                                break;
+                            case "A":
+                                type = "[A角色卡]";
+                                break;
+                            case "B":
+                                type = "[B角色卡]";
+                                break;
+                        }
+                        break;
+                    case "Weapon":
+                        switch (item.evaluation)
+                        {
+                            case 4:
+                                type = "[四星武器]";
+                                break;
+                            case 3:
+                                type = "[三星武器]";
+                                break;
+                            case 2:
+                                type = "[二星武器]";
+                                break;
+                        }
+                        break;
+                    case "Stigmata":
+                        switch (item.evaluation)
+                        {
+                            case 4:
+                                type = "[四星圣痕]";
+                                break;
+                            case 3:
+                                type = "[三星圣痕]";
+                                break;
+                            case 2:
+                                type = "[二星圣痕]";
+                                break;
+                        }
+                        break;
+                    case "Material":
+                        type = "[材料]";
+                        break;
+                    case "debri":
+                        type = "[碎片]";
+                        break;
+                }
+                str += type + item.name + $"x{item.count}\n";
+            }
+            return str;
         }
 
         void Register(long id)

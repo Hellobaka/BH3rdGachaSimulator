@@ -146,6 +146,7 @@
             this.label_NowVersion = new System.Windows.Forms.Label();
             this.label_NewVersion = new System.Windows.Forms.Label();
             this.button_GetUpdate = new System.Windows.Forms.Button();
+            this.扩展设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1299,22 +1300,23 @@
             // 
             this.自定义指令与回答ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开ToolStripMenuItem,
-            this.批量导入群列表ToolStripMenuItem});
+            this.批量导入群列表ToolStripMenuItem,
+            this.扩展设置ToolStripMenuItem});
             this.自定义指令与回答ToolStripMenuItem.Name = "自定义指令与回答ToolStripMenuItem";
-            this.自定义指令与回答ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
-            this.自定义指令与回答ToolStripMenuItem.Text = "扩展设置";
+            this.自定义指令与回答ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.自定义指令与回答ToolStripMenuItem.Text = "设置";
             // 
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.打开ToolStripMenuItem.Text = "自定义指令与回答";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
             // 
             // 批量导入群列表ToolStripMenuItem
             // 
             this.批量导入群列表ToolStripMenuItem.Name = "批量导入群列表ToolStripMenuItem";
-            this.批量导入群列表ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.批量导入群列表ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.批量导入群列表ToolStripMenuItem.Text = "批量导入群列表";
             this.批量导入群列表ToolStripMenuItem.Click += new System.EventHandler(this.批量导入群列表ToolStripMenuItem_Click);
             // 
@@ -1381,6 +1383,13 @@
             this.button_GetUpdate.Text = "检查更新";
             this.button_GetUpdate.UseVisualStyleBackColor = true;
             this.button_GetUpdate.Click += new System.EventHandler(this.button_GetUpdate_Click);
+            // 
+            // 扩展设置ToolStripMenuItem
+            // 
+            this.扩展设置ToolStripMenuItem.Name = "扩展设置ToolStripMenuItem";
+            this.扩展设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.扩展设置ToolStripMenuItem.Text = "扩展设置";
+            this.扩展设置ToolStripMenuItem.Click += new System.EventHandler(this.扩展设置ToolStripMenuItem_Click);
             // 
             // 抽卡
             // 
@@ -1567,5 +1576,6 @@
         private System.Windows.Forms.Button button_GetUpdate;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于界面ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 扩展设置ToolStripMenuItem;
     }
 }

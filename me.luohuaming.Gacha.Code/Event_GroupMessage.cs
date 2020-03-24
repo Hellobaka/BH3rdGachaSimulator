@@ -97,16 +97,30 @@ namespace me.luohuaming.Gacha.Code
                     gc.KC_Gacha(),
                     gc.KC_GachaSub()
                 };
-                CombinePng cp = new CombinePng();                
+                CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0,0, 1,diamond-280)}]");
+                    if(INIhelper.IniRead("ExtraConfig","TextGacha","0",e.CQApi.AppDirectory+"\\Config.ini")=="0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0,0, 1,diamond-280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0,0, 1, diamond - 280)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0,0, 1, diamond - 280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:at,qq={e.FromQQ.Id}]"+TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
@@ -153,16 +167,30 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
-                   e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:image,file={cp.Gacha(ls, 0,0, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:image,file={cp.Gacha(ls, 0,0, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0,0, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0,0, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
+                    }
+
                 }
                 cp = null;
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个扩充十连";
-
             }
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZA1)
             {
@@ -191,17 +219,30 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "A_ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1,1, 1, diamond - 280)}]");                    
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1,1, 1, diamond - 280)}]");                    
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
+
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1,1, 1, diamond - 280)}]");
-
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1,1, 1, diamond - 280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个精准单抽";
-
             }
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZA10)
             {
@@ -245,11 +286,26 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "A_ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1,1, 10, diamond - 2800)}]");                    
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1,1, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
+
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1,1, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1,1, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
@@ -282,17 +338,29 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "B_ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
-
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个精准单抽";
-
             }
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZB10)
             {
@@ -336,11 +404,25 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "B_ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
@@ -387,11 +469,25 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
@@ -423,11 +519,25 @@ namespace me.luohuaming.Gacha.Code
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, TextGacha(ls));
+                    }
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
+                    }
+                    else
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]"+TextGacha(ls));
+                    }
                 }
                 cp = null;
                 GC.Collect();
@@ -615,6 +725,68 @@ namespace me.luohuaming.Gacha.Code
             }
             if (controlgroup == 0) return;
             e.CQApi.SendGroupMessage(controlgroup, str);
+        }
+
+        string TextGacha(List<UI.Gacha.GachaResult> ls)
+        {
+            string str = "";
+            foreach(var item in ls)
+            {
+                string type = item.type;
+                switch(type)
+                {
+                    case "Chararcter":
+                        switch(item.class_)
+                        {
+                            case "S":
+                                type = "[S角色卡]";
+                                break;
+                            case "A":
+                                type = "[A角色卡]";
+                                break;
+                            case "B":
+                                type = "[B角色卡]";
+                                break;
+                        }
+                        break;
+                    case "Weapon":
+                        switch(item.evaluation)
+                        {
+                            case 4:
+                                type = "[四星武器]";
+                                break;
+                            case 3:
+                                type = "[三星武器]";
+                                break;
+                            case 2:
+                                type = "[二星武器]";
+                                break;
+                        }
+                        break;
+                    case "Stigmata":
+                        switch (item.evaluation)
+                        {
+                            case 4:
+                                type = "[四星圣痕]";
+                                break;
+                            case 3:
+                                type = "[三星圣痕]";
+                                break;
+                            case 2:
+                                type = "[二星圣痕]";
+                                break;
+                        }
+                        break;
+                    case "Material":
+                        type = "[材料]";
+                        break;
+                    case "debri":
+                        type = "[碎片]";
+                        break;
+                }
+                str += type + item.name + $"x{item.count}\n";
+            }
+            return str;
         }
 
         bool GroupInini()

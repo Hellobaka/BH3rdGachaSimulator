@@ -1,9 +1,10 @@
 # 水银崩坏三抽卡模拟
 #### 记着更新[gitee](https://gitee.com/Hellobaka/BH3rdGachaSimulator)
->* 1.3.1 2020.3.22<br>
+>* 1.3.1 2020.3.24<br>
 新增关于窗口<br>
 新增更新检测功能<br>
 检测更新接口更换为gitee以加快访问速度<br>
+新增文字版抽卡结果以支持CQA<br>
 
 >* 1.3.0 2020.3.21<br>
 标配补给已更新<br>
