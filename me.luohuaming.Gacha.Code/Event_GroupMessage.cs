@@ -33,13 +33,15 @@ namespace me.luohuaming.Gacha.Code
         string order_help;
         string order_getpool;
         string order_register;
+        string order_opengacha;
+        string order_closegacha;
 
         string KC1;
         string KC10;
         string JZA1;
         string JZA10;
         string JZB1;
-        string JZB10; 
+        string JZB10;
         string BP1;
         string BP10;
         string sign1;
@@ -70,41 +72,46 @@ namespace me.luohuaming.Gacha.Code
             cq = e;
             CQSave.cq_group = e;
             if (INIhelper.IniRead("接口", "Group", "0", $"{e.CQApi.AppDirectory}Config.ini") == "0") return;
-            if (!GroupInini()) return;
+            if (!GroupInini()&&!e.Message.Text.StartsWith("#抽卡开启")) return;
             ReadConfig(e);
             bool exist = IDExist(e.FromQQ.Id);
-            long controlgroup =Convert.ToInt64( INIhelper.IniRead("后台群", "Id", "0", e.CQApi.AppDirectory + "\\Config.ini"));
+            long controlgroup = Convert.ToInt64(INIhelper.IniRead("后台群", "Id", "0", e.CQApi.AppDirectory + "\\Config.ini"));
             string str = "";
             UI.Gacha gc = new UI.Gacha();
             if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_KC1)
             {
                 e.Handler = true;
-                if(!exist)
+                if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
                 diamond = GetDiamond(e.FromQQ.Id);
-                if (diamond<280)
+                if (diamond < 280)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                e.CQApi.SendGroupMessage(e.FromGroup,KC1);
+                e.CQApi.SendGroupMessage(e.FromGroup, KC1);
                 gc.Read_Kuochong();
                 List<UI.Gacha.GachaResult> ls = new List<UI.Gacha.GachaResult>
                 {
                     gc.KC_Gacha(),
                     gc.KC_GachaSub()
                 };
-                CombinePng cp = new CombinePng();
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start(); CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 1);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
-                    if(INIhelper.IniRead("ExtraConfig","TextGacha","0",e.CQApi.AppDirectory+"\\Config.ini")=="0")
+                    if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0,0, 1,diamond-280)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 1, diamond - 280)}]");
                     }
                     else
                     {
@@ -115,11 +122,11 @@ namespace me.luohuaming.Gacha.Code
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0,0, 1, diamond - 280)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0, 0, 1, diamond - 280)}]");
                     }
                     else
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:at,qq={e.FromQQ.Id}]"+TextGacha(ls));
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
                     }
                 }
                 cp = null;
@@ -153,7 +160,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     for (int j = i + 1; j < ls.Count; j++)
                     {
-                        if (ls[i].name == ls[j].name && ls[i].type !=UI.Gacha.TypeS.Chararcter.ToString())
+                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Character.ToString())
                         {
                             ls[i].count += ls[j].count;
                             ls.RemoveAt(j);
@@ -162,14 +169,19 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
-                CombinePng cp = new CombinePng();
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start(); CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 10);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:image,file={cp.Gacha(ls, 0,0, 10, diamond - 2800)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 10, diamond - 2800)}]");
                     }
                     else
                     {
@@ -180,7 +192,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0,0, 10, diamond - 2800)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0, 0, 10, diamond - 2800)}]");
                     }
                     else
                     {
@@ -207,21 +219,28 @@ namespace me.luohuaming.Gacha.Code
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                e.CQApi.SendGroupMessage(e.FromGroup,JZA1.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
+                e.CQApi.SendGroupMessage(e.FromGroup, JZA1.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                 gc.Read_Jingzhun(1);
                 List<UI.Gacha.GachaResult> ls = new List<UI.Gacha.GachaResult>
                 {
                     gc.JZ_GachaMain(),
                     gc.JZ_GachaMaterial()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 1);
+
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "A_ResultAt", "0", path) == "0")
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1,1, 1, diamond - 280)}]");                    
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 1, diamond - 280)}]");
                     }
                     else
                     {
@@ -233,7 +252,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1,1, 1, diamond - 280)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 1, 1, diamond - 280)}]");
                     }
                     else
                     {
@@ -281,14 +300,21 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 10);
+
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "A_ResultAt", "0", path) == "0")
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1,1, 10, diamond - 2800)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 10, diamond - 2800)}]");
                     }
                     else
                     {
@@ -300,7 +326,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1,1, 10, diamond - 2800)}]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 1, 10, diamond - 2800)}]");
                     }
                     else
                     {
@@ -333,8 +359,15 @@ namespace me.luohuaming.Gacha.Code
                     gc.JZ_GachaMain(),
                     gc.JZ_GachaMaterial()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 1);
+
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "B_ResultAt", "0", path) == "0")
                 {
@@ -399,8 +432,15 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 10);
+
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "B_ResultAt", "0", path) == "0")
                 {
@@ -455,7 +495,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     for (int j = i + 1; j < ls.Count; j++)
                     {
-                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Chararcter.ToString())
+                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Character.ToString())
                         {
                             ls[i].count += ls[j].count;
                             ls.RemoveAt(j);
@@ -464,10 +504,17 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls,e);
+                });
+                tasksql.Start();
+
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 10);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
-                if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
+                if (INIhelper.IniRead("设置", "ResultAt", "0", path) == "0")
                 {
                     if (INIhelper.IniRead("ExtraConfig", "TextGacha", "0", e.CQApi.AppDirectory + "\\Config.ini") == "0")
                     {
@@ -514,8 +561,14 @@ namespace me.luohuaming.Gacha.Code
                     gc.BP_GachaMain(),
                     gc.BP_GachaSub()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
+                AddCount_Gacha(e.FromGroup.Id,e.FromQQ.Id, 1);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
                 if (INIhelper.IniRead("详情", "ResultAt", "0", path) == "0")
                 {
@@ -536,7 +589,7 @@ namespace me.luohuaming.Gacha.Code
                     }
                     else
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]"+TextGacha(ls));
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]" + TextGacha(ls));
                     }
                 }
                 cp = null;
@@ -552,7 +605,8 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
                 diamond = Sign(e.FromQQ.Id);
-                if(diamond >= 0)
+                AddCount_Sign(e.FromQQ.Id);
+                if (diamond >= 0)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, sign1.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     e.CQApi.SendGroupMessage(e.FromGroup, sign2.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -562,7 +616,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, mutiSign.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
-                }                
+                }
             }
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_register)
             {
@@ -577,7 +631,7 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup,mutiRegister.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
+                    e.CQApi.SendGroupMessage(e.FromGroup, mutiRegister.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
             }
@@ -591,21 +645,22 @@ namespace me.luohuaming.Gacha.Code
                 }
                 diamond = GetDiamond(e.FromQQ.Id);
                 e.CQApi.SendGroupMessage(e.FromGroup, queryDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
+                return;
             }
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_signreset)
             {
                 e.Handler = true;
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
-                int count =Convert.ToInt32( INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
+                int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
                 bool InGroup = false;
-                for(int i=0;i<count;i++)
+                for (int i = 0; i < count; i++)
                 {
-                    if (INIhelper.IniRead(e.FromGroup.Id.ToString(), $"Index{i}", "0", path)==e.FromQQ.Id.ToString())
+                    if (INIhelper.IniRead(e.FromGroup.Id.ToString(), $"Index{i}", "0", path) == e.FromQQ.Id.ToString())
                     {
                         InGroup = true;
                         break;
                     }
-                }                
+                }
                 if (InGroup)
                 {
                     SignReset();
@@ -649,7 +704,7 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_getpool)
             {
                 e.Handler = true;
-                string UPS, UPA, UPWeaponA, UPStigmataA,UPWeaponB, UPStigmataB ;
+                string UPS, UPA, UPWeaponA, UPStigmataA, UPWeaponB, UPStigmataB;
                 UPS = INIhelper.IniRead("详情", "UpS", "S角色", e.CQApi.AppDirectory + "\\概率\\扩充概率.txt");
                 UPA = INIhelper.IniRead("详情", "UpA", "A角色", e.CQApi.AppDirectory + "\\概率\\扩充概率.txt");
                 UPWeaponA = INIhelper.IniRead("详情", "A_UpWeapon", "四星武器", e.CQApi.AppDirectory + "\\概率\\精准概率.txt");
@@ -659,7 +714,7 @@ namespace me.luohuaming.Gacha.Code
                 e.CQApi.SendGroupMessage(e.FromGroup, $"当前扩充池为 {UPS} {UPA}\n当前精准A池为 {UPWeaponA} {UPStigmataA}\n当前精准B池为 {UPWeaponB} {UPStigmataB}");
                 return;
             }
-            else if(e.Message.Text.Replace("＃", "#").StartsWith("#氪金"))
+            else if (e.Message.Text.Replace("＃", "#").StartsWith("#氪金"))
             {
                 e.Handler = true;
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
@@ -679,20 +734,20 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
                 string[] temp = e.Message.Text.Split(' ');
-                if(temp.Length!=3)
+                if (temp.Length != 3)
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:at,qq={e.FromQQ.Id}] 输入的格式不正确！请按照 #氪金 目标QQ号或者at目标 数量 的格式填写");
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}] 输入的格式不正确！请按照 #氪金 目标QQ号或者at目标 数量 的格式填写");
                     return;
                 }
                 else
                 {
                     try
                     {
-                        long targetId = Convert.ToInt64(temp[1].Replace("[CQ:at,qq=","").Replace("]",""));
+                        long targetId = Convert.ToInt64(temp[1].Replace("[CQ:at,qq=", "").Replace("]", ""));
                         int countdia = Convert.ToInt32(temp[2]);
                         try
                         {
-                            if(!IDExist(targetId))
+                            if (!IDExist(targetId))
                             {
                                 e.CQApi.SendGroupMessage(e.FromGroup, "操作对象不存在");
                                 return;
@@ -703,7 +758,7 @@ namespace me.luohuaming.Gacha.Code
                             SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond WHERE Fromgroup={cq.FromGroup.Id} and qq='{targetId}'", cn);
                             cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(targetId) + countdia;
                             cmd.ExecuteNonQuery();
-                            e.CQApi.SendGroupMessage(e.FromGroup,$"操作成功,为[CQ:at,qq={targetId}]充值{countdia}水晶,剩余{GetDiamond(targetId)}水晶");
+                            e.CQApi.SendGroupMessage(e.FromGroup, $"操作成功,为[CQ:at,qq={targetId}]充值{countdia}水晶,剩余{GetDiamond(targetId)}水晶");
                             return;
                         }
                         catch
@@ -719,6 +774,200 @@ namespace me.luohuaming.Gacha.Code
                     }
                 }
             }
+            else if (e.Message.Text.Replace("＃", "#").ToUpper().StartsWith("#SQL"))
+            {
+                e.Handler = true;
+                string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
+                if (INIhelper.IniRead("ExtraConfig", "ExecuteSql", "0", path) == "0") {
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]此功能未在控制台开启，拒绝操作");
+                    return; }
+                int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
+                bool InGroup = false;
+                for (int i = 0; i < count; i++)
+                {
+                    if (INIhelper.IniRead(e.FromGroup.Id.ToString(), $"Index{i}", "0", path) == e.FromQQ.Id.ToString())
+                    {
+                        InGroup = true;
+                        break;
+                    }
+                }
+                if (!InGroup)
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]权限不足，拒绝操作");
+                    return;
+                }
+                path = $@"{cq.CQApi.AppDirectory}data.db";
+                SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+                cn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(e.Message.Text.Substring(4), cn);
+                //cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(targetId) + countdia;
+                try
+                {
+                    int countSql = cmd.ExecuteNonQuery();
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"操作成功，{countSql}行受影响");
+                }
+                catch (Exception err)
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]执行失败:\n{err.Message}");
+                    return;
+                }
+                return;
+            }
+            else if(e.Message.Text.Replace("＃", "#").StartsWith(order_opengacha))
+            {
+                e.Handler = true;
+                string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
+                int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
+                bool InGroup = false;
+                for (int i = 0; i < count; i++)
+                {
+                    if (INIhelper.IniRead(e.FromGroup.Id.ToString(), $"Index{i}", "0", path) == e.FromQQ.Id.ToString())
+                    {
+                        InGroup = true;
+                        break;
+                    }
+                }
+                if (e.FromGroup.Id==controlgroup || InGroup)
+                {
+                    try
+                    {
+                        long target = 0;
+                        if (e.Message.Text == "#抽卡开启")
+                        {
+                            target = e.FromGroup.Id;
+                        }
+                        else
+                        {
+                            if (e.FromGroup.Id != controlgroup)
+                            {
+                                e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]控制的群号的操作只允许在后台群，请输入 #抽卡开启");
+                                return;
+                            }
+                            else
+                            {
+                                target = Convert.ToInt64(e.Message.Text.Substring("#抽卡开启".Length).Trim());
+                            }
+                        }
+                        count =Convert.ToInt32( INIhelper.IniRead("群控", "Count", "0", e.CQApi.AppDirectory + "Config.ini"));
+                        path = e.CQApi.AppDirectory + "Config.ini";
+                        bool flag = false;
+                        for(int i=0;i<count;i++)
+                        {
+                            if (INIhelper.IniRead("群控", $"Item{i}", "0", path)==target.ToString())
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if(flag)
+                        {
+                            e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}] 群:{target}已经开启了，不需要重复开启");
+                            return;
+                        }
+                        else
+                        {
+                            INIhelper.IniWrite("群控", "Count", (count+1).ToString(), path);
+                            INIhelper.IniWrite("群控", $"Item{count}", target.ToString(), path);
+                            e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}] 群:{target}已开启，指定管理员请在控制台完成");
+                            str = $"{e.FromQQ.Id}已置群{e.FromGroup.Id}开启";
+                        }
+                    }
+                    catch
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]请输入纯数字");
+                        return;
+                    }
+                }
+                else
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]权限不足，拒绝操作");
+                    return;
+                }
+            }
+            else if(e.Message.Text.Replace("＃", "#").StartsWith(order_closegacha))
+            {
+                e.Handler = true;
+                string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
+                int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
+                bool InGroup = false;
+                for (int i = 0; i < count; i++)
+                {
+                    if (INIhelper.IniRead(e.FromGroup.Id.ToString(), $"Index{i}", "0", path) == e.FromQQ.Id.ToString())
+                    {
+                        InGroup = true;
+                        break;
+                    }
+                }
+                if (e.FromGroup.Id == controlgroup || InGroup)
+                {
+                    try
+                    {
+                        long target = 0;
+                        if (e.Message.Text== "#抽卡关闭")
+                        {
+                            target = e.FromGroup.Id;
+                        }
+                        else
+                        {
+                            if(e.FromGroup.Id!=controlgroup)
+                            {
+                                e.CQApi.SendGroupMessage(e.FromGroup,$"[CQ:at,qq={e.FromQQ.Id}]控制的群号的操作只允许在后台群，请输入 #抽卡关闭");
+                                return;
+                            }
+                            else
+                            {
+                                target = Convert.ToInt64(e.Message.Text.Substring("#抽卡关闭".Length).Trim());
+                            }
+                        }
+                        count = Convert.ToInt32(INIhelper.IniRead("群控", "Count", "0", e.CQApi.AppDirectory + "Config.ini"));
+                        path = e.CQApi.AppDirectory + "Config.ini";
+                        bool flag = false;
+                        for (int i = 0; i < count; i++)
+                        {
+                            if (INIhelper.IniRead("群控", $"Item{i}", "0", path) == target.ToString())
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+                        if (!flag)
+                        {
+                            e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}] 群:{target}已经关闭了，不需要重复关闭");
+                            return;
+                        }
+                        else
+                        {
+                            List<long> grouplist = new List<long>();
+                            for(int i=0;i<count;i++)
+                            {
+                                long groupid =Convert.ToInt64(INIhelper.IniRead("群控", $"Item{i}", "0", path));
+                                if (groupid == target) continue;
+                                grouplist.Add(groupid);
+                            }
+                            INIhelper.IniWrite("群控", $"Count",( count - 1).ToString(), path);
+                            for(int i=0;i<grouplist.Count;i++)
+                            {
+                                INIhelper.IniWrite("群控", $"Item{i}", grouplist[i].ToString(), path);
+                            }
+                            e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}] 群:{target}已关闭");
+                            str = $"{e.FromQQ.Id}已置群{e.FromGroup.Id}关闭";
+
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]请输入纯数字,info:{ex.Message}");
+                        return;
+                    }
+                }
+                else
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}]权限不足，拒绝操作");
+                    return;
+
+                }
+
+            }
             else
             {
                 return;
@@ -730,13 +979,13 @@ namespace me.luohuaming.Gacha.Code
         string TextGacha(List<UI.Gacha.GachaResult> ls)
         {
             string str = "";
-            foreach(var item in ls)
+            foreach (var item in ls)
             {
                 string type = item.type;
-                switch(type)
+                switch (type)
                 {
-                    case "Chararcter":
-                        switch(item.class_)
+                    case "Character":
+                        switch (item.class_)
                         {
                             case "S":
                                 type = "[S角色卡]";
@@ -750,7 +999,7 @@ namespace me.luohuaming.Gacha.Code
                         }
                         break;
                     case "Weapon":
-                        switch(item.evaluation)
+                        switch (item.evaluation)
                         {
                             case 4:
                                 type = "[四星武器]";
@@ -792,7 +1041,7 @@ namespace me.luohuaming.Gacha.Code
         bool GroupInini()
         {
             int count = Convert.ToInt32(INIhelper.IniRead("群控", "Count", "0", cq.CQApi.AppDirectory + "\\Config.ini"));
-            for(int i=0;i<count;i++)
+            for (int i = 0; i < count; i++)
             {
                 if (cq.FromGroup.Id == Convert.ToInt64(INIhelper.IniRead("群控", $"Item{i}", "0", cq.CQApi.AppDirectory + "\\Config.ini")))
                 {
@@ -820,6 +1069,8 @@ namespace me.luohuaming.Gacha.Code
             order_querydiamond = INIhelper.IniRead("Order", "QueryDiamond", "#我的水晶", path);
             order_help = INIhelper.IniRead("Order", "Help", "#抽卡帮助", path);
             order_getpool = INIhelper.IniRead("Order", "GetPool", "#获取池子", path);
+            order_closegacha = INIhelper.IniRead("Order", "CloseGacha", "#抽卡关闭", path);
+            order_opengacha = INIhelper.IniRead("Order", "OpenGacha", "#抽卡开启", path);
 
             KC1 = INIhelper.IniRead("Answer", "KC1", "少女祈祷中……", path);
             KC10 = INIhelper.IniRead("Answer", "KC10", "少女祈祷中……", path);
@@ -883,7 +1134,7 @@ namespace me.luohuaming.Gacha.Code
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
             Random rd = new Random();
-            SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES({cq.FromGroup.Id},{id},0,0,{rd.Next(registermin,registermax)})", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES({cq.FromGroup.Id},{id},0,0,{rd.Next(registermin, registermax)},0,0,0,0)", cn);
             cmd.ExecuteNonQuery();
             cn.Close();
         }
@@ -918,15 +1169,103 @@ namespace me.luohuaming.Gacha.Code
             return diamond;
         }
 
-        int SubDiamond(long id,int num)
+        int SubDiamond(long id, int num)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond,total_diamond=total_diamond+{num} WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
             cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(cq.FromQQ.Id) - num;
             cmd.ExecuteNonQuery();
+            cn.Close();
             return GetDiamond(cq.FromQQ.Id);
+        }
+
+        void AddCount_Gacha(long group,long id, int count)
+        {
+            string path = $@"{cq.CQApi.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET gacha_count=gacha_count+{count} WHERE Fromgroup={group} and qq='{id}'", cn);
+            cmd.ExecuteNonQuery();
+        }
+
+        void AddCount_Sign(long id)
+        {
+            string path = $@"{cq.CQApi.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET sign_count=sign_count+1 WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
+            cmd.ExecuteNonQuery();
+        }
+
+        void AddCount_Purple(long id)
+        {
+            string path = $@"{cq.CQApi.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET purple_count=purple_count+1 WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
+            cmd.ExecuteNonQuery();
+        }
+
+        void AddItem2Repositories(List<UI.Gacha.GachaResult> ls,CQGroupMessageEventArgs e)
+        {
+            //type 为项目类型（Weapon、Stigmata……；name为名称；class_为A、B或者S；level为等级 ；value为价值；quality为卡片颜色(0=绿，1=蓝，2=紫，3=金；date为项目最后更新时间
+            string path = $@"{cq.CQApi.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            foreach(var item in ls)
+            {                
+                string str;
+                if(item.type==UI.Gacha.TypeS.debri.ToString() || item.type==UI.Gacha.TypeS.Material.ToString()) //为碎片与材料，可以叠加
+                {
+                    str = $"select count(*) from Repositories where name='{item.name}' and fromgroup={e.FromGroup.Id} and qq={e.FromQQ.Id}";
+                    SQLiteCommand cmd=new SQLiteCommand(str,cn);
+                    SQLiteDataReader sr = cmd.ExecuteReader();
+                    sr.Read();
+                    if(sr.GetInt32(0)!=0)
+                    {
+                        str = $"Update Repositories set count=count+{item.count},date='{DateTime.Now.ToString()}' where name='{item.name}' and fromgroup={e.FromGroup.Id} and qq={e.FromQQ.Id}";
+                    }
+                    else
+                    {
+                        str = $"INSERT INTO 'Repositories' VALUES({e.FromGroup.Id},{e.FromQQ.Id},'{item.type}','{item.name}','{item.class_}',{item.level},{item.value},{item.quality},{item.count},'{DateTime.Now.ToString()}')";
+                    }
+                    sr.Close();
+                    try
+                    {
+                        cmd = new SQLiteCommand(str, cn);
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e1)
+                    {
+                        cq.CQLog.Info("抽卡机仓库", str);
+                        cq.CQLog.Info("抽卡机仓库", e1.Message);
+                    }
+                }
+                else//为角色卡，武器与圣痕，不可叠加
+                {                        
+                    str = $"INSERT INTO 'Repositories' VALUES({e.FromGroup.Id},{e.FromQQ.Id},'{item.type}','{item.name}','{item.class_}',{item.level},{item.value},{item.quality},{item.count},'{DateTime.Now.ToString()}')";
+                    try
+                    {
+                        SQLiteCommand cmd = new SQLiteCommand(str, cn);
+                        cmd.ExecuteNonQuery();
+                        //cq.CQLog.Info("抽卡机仓库", str);
+                        if (item.quality==2)
+                        {
+                            str = $"update UserData set purple_count=purple_count+1 where fromgroup='{e.FromGroup.Id}' and qq='{e.FromQQ.Id}'";
+                            cmd = new SQLiteCommand(str, cn);
+                            cmd.ExecuteNonQuery();  
+                        }
+                    }
+                    catch(Exception e1)
+                    {
+                        cq.CQLog.Info("抽卡机仓库", str);
+                        cq.CQLog.Info("抽卡机仓库", e1.Message);
+                    }
+                }
+            }
+            cn.Close();
         }
 
         int Sign(long id)
@@ -964,8 +1303,15 @@ namespace me.luohuaming.Gacha.Code
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
             CreateTable("UserData", cn);
-            //SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES(863450594,{GetTimeStamp()},0,0)", cn);
-            //cmd.ExecuteNonQuery();
+
+            SQLiteCommand cmd = new SQLiteCommand();
+            cmd.Connection = cn;
+            //type 为项目类型（Weapon、Stigmata……；name为名称；class_为A、B或者S；level为等级 ；value为价值；quality为卡片颜色(0=绿，1=蓝，2=紫，3=金；date为项目最后更新时间
+            cmd.CommandText = $"CREATE TABLE Repositories(fromgroup INTEGER not null,qq INTEGER not null,type TEXT,name TEXT,class_ Text,level INTEGER,value integer,quality Integer,count INTEGER,date TEXT)";
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = $"UPDATE UserData SET total_diamond=0";
+            cmd.ExecuteNonQuery();
+
             cn.Close();
         }
         
@@ -995,10 +1341,89 @@ namespace me.luohuaming.Gacha.Code
 
         static void CreateTable(string tablename, SQLiteConnection cn)
         {
-            SQLiteCommand cmd = new SQLiteCommand();
-            cmd.Connection = cn;
-            cmd.CommandText = $"CREATE TABLE {tablename}(fromgroup INTEGER not null,qq INTEGER not null,timestamp INTEGER,sign int,diamond int)";
+            SQLiteCommand cmd = new SQLiteCommand
+            {
+                Connection = cn,
+                CommandText = $"CREATE TABLE {tablename}(fromgroup INTEGER not null,qq INTEGER not null,timestamp INTEGER,sign int,diamond int,total_diamond INTEGER,gacha_count int,sign_count int ,purple_count int)"
+            };
             cmd.ExecuteNonQuery();
+        }
+        //检查total_diamond等字段与表Repositories是否存在
+        public static void CheckDB(string path,CQStartupEventArgs e)
+        {
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            SQLiteCommand cmd = new SQLiteCommand($"select sql from sqlite_master where type = 'table' and name = 'UserData'", cn);
+            try
+            {
+                SQLiteDataReader sr = cmd.ExecuteReader();
+                sr.Read();
+                try
+                {
+                    string str = sr.GetString(0);
+                    bool flag = false;
+                    if(!str.Contains("total_diamond"))
+                    {
+                        cmd = new SQLiteCommand($"alter table UserData add 'total_diamond' Integer", cn);
+                        cmd.ExecuteNonQuery();
+                        flag = true;
+                    }
+                    if (!str.Contains("gacha_count"))
+                    {
+                        cmd = new SQLiteCommand($"alter table UserData add 'gacha_count' int", cn);
+                        cmd.ExecuteNonQuery();
+                        flag = true;
+                    }
+                    if (!str.Contains("sign_count"))
+                    {
+                        cmd = new SQLiteCommand($"alter table UserData add 'sign_count' int", cn);
+                        cmd.ExecuteNonQuery();
+                        flag = true;
+                    }
+                    if (!str.Contains("purple_count"))
+                    {
+                        cmd = new SQLiteCommand($"alter table UserData add 'purple_count' int", cn);
+                        cmd.ExecuteNonQuery();
+                        flag = true;
+                    }
+                    if(flag)
+                    {
+                        cmd.CommandText = $"UPDATE UserData SET total_diamond=0,gacha_count=0,sign_count=0,purple_count=0";
+                        cmd.ExecuteNonQuery();
+                        e.CQLog.Info("抽卡机数据库初始化", $"已插入新字段");
+                    }
+                }
+                catch(Exception e2)
+                {
+                    cq.CQLog.Info("抽卡机数据库初始化", $"Error2:插入列失败，信息{e2.Message}");
+                }                
+                sr.Close();            
+            }
+            catch(System.InvalidOperationException e1)
+            {
+                //if(e1.Message== "No current row")
+                e.CQLog.Info("抽卡机数据库初始化", $"Error1:插入列失败，信息{e1.Message}");
+            }
+            try
+            {
+                cmd = new SQLiteCommand($"select count(*)  from sqlite_master where type='table' and name = 'Repositories';",cn);
+                SQLiteDataReader sqr = cmd.ExecuteReader();
+                sqr.Read();
+                if (sqr.GetInt32(0)==0)
+                {
+                    sqr.Close();
+                    cmd.CommandText = $"CREATE TABLE Repositories(fromgroup INTEGER not null,qq INTEGER not null,type TEXT,name TEXT,class_ Text,level INTEGER,value integer,quality Integer,count INTEGER,date TEXT)";
+                    cmd.ExecuteNonQuery();
+
+                    e.CQLog.Info("抽卡机数据库初始化", "已创建新表 Repositories");
+                }
+                sqr.Close();
+            }
+            catch(Exception e3)
+            {
+                e.CQLog.Info("抽卡机数据库初始化", $"Error3:创建表失败，信息{e3.Message}");
+            }
+            cn.Close();
         }
 
         public static long testTimeLingchen;
@@ -1032,6 +1457,5 @@ namespace me.luohuaming.Gacha.Code
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds);
         }
-
     }
 }

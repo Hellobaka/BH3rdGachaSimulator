@@ -138,7 +138,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     for (int j = i + 1; j < ls.Count; j++)
                     {
-                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Chararcter.ToString())
+                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Character.ToString())
                         {
                             ls[i].count += ls[j].count;
                             ls.RemoveAt(j);
@@ -368,7 +368,7 @@ namespace me.luohuaming.Gacha.Code
                 {
                     for (int j = i + 1; j < ls.Count; j++)
                     {
-                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Chararcter.ToString())
+                        if (ls[i].name == ls[j].name && ls[i].type != UI.Gacha.TypeS.Character.ToString())
                         {
                             ls[i].count += ls[j].count;
                             ls.RemoveAt(j);
@@ -572,7 +572,7 @@ namespace me.luohuaming.Gacha.Code
                 string type = item.type;
                 switch (type)
                 {
-                    case "Chararcter":
+                    case "Character":
                         switch (item.class_)
                         {
                             case "S":

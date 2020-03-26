@@ -54,6 +54,14 @@
             this.textBox_SignReset1 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.执行命令后的文本 = new System.Windows.Forms.GroupBox();
+            this.textBox_AnsBP10 = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.textBox_AnsBP1 = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.textBox_AnsJZB10 = new System.Windows.Forms.TextBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.textBox_AnsJZB1 = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.textBox_AnsMutiRegister = new System.Windows.Forms.TextBox();
@@ -83,6 +91,15 @@
             this.textBox_AnsKC1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.textBox_OrderBP10 = new System.Windows.Forms.TextBox();
+            this.textBox_OrderBP1 = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.textBox_OrderJZB10 = new System.Windows.Forms.TextBox();
+            this.textBox_OrderJZB1 = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
             this.textBox_OrderGetPool = new System.Windows.Forms.TextBox();
             this.textBox_OrderRegiter = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -105,23 +122,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button_Save = new System.Windows.Forms.Button();
             this.button_Default = new System.Windows.Forms.Button();
-            this.textBox_OrderJZB10 = new System.Windows.Forms.TextBox();
-            this.textBox_OrderJZB1 = new System.Windows.Forms.TextBox();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.textBox_OrderBP10 = new System.Windows.Forms.TextBox();
-            this.textBox_OrderBP1 = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.textBox_AnsJZB10 = new System.Windows.Forms.TextBox();
-            this.label42 = new System.Windows.Forms.Label();
-            this.textBox_AnsJZB1 = new System.Windows.Forms.TextBox();
-            this.label43 = new System.Windows.Forms.Label();
-            this.textBox_AnsBP10 = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.textBox_AnsBP1 = new System.Windows.Forms.TextBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
+            this.textBox_OrderCloseGacha = new System.Windows.Forms.TextBox();
+            this.textBox_OrderOpenGacha = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -156,9 +160,9 @@
             this.groupBox3.Controls.Add(this.textBox_SignMin);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox3.Location = new System.Drawing.Point(8, 1350);
+            this.groupBox3.Location = new System.Drawing.Point(8, 1420);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(749, 85);
+            this.groupBox3.Size = new System.Drawing.Size(749, 80);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "获得水晶设置";
@@ -270,9 +274,9 @@
             this.groupBox2.Controls.Add(this.textBox_SignReset1);
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox2.Location = new System.Drawing.Point(8, 1153);
+            this.groupBox2.Location = new System.Drawing.Point(8, 1222);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(749, 191);
+            this.groupBox2.Size = new System.Drawing.Size(749, 192);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "签到重置回答文本";
@@ -424,12 +428,84 @@
             this.执行命令后的文本.Controls.Add(this.textBox_AnsKC1);
             this.执行命令后的文本.Controls.Add(this.label11);
             this.执行命令后的文本.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.执行命令后的文本.Location = new System.Drawing.Point(8, 259);
+            this.执行命令后的文本.Location = new System.Drawing.Point(8, 325);
             this.执行命令后的文本.Name = "执行命令后的文本";
-            this.执行命令后的文本.Size = new System.Drawing.Size(750, 888);
+            this.执行命令后的文本.Size = new System.Drawing.Size(750, 891);
             this.执行命令后的文本.TabIndex = 1;
             this.执行命令后的文本.TabStop = false;
             this.执行命令后的文本.Text = "回答文本";
+            // 
+            // textBox_AnsBP10
+            // 
+            this.textBox_AnsBP10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_AnsBP10.Location = new System.Drawing.Point(7, 384);
+            this.textBox_AnsBP10.Name = "textBox_AnsBP10";
+            this.textBox_AnsBP10.Size = new System.Drawing.Size(735, 23);
+            this.textBox_AnsBP10.TabIndex = 37;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label44.Location = new System.Drawing.Point(6, 364);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(56, 17);
+            this.label44.TabIndex = 36;
+            this.label44.Text = "标配十连";
+            // 
+            // textBox_AnsBP1
+            // 
+            this.textBox_AnsBP1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_AnsBP1.Location = new System.Drawing.Point(8, 336);
+            this.textBox_AnsBP1.Name = "textBox_AnsBP1";
+            this.textBox_AnsBP1.Size = new System.Drawing.Size(735, 23);
+            this.textBox_AnsBP1.TabIndex = 35;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label45.Location = new System.Drawing.Point(6, 316);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(56, 17);
+            this.label45.TabIndex = 34;
+            this.label45.Text = "标配单抽";
+            // 
+            // textBox_AnsJZB10
+            // 
+            this.textBox_AnsJZB10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_AnsJZB10.Location = new System.Drawing.Point(8, 289);
+            this.textBox_AnsJZB10.Name = "textBox_AnsJZB10";
+            this.textBox_AnsJZB10.Size = new System.Drawing.Size(735, 23);
+            this.textBox_AnsJZB10.TabIndex = 33;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label42.Location = new System.Drawing.Point(7, 269);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(64, 17);
+            this.label42.TabIndex = 32;
+            this.label42.Text = "精准B十连";
+            // 
+            // textBox_AnsJZB1
+            // 
+            this.textBox_AnsJZB1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_AnsJZB1.Location = new System.Drawing.Point(9, 241);
+            this.textBox_AnsJZB1.Name = "textBox_AnsJZB1";
+            this.textBox_AnsJZB1.Size = new System.Drawing.Size(735, 23);
+            this.textBox_AnsJZB1.TabIndex = 31;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label43.Location = new System.Drawing.Point(7, 221);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(64, 17);
+            this.label43.TabIndex = 30;
+            this.label43.Text = "精准B单抽";
             // 
             // label37
             // 
@@ -687,6 +763,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox_OrderCloseGacha);
+            this.groupBox1.Controls.Add(this.textBox_OrderOpenGacha);
+            this.groupBox1.Controls.Add(this.label47);
+            this.groupBox1.Controls.Add(this.label48);
             this.groupBox1.Controls.Add(this.label46);
             this.groupBox1.Controls.Add(this.textBox_OrderBP10);
             this.groupBox1.Controls.Add(this.textBox_OrderBP1);
@@ -719,15 +799,96 @@
             this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.Location = new System.Drawing.Point(8, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(750, 250);
+            this.groupBox1.Size = new System.Drawing.Size(750, 316);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "指令";
             // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(10, 287);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(188, 17);
+            this.label46.TabIndex = 28;
+            this.label46.Text = "抽卡指令需要字母时，请保证大写";
+            // 
+            // textBox_OrderBP10
+            // 
+            this.textBox_OrderBP10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_OrderBP10.Location = new System.Drawing.Point(470, 255);
+            this.textBox_OrderBP10.Name = "textBox_OrderBP10";
+            this.textBox_OrderBP10.Size = new System.Drawing.Size(260, 23);
+            this.textBox_OrderBP10.TabIndex = 27;
+            // 
+            // textBox_OrderBP1
+            // 
+            this.textBox_OrderBP1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_OrderBP1.Location = new System.Drawing.Point(71, 258);
+            this.textBox_OrderBP1.Name = "textBox_OrderBP1";
+            this.textBox_OrderBP1.Size = new System.Drawing.Size(260, 23);
+            this.textBox_OrderBP1.TabIndex = 26;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label40.Location = new System.Drawing.Point(407, 259);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(56, 17);
+            this.label40.TabIndex = 25;
+            this.label40.Text = "标配十连";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label41.Location = new System.Drawing.Point(8, 261);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(56, 17);
+            this.label41.TabIndex = 24;
+            this.label41.Text = "标配单抽";
+            // 
+            // textBox_OrderJZB10
+            // 
+            this.textBox_OrderJZB10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_OrderJZB10.Location = new System.Drawing.Point(470, 226);
+            this.textBox_OrderJZB10.Name = "textBox_OrderJZB10";
+            this.textBox_OrderJZB10.Size = new System.Drawing.Size(260, 23);
+            this.textBox_OrderJZB10.TabIndex = 23;
+            // 
+            // textBox_OrderJZB1
+            // 
+            this.textBox_OrderJZB1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_OrderJZB1.Location = new System.Drawing.Point(71, 229);
+            this.textBox_OrderJZB1.Name = "textBox_OrderJZB1";
+            this.textBox_OrderJZB1.Size = new System.Drawing.Size(260, 23);
+            this.textBox_OrderJZB1.TabIndex = 22;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label38.Location = new System.Drawing.Point(407, 230);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(64, 17);
+            this.label38.TabIndex = 21;
+            this.label38.Text = "精准B十连";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label39.Location = new System.Drawing.Point(8, 232);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(64, 17);
+            this.label39.TabIndex = 20;
+            this.label39.Text = "精准B单抽";
+            // 
             // textBox_OrderGetPool
             // 
             this.textBox_OrderGetPool.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderGetPool.Location = new System.Drawing.Point(69, 110);
+            this.textBox_OrderGetPool.Location = new System.Drawing.Point(71, 171);
             this.textBox_OrderGetPool.Name = "textBox_OrderGetPool";
             this.textBox_OrderGetPool.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderGetPool.TabIndex = 19;
@@ -735,7 +896,7 @@
             // textBox_OrderRegiter
             // 
             this.textBox_OrderRegiter.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderRegiter.Location = new System.Drawing.Point(69, 80);
+            this.textBox_OrderRegiter.Location = new System.Drawing.Point(71, 141);
             this.textBox_OrderRegiter.Name = "textBox_OrderRegiter";
             this.textBox_OrderRegiter.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderRegiter.TabIndex = 18;
@@ -744,7 +905,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(6, 113);
+            this.label9.Location = new System.Drawing.Point(8, 174);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(56, 17);
             this.label9.TabIndex = 17;
@@ -754,7 +915,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(6, 83);
+            this.label10.Location = new System.Drawing.Point(8, 144);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(56, 17);
             this.label10.TabIndex = 16;
@@ -763,7 +924,7 @@
             // textBox_OrderHelp
             // 
             this.textBox_OrderHelp.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderHelp.Location = new System.Drawing.Point(468, 107);
+            this.textBox_OrderHelp.Location = new System.Drawing.Point(470, 168);
             this.textBox_OrderHelp.Name = "textBox_OrderHelp";
             this.textBox_OrderHelp.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderHelp.TabIndex = 15;
@@ -771,7 +932,7 @@
             // textBox_OrderQueryDiamond
             // 
             this.textBox_OrderQueryDiamond.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderQueryDiamond.Location = new System.Drawing.Point(468, 80);
+            this.textBox_OrderQueryDiamond.Location = new System.Drawing.Point(470, 141);
             this.textBox_OrderQueryDiamond.Name = "textBox_OrderQueryDiamond";
             this.textBox_OrderQueryDiamond.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderQueryDiamond.TabIndex = 14;
@@ -779,7 +940,7 @@
             // textBox_OrderSignReset
             // 
             this.textBox_OrderSignReset.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderSignReset.Location = new System.Drawing.Point(468, 19);
+            this.textBox_OrderSignReset.Location = new System.Drawing.Point(470, 80);
             this.textBox_OrderSignReset.Name = "textBox_OrderSignReset";
             this.textBox_OrderSignReset.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderSignReset.TabIndex = 13;
@@ -787,7 +948,7 @@
             // textBox_OrderSign
             // 
             this.textBox_OrderSign.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderSign.Location = new System.Drawing.Point(69, 20);
+            this.textBox_OrderSign.Location = new System.Drawing.Point(71, 81);
             this.textBox_OrderSign.Name = "textBox_OrderSign";
             this.textBox_OrderSign.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderSign.TabIndex = 12;
@@ -795,7 +956,7 @@
             // textBox_OrderJZA10
             // 
             this.textBox_OrderJZA10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderJZA10.Location = new System.Drawing.Point(468, 136);
+            this.textBox_OrderJZA10.Location = new System.Drawing.Point(470, 197);
             this.textBox_OrderJZA10.Name = "textBox_OrderJZA10";
             this.textBox_OrderJZA10.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderJZA10.TabIndex = 11;
@@ -803,7 +964,7 @@
             // textBox_OrderJZA1
             // 
             this.textBox_OrderJZA1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderJZA1.Location = new System.Drawing.Point(69, 139);
+            this.textBox_OrderJZA1.Location = new System.Drawing.Point(71, 200);
             this.textBox_OrderJZA1.Name = "textBox_OrderJZA1";
             this.textBox_OrderJZA1.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderJZA1.TabIndex = 10;
@@ -811,7 +972,7 @@
             // textBox_OrderKC10
             // 
             this.textBox_OrderKC10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderKC10.Location = new System.Drawing.Point(468, 50);
+            this.textBox_OrderKC10.Location = new System.Drawing.Point(470, 111);
             this.textBox_OrderKC10.Name = "textBox_OrderKC10";
             this.textBox_OrderKC10.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderKC10.TabIndex = 9;
@@ -820,7 +981,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(405, 110);
+            this.label8.Location = new System.Drawing.Point(407, 171);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 17);
             this.label8.TabIndex = 8;
@@ -830,7 +991,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(405, 83);
+            this.label7.Location = new System.Drawing.Point(407, 144);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 17);
             this.label7.TabIndex = 7;
@@ -840,7 +1001,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(405, 22);
+            this.label6.Location = new System.Drawing.Point(407, 83);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 17);
             this.label6.TabIndex = 6;
@@ -850,7 +1011,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(6, 23);
+            this.label5.Location = new System.Drawing.Point(8, 84);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 17);
             this.label5.TabIndex = 5;
@@ -860,7 +1021,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(405, 140);
+            this.label4.Location = new System.Drawing.Point(407, 201);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 17);
             this.label4.TabIndex = 4;
@@ -870,7 +1031,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(6, 142);
+            this.label3.Location = new System.Drawing.Point(8, 203);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 17);
             this.label3.TabIndex = 3;
@@ -880,7 +1041,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(405, 53);
+            this.label2.Location = new System.Drawing.Point(407, 114);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 17);
             this.label2.TabIndex = 2;
@@ -889,7 +1050,7 @@
             // textBox_OrderKC1
             // 
             this.textBox_OrderKC1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderKC1.Location = new System.Drawing.Point(69, 50);
+            this.textBox_OrderKC1.Location = new System.Drawing.Point(71, 111);
             this.textBox_OrderKC1.Name = "textBox_OrderKC1";
             this.textBox_OrderKC1.Size = new System.Drawing.Size(260, 23);
             this.textBox_OrderKC1.TabIndex = 1;
@@ -898,7 +1059,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(6, 53);
+            this.label1.Location = new System.Drawing.Point(8, 114);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 17);
             this.label1.TabIndex = 0;
@@ -926,158 +1087,41 @@
             this.button_Default.UseVisualStyleBackColor = true;
             this.button_Default.Click += new System.EventHandler(this.button_Default_Click);
             // 
-            // textBox_OrderJZB10
+            // textBox_OrderCloseGacha
             // 
-            this.textBox_OrderJZB10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderJZB10.Location = new System.Drawing.Point(468, 165);
-            this.textBox_OrderJZB10.Name = "textBox_OrderJZB10";
-            this.textBox_OrderJZB10.Size = new System.Drawing.Size(260, 23);
-            this.textBox_OrderJZB10.TabIndex = 23;
+            this.textBox_OrderCloseGacha.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_OrderCloseGacha.Location = new System.Drawing.Point(470, 51);
+            this.textBox_OrderCloseGacha.Name = "textBox_OrderCloseGacha";
+            this.textBox_OrderCloseGacha.Size = new System.Drawing.Size(260, 23);
+            this.textBox_OrderCloseGacha.TabIndex = 32;
             // 
-            // textBox_OrderJZB1
+            // textBox_OrderOpenGacha
             // 
-            this.textBox_OrderJZB1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderJZB1.Location = new System.Drawing.Point(69, 168);
-            this.textBox_OrderJZB1.Name = "textBox_OrderJZB1";
-            this.textBox_OrderJZB1.Size = new System.Drawing.Size(260, 23);
-            this.textBox_OrderJZB1.TabIndex = 22;
+            this.textBox_OrderOpenGacha.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_OrderOpenGacha.Location = new System.Drawing.Point(71, 52);
+            this.textBox_OrderOpenGacha.Name = "textBox_OrderOpenGacha";
+            this.textBox_OrderOpenGacha.Size = new System.Drawing.Size(260, 23);
+            this.textBox_OrderOpenGacha.TabIndex = 31;
             // 
-            // label38
+            // label47
             // 
-            this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label38.Location = new System.Drawing.Point(405, 169);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(64, 17);
-            this.label38.TabIndex = 21;
-            this.label38.Text = "精准B十连";
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label47.Location = new System.Drawing.Point(407, 54);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(56, 17);
+            this.label47.TabIndex = 30;
+            this.label47.Text = "抽卡关闭";
             // 
-            // label39
+            // label48
             // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label39.Location = new System.Drawing.Point(6, 171);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(64, 17);
-            this.label39.TabIndex = 20;
-            this.label39.Text = "精准B单抽";
-            // 
-            // textBox_OrderBP10
-            // 
-            this.textBox_OrderBP10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderBP10.Location = new System.Drawing.Point(468, 194);
-            this.textBox_OrderBP10.Name = "textBox_OrderBP10";
-            this.textBox_OrderBP10.Size = new System.Drawing.Size(260, 23);
-            this.textBox_OrderBP10.TabIndex = 27;
-            // 
-            // textBox_OrderBP1
-            // 
-            this.textBox_OrderBP1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_OrderBP1.Location = new System.Drawing.Point(69, 197);
-            this.textBox_OrderBP1.Name = "textBox_OrderBP1";
-            this.textBox_OrderBP1.Size = new System.Drawing.Size(260, 23);
-            this.textBox_OrderBP1.TabIndex = 26;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label40.Location = new System.Drawing.Point(405, 198);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(56, 17);
-            this.label40.TabIndex = 25;
-            this.label40.Text = "标配十连";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label41.Location = new System.Drawing.Point(6, 200);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(56, 17);
-            this.label41.TabIndex = 24;
-            this.label41.Text = "标配单抽";
-            // 
-            // textBox_AnsJZB10
-            // 
-            this.textBox_AnsJZB10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_AnsJZB10.Location = new System.Drawing.Point(8, 289);
-            this.textBox_AnsJZB10.Name = "textBox_AnsJZB10";
-            this.textBox_AnsJZB10.Size = new System.Drawing.Size(735, 23);
-            this.textBox_AnsJZB10.TabIndex = 33;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label42.Location = new System.Drawing.Point(7, 269);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(64, 17);
-            this.label42.TabIndex = 32;
-            this.label42.Text = "精准B十连";
-            // 
-            // textBox_AnsJZB1
-            // 
-            this.textBox_AnsJZB1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_AnsJZB1.Location = new System.Drawing.Point(9, 241);
-            this.textBox_AnsJZB1.Name = "textBox_AnsJZB1";
-            this.textBox_AnsJZB1.Size = new System.Drawing.Size(735, 23);
-            this.textBox_AnsJZB1.TabIndex = 31;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label43.Location = new System.Drawing.Point(7, 221);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(64, 17);
-            this.label43.TabIndex = 30;
-            this.label43.Text = "精准B单抽";
-            // 
-            // textBox_AnsBP10
-            // 
-            this.textBox_AnsBP10.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_AnsBP10.Location = new System.Drawing.Point(7, 384);
-            this.textBox_AnsBP10.Name = "textBox_AnsBP10";
-            this.textBox_AnsBP10.Size = new System.Drawing.Size(735, 23);
-            this.textBox_AnsBP10.TabIndex = 37;
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label44.Location = new System.Drawing.Point(6, 364);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(56, 17);
-            this.label44.TabIndex = 36;
-            this.label44.Text = "标配十连";
-            // 
-            // textBox_AnsBP1
-            // 
-            this.textBox_AnsBP1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_AnsBP1.Location = new System.Drawing.Point(8, 336);
-            this.textBox_AnsBP1.Name = "textBox_AnsBP1";
-            this.textBox_AnsBP1.Size = new System.Drawing.Size(735, 23);
-            this.textBox_AnsBP1.TabIndex = 35;
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label45.Location = new System.Drawing.Point(6, 316);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(56, 17);
-            this.label45.TabIndex = 34;
-            this.label45.Text = "标配单抽";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(8, 226);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(188, 17);
-            this.label46.TabIndex = 28;
-            this.label46.Text = "抽卡指令需要字母时，请保证大写";
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label48.Location = new System.Drawing.Point(8, 55);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(56, 17);
+            this.label48.TabIndex = 29;
+            this.label48.Text = "抽卡开启";
             // 
             // AnswerDIY
             // 
@@ -1202,5 +1246,9 @@
         private System.Windows.Forms.TextBox textBox_AnsJZB1;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.TextBox textBox_OrderCloseGacha;
+        private System.Windows.Forms.TextBox textBox_OrderOpenGacha;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label48;
     }
 }

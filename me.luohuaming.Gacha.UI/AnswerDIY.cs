@@ -35,6 +35,10 @@ namespace me.luohuaming.Gacha.UI
             textBox_OrderQueryDiamond.Text = "#我的水晶";
             textBox_OrderHelp.Text =  "#抽卡帮助";
             textBox_OrderGetPool.Text = "#获取池子";
+            textBox_OrderCloseGacha.Text = "CloseGacha";
+            textBox_OrderOpenGacha.Text = "OpenGacha";
+
+
             textBox_AnsMutiSign.Text = "今天的甲板挺亮的，擦一遍就行了";
             textBox_AnsKC1.Text = "少女祈祷中……";
             textBox_AnsKC10.Text = "少女祈祷中……";
@@ -78,7 +82,8 @@ namespace me.luohuaming.Gacha.UI
             textBox_OrderBP1.Text = INIhelper.IniRead("Order", "BP1", "#标配单抽", path);
             textBox_OrderBP10.Text = INIhelper.IniRead("Order", "BP10", "#标配十连", path);
 
-
+            textBox_OrderCloseGacha.Text = INIhelper.IniRead("Order", "CloseGacha", "#抽卡关闭", path);
+            textBox_OrderOpenGacha.Text = INIhelper.IniRead("Order", "OpenGacha", "#抽卡开启", path);
             textBox_OrderRegiter.Text = INIhelper.IniRead("Order", "Register", "#抽卡注册", path);
             textBox_OrderSign.Text = INIhelper.IniRead("Order", "Sign", "#打扫甲板", path);
             textBox_OrderSignReset.Text = INIhelper.IniRead("Order", "SignReset", "#甲板积灰", path);
@@ -148,6 +153,8 @@ namespace me.luohuaming.Gacha.UI
             INIhelper.IniWrite("Order", "QueryDiamond", textBox_OrderQueryDiamond.Text, path);
             INIhelper.IniWrite("Order", "Help", textBox_OrderHelp.Text, path);
             INIhelper.IniWrite("Order", "GetPool", textBox_OrderGetPool.Text, path);
+            INIhelper.IniWrite("Order", "OpenGacha", textBox_OrderOpenGacha.Text, path);
+            INIhelper.IniWrite("Order", "CloseGacha", textBox_OrderCloseGacha.Text, path);
 
             INIhelper.IniWrite("Answer", "KC1", textBox_AnsKC1.Text, path);
             INIhelper.IniWrite("Answer", "KC10", textBox_AnsKC10.Text, path);

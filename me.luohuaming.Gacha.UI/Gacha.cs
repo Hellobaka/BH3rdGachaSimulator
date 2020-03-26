@@ -10,7 +10,7 @@ namespace me.luohuaming.Gacha.UI
 {
     public class Gacha
     {
-        public enum TypeS { Chararcter, Weapon, Stigmata, Material, debri };
+        public enum TypeS { Character, Weapon, Stigmata, Material, debri };
         public class GachaResult
         {
             /// <summary>
@@ -164,7 +164,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.name = Text_UpS;
                         gr.value = 28000;
                         gr.count = 1;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         gr.class_ = "S";
                         gr.quality = 2;
                         return gr;
@@ -174,7 +174,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.name = Text_UpA; ;
                         gr.value = 2800;
                         gr.count = 1;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         gr.class_ = "A";
                         gr.quality = 2;
 
@@ -184,7 +184,7 @@ namespace me.luohuaming.Gacha.UI
                     {
                         gr.value = 2800;
                         gr.count = 1;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         gr.class_ = "A";
                         gr.quality = 2;
 
@@ -331,7 +331,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.class_ = "S";
                         gr.quality = 2;
 
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         return gr;
                     }
                     else if (pro_0 < Probablity_UpA + Probablity_UpS)
@@ -342,7 +342,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.class_ = "A";
                         gr.quality = 2;
 
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         return gr;
                     }
                     else
@@ -352,7 +352,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.class_ = "A";
                         gr.quality = 2;
 
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         int temp = rd.Next(3);
                         if (temp == 0)
                         {
@@ -932,7 +932,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.name = GetBPCharacter("S");
                         gr.value = 28000;
                         gr.count = 1;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         gr.class_ = "S";
                         gr.quality = 2;
                         return gr;
@@ -943,7 +943,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.name = GetBPCharacter("A");
                         gr.value = 2800;
                         gr.count = 1;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         gr.class_ = "A";
                         gr.quality = 2;
                         return gr;
@@ -973,13 +973,12 @@ namespace me.luohuaming.Gacha.UI
                             return gr;
                         }
                     }
-
                     else
                     {
                         gr.name = GetBPCharacter("B");
                         gr.value = 2750;
                         gr.count = 1;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         gr.class_ = "B";
                         gr.quality = 2;
                         return gr;
@@ -1104,7 +1103,7 @@ namespace me.luohuaming.Gacha.UI
             else
             {
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
-                if (INIhelper.IniRead("详情", "Baodi", "1", path) == "1")
+                if (INIhelper.IniRead("设置", "Baodi", "1", path) == "1")
                 {
                     Count = 0;
                     GetTargetItem = false;
@@ -1116,7 +1115,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.count = 1;
                         gr.class_ = "S";
                         gr.quality = 2;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         return gr;
                     }
                     else
@@ -1126,7 +1125,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.count = 1;
                         gr.class_ = "A";
                         gr.quality = 2;
-                        gr.type = TypeS.Chararcter.ToString();
+                        gr.type = TypeS.Character.ToString();
                         return gr;
                     }
                 }
@@ -1326,7 +1325,7 @@ namespace me.luohuaming.Gacha.UI
         public void Read_Kuochong()
         {
             string path;
-            if(cq!=null)
+            if(cq != null)
             {
                 path= $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
             }

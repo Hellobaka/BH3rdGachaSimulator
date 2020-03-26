@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -334,132 +335,162 @@ namespace me.luohuaming.Gacha.UI
 
         public string Gacha(List<Gacha.GachaResult> ls,int region,int JZPos,int count,int Diamond)
         {
-            int x, y;
-            x = 160;
-            y = 190;
-            Image background = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\抽卡背景.png");            
-            Image img = null;
-            Random rd = new Random();
-            foreach (var item in ls)
+            try
             {
-                img = GenerateCard(item.evaluation, 1, item);
-                background = CombinImage(background, img, x, y, -1, false);
-                if (item.type == 抽卡.TypeS.Stigmata.ToString())
+                int x, y;
+                x = 160;
+                y = 190;
+                Image background = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\抽卡背景.png");
+                Image img = null;
+                Random rd = new Random();
+                long temp1 = cq.FromGroup.Id;
+                long temp2 = cq.FromQQ.Id;
+                foreach (var item in ls)
                 {
-                    switch (item.name.Substring(item.name.Length - 1))
+                    img = GenerateCard(item.evaluation, 1, item);
+                    background = CombinImage(background, img, x, y, -1, false);
+                    //x + 133,y - 17
+                    if (!ItemExistInRepositories(item.name,temp1,temp2))
                     {
-                        case "上":
-                            img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata1.png");
-                            background = CombinImage(background, img, x - 18, y - 18, 65, 65);
+                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\New!.png");
+                        background = CombinImage(background, img, x + 133, y - 17, img.Width, img.Height);
+                    }
+                    if (item.type == 抽卡.TypeS.Stigmata.ToString())
+                    {
+                        switch (item.name.Substring(item.name.Length - 1))
+                        {
+                            case "上":
+                                img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata1.png");
+                                background = CombinImage(background, img, x - 18, y - 18, 65, 65);
+                                break;
+                            case "中":
+                                img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata2.png");
+                                background = CombinImage(background, img, x - 18, y - 18, 65, 65);
+                                break;
+                            case "下":
+                                img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata3.png");
+                                background = CombinImage(background, img, x - 18, y - 18, 65, 65);
+                                break;
+                        }
+                    }
+                    if (x < 1960)
+                    {
+                        x += 300;
+                    }
+                    else
+                    {
+                        if (y == 190)
+                        {
+                            x = 160;
+                            y = 530;
+                        }
+                        else
+                        {
                             break;
-                        case "中":
-                            img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata2.png");
-                            background = CombinImage(background, img, x - 18, y - 18, 65, 65);
-                            break;
-                        case "下":
-                            img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata3.png");
-                            background = CombinImage(background, img, x - 18, y - 18, 65, 65);
-                            break;
+                        }
                     }
                 }
-                if (x < 1960)
+                int money = rd.Next(100000, 100000000);
+                Image img_1 = Money(money);
+                Width_Gold = 1620 + (164 - img_1.Width) / 2;
+                background = CombinImage(background, img_1, Width_Gold, Height_1, -1, false);
+                //int Diamond = rd.Next(0, 30000);
+                Image img_2 = diamond(Diamond);
+                Width_Diamond = 1975 + (111 - img_2.Width) / 2;
+                background = CombinImage(background, img_2, Width_Diamond, Height_1, -1, false);
+                int ap_Max = rd.Next(154, 165);
+                int ap = rd.Next(0, ap_Max);
+                Image img_3 = AP(ap, ap_Max);
+                Width_AP = 1319 + (127 - img_3.Width) / 2;
+                background = CombinImage(background, img_3, Width_AP, Height_1, -1, false);
+                string name = GetDate();
+                switch (region)
                 {
-                    x += 300;
+                    case 0:
+                        if (count == 1)
+                        {
+                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\扩充单抽.png");
+                        }
+                        else
+                        {
+                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\扩充十连.png");
+                        }
+                        background = CombinImage(background, img_3, 126, 960, -1, false);
+                        break;
+                    case 1:
+                        switch (JZPos)
+                        {
+                            case 1:
+                                if (count == 1)
+                                {
+                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准A单抽.png");
+                                }
+                                else
+                                {
+                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准A十连.png");
+                                }
+                                break;
+                            case 2:
+                                if (count == 2)
+                                {
+                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准B单抽.png");
+                                }
+                                else
+                                {
+                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准B十连.png");
+                                }
+                                break;
+                        }
+                        background = CombinImage(background, img_3, 126, 960, -1, false);
+                        break;
+                    case 2:
+                        if (count == 1)
+                        {
+                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\标配单抽.png");
+                        }
+                        else
+                        {
+                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\标配十连.png");
+                        }
+                        background = CombinImage(background, img_3, 126, 960, -1, false);
+                        break;
+                }
+                if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
+                {
+                    Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
+                }
+                Point p = new Point(1471, 813);
+                Font font = new Font("汉仪丫丫体简", 15F);
+                Color color = Color.FromArgb(0, 0, 0);
+                background = AddText2Image(background, "Powered by @水银之翼", p, font, color, 0);
+                if (INIhelper.IniRead("ExtraConfig", "ImageFormat", "jpg", cq.CQApi.AppDirectory + "Config.ini") == "jpg")
+                {
+                    background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg", ImageFormat.Jpeg);
+                    background.Dispose();
+                    img.Dispose();
+                    img_1.Dispose();
+                    img_2.Dispose();
+                    img_3.Dispose();
+                    return $"装备结果\\{name}.jpg";
                 }
                 else
                 {
-                    if (y == 190)
-                    {
-                        x = 160;
-                        y = 530;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            int money = rd.Next(100000, 100000000);
-            Image img_1 = Money(money);
-            Width_Gold = 1620 + (164 - img_1.Width) / 2;
-            background = CombinImage(background, img_1, Width_Gold, Height_1, -1, false);
-            //int Diamond = rd.Next(0, 30000);
-            Image img_2 = diamond(Diamond);
-            Width_Diamond = 1975 + (111 - img_2.Width) / 2;
-            background = CombinImage(background, img_2, Width_Diamond, Height_1, -1, false);
-            int ap_Max = rd.Next(154, 165);
-            int ap = rd.Next(0, ap_Max);
-            Image img_3 = AP(ap, ap_Max);
-            Width_AP = 1319 + (127 - img_3.Width) / 2;
-            background = CombinImage(background, img_3, Width_AP, Height_1, -1, false);
-            string name = GetDate();
-            switch (region)
-            {
-                case 0:
-                    if (count == 1)
-                    {
-                        img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\扩充单抽.png");
-                    }
-                    else
-                    {
-                        img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\扩充十连.png");
-                    }
-                    background = CombinImage(background, img_3, 126, 960, -1, false);
-                    break;
-                case 1:
-                    switch (JZPos)
-                    {
-                        case 1:
-                            if (count == 1)
-                            {
-                                img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准A单抽.png");
-                            }
-                            else
-                            {
-                                img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准A十连.png");
-                            }
-                            break;
-                        case 2:
-                            if (count == 2)
-                            {
-                                img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准B单抽.png");
-                            }
-                            else
-                            {
-                                img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准B十连.png");
-                            }
-                            break;
-                    }
-                    background = CombinImage(background, img_3, 126, 960, -1, false);
-                    break;
-                case 2:
-                    if (count == 1)
-                    {
-                        img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\标配单抽.png");
-                    }
-                    else
-                    {
-                        img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\标配十连.png");
-                    }
-                    background = CombinImage(background, img_3, 126, 960, -1, false);
-                    break;
-            }
-            if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
-            {
-                Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
-            }
-            Point p = new Point(1471, 813);
-            Font font = new Font("汉仪丫丫体简", 15F);
-            Color color = Color.FromArgb(0, 0, 0);
-            background = AddText2Image(background, "Powered by @水银之翼", p, font, color, 0);
 
-            background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg", ImageFormat.Jpeg);
-            background.Dispose();            
-            img.Dispose();
-            img_1.Dispose();
-            img_2.Dispose();
-            img_3.Dispose();
-            return $"装备结果\\{name}.jpg";
+                    background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.png");
+                    background.Dispose();
+                    img.Dispose();
+                    img_1.Dispose();
+                    img_2.Dispose();
+                    img_3.Dispose();
+                    return $"装备结果\\{name}.png";
+                }
+
+            }
+            catch (Exception e)
+            {
+                cq.CQLog.Error($"图片合成错误，错误信息{e.Message}");
+                return null;
+            }
         }
         /// <summary>
         /// 给图片添加文字水印
@@ -476,8 +507,8 @@ namespace me.luohuaming.Gacha.UI
             using (var g = Graphics.FromImage(img))
             using (var brush = new SolidBrush(fontColor))
             {
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 var sizeF = g.MeasureString(text, font);
                 g.ResetTransform();
                 g.TranslateTransform(p.X, p.Y);
@@ -530,7 +561,7 @@ namespace me.luohuaming.Gacha.UI
             {
                 switch (gr.type)
                 {
-                    case "Chararcter":
+                    case "Character":
                         main = Image.FromFile($@"{cq_0.CQApi.AppDirectory}装备卡\角色卡\{gr.name}.png");
                         background = CombinImage(background, main, 5, 14, 196, 172);
                         break;
@@ -559,7 +590,7 @@ namespace me.luohuaming.Gacha.UI
                 background = CombinImage(background, main, 48, 13, 119, 172);
             }
 
-            if (gr.type == 抽卡.TypeS.Chararcter.ToString())
+            if (gr.type == 抽卡.TypeS.Character.ToString())
             {
                 Image img = null;
                 switch (gr.class_)
@@ -665,7 +696,7 @@ namespace me.luohuaming.Gacha.UI
             {
                 switch (gr.type)
                 {
-                    case "Chararcter":
+                    case "Character":
                         main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\角色卡\{gr.name}.png");
                         background = CombinImage(background, main, 5, 14, 196, 172);
                         break;
@@ -692,9 +723,11 @@ namespace me.luohuaming.Gacha.UI
             {
                 main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\ItemEmpty #1004496.png");
                 background = CombinImage(background, main, 48, 13, 119, 172);
+                long controlgroup =Convert.ToInt64( INIhelper.IniRead("后台群", "Id", "0", cq.CQApi.AppDirectory + "Config.ini"));
+                if (controlgroup != 0) cq.CQApi.SendGroupMessage(controlgroup, $"发现图片缺失,请排查是否为命名错误 type={gr.type} name={gr.name}");                
             }
 
-            if (gr.type == 抽卡.TypeS.Chararcter.ToString())
+            if (gr.type == 抽卡.TypeS.Character.ToString())
             {
                 Image img = null;
                 switch (gr.class_)
@@ -795,12 +828,14 @@ namespace me.luohuaming.Gacha.UI
         {
             return DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ","");
         }
+
         public static string GetAppImageDirectory(string dir)
         {
             var ImageDirectory = Path.Combine(Environment.CurrentDirectory, "data", "image");
             //return dir.Substring(0, dir.IndexOf("\\app\\me.cqp.luohuaming.Gacha")) + "\\image";
             return ImageDirectory;
         }
+
         int CalcPicLength(long number)
         {
             int length = 0;
@@ -842,6 +877,25 @@ namespace me.luohuaming.Gacha.UI
             }
             length -= Convert.ToInt32(Math.Round(WordTrap * (number.ToString().Length - 1)));
             return length;
+        }
+        /// <summary>
+        /// 检查同名项目是否存在于仓库中
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="groupid"></param>
+        /// <param name="qq"></param>
+        /// <returns></returns>
+        public bool ItemExistInRepositories(string name, long groupid, long qq)
+        {
+            string str;
+            string path = $@"{CQSave.cq_start.CQApi.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            str = $"select count(*) from Repositories where name='{name}' and fromgroup={groupid} and qq={qq}";
+            SQLiteCommand cmd = new SQLiteCommand(str, cn);
+            SQLiteDataReader sr = cmd.ExecuteReader();
+            sr.Read();
+            return (sr.GetInt32(0) != 0) ? true : false;
         }
 
     }

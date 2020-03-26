@@ -139,6 +139,7 @@
             this.自定义指令与回答ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.批量导入群列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.扩展设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -146,7 +147,6 @@
             this.label_NowVersion = new System.Windows.Forms.Label();
             this.label_NewVersion = new System.Windows.Forms.Label();
             this.button_GetUpdate = new System.Windows.Forms.Button();
-            this.扩展设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -915,23 +915,23 @@
             // checkBox_BPAt
             // 
             this.checkBox_BPAt.AutoSize = true;
-            this.checkBox_BPAt.Checked = true;
-            this.checkBox_BPAt.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_BPAt.Location = new System.Drawing.Point(6, 46);
+            this.checkBox_BPAt.Location = new System.Drawing.Point(6, 20);
             this.checkBox_BPAt.Name = "checkBox_BPAt";
-            this.checkBox_BPAt.Size = new System.Drawing.Size(72, 16);
+            this.checkBox_BPAt.Size = new System.Drawing.Size(84, 16);
             this.checkBox_BPAt.TabIndex = 1;
-            this.checkBox_BPAt.Text = "有无保底";
+            this.checkBox_BPAt.Text = "出结果时at";
             this.checkBox_BPAt.UseVisualStyleBackColor = true;
             // 
             // checkBox_BPBaodi
             // 
             this.checkBox_BPBaodi.AutoSize = true;
-            this.checkBox_BPBaodi.Location = new System.Drawing.Point(6, 20);
+            this.checkBox_BPBaodi.Checked = true;
+            this.checkBox_BPBaodi.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_BPBaodi.Location = new System.Drawing.Point(6, 44);
             this.checkBox_BPBaodi.Name = "checkBox_BPBaodi";
-            this.checkBox_BPBaodi.Size = new System.Drawing.Size(84, 16);
+            this.checkBox_BPBaodi.Size = new System.Drawing.Size(72, 16);
             this.checkBox_BPBaodi.TabIndex = 0;
-            this.checkBox_BPBaodi.Text = "出结果时at";
+            this.checkBox_BPBaodi.Text = "有无保底";
             this.checkBox_BPBaodi.UseVisualStyleBackColor = true;
             // 
             // groupBox8
@@ -1309,16 +1309,23 @@
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.打开ToolStripMenuItem.Text = "自定义指令与回答";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
             // 
             // 批量导入群列表ToolStripMenuItem
             // 
             this.批量导入群列表ToolStripMenuItem.Name = "批量导入群列表ToolStripMenuItem";
-            this.批量导入群列表ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.批量导入群列表ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.批量导入群列表ToolStripMenuItem.Text = "批量导入群列表";
             this.批量导入群列表ToolStripMenuItem.Click += new System.EventHandler(this.批量导入群列表ToolStripMenuItem_Click);
+            // 
+            // 扩展设置ToolStripMenuItem
+            // 
+            this.扩展设置ToolStripMenuItem.Name = "扩展设置ToolStripMenuItem";
+            this.扩展设置ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.扩展设置ToolStripMenuItem.Text = "扩展设置";
+            this.扩展设置ToolStripMenuItem.Click += new System.EventHandler(this.扩展设置ToolStripMenuItem_Click);
             // 
             // 关于ToolStripMenuItem
             // 
@@ -1383,13 +1390,6 @@
             this.button_GetUpdate.Text = "检查更新";
             this.button_GetUpdate.UseVisualStyleBackColor = true;
             this.button_GetUpdate.Click += new System.EventHandler(this.button_GetUpdate_Click);
-            // 
-            // 扩展设置ToolStripMenuItem
-            // 
-            this.扩展设置ToolStripMenuItem.Name = "扩展设置ToolStripMenuItem";
-            this.扩展设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.扩展设置ToolStripMenuItem.Text = "扩展设置";
-            this.扩展设置ToolStripMenuItem.Click += new System.EventHandler(this.扩展设置ToolStripMenuItem_Click);
             // 
             // 抽卡
             // 
