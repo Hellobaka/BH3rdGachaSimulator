@@ -52,7 +52,7 @@ clone下载之后，设置Native.Core项目的生成目录为 ...\CQP-xiaoi\酷Q
 ### 具体方法为:
 >1.右击Native.Core项目，点击属性<br>
 ![说明图片3](https://i.loli.net/2020/03/21/PlNBCAHV1JWmLsO.png)<br>
-2.右侧点击生成一栏，设置输出路径<br>
+2.左侧点击生成一栏，设置输出路径<br>
 ![说明图片4](https://i.loli.net/2020/03/21/mtCeRTWDHAh2Irg.png)<br>
 
 点击生成-重新生成解决方案，之后酷Q重载应用即可
