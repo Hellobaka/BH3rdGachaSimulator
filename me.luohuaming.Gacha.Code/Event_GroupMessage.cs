@@ -1199,15 +1199,6 @@ namespace me.luohuaming.Gacha.Code
             cmd.ExecuteNonQuery();
         }
 
-        void AddCount_Purple(long id)
-        {
-            string path = $@"{cq.CQApi.AppDirectory}data.db";
-            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
-            cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET purple_count=purple_count+1 WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
-            cmd.ExecuteNonQuery();
-        }
-
         void AddItem2Repositories(List<UI.Gacha.GachaResult> ls,CQGroupMessageEventArgs e)
         {
             //type 为项目类型（Weapon、Stigmata……；name为名称；class_为A、B或者S；level为等级 ；value为价值；quality为卡片颜色(0=绿，1=蓝，2=紫，3=金；date为项目最后更新时间

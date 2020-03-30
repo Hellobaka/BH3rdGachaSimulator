@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChangePool.cs" />
     <Compile Include="Event_GroupMessage.cs" />
     <Compile Include="Event_PrivateMessage.cs" />
     <Compile Include="Event_StartUp.cs" />
