@@ -45,6 +45,7 @@ namespace me.luohuaming.Gacha.UI
             /// 抽卡项目星级
             /// </summary>
             public int evaluation;
+            public bool isnew;
         }
         #region 扩充
         public double Probablity_KC角色卡;
@@ -158,7 +159,7 @@ namespace me.luohuaming.Gacha.UI
                 {
                     GetTargetItem = true;
                     Count = 0;
-                    double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_KC角色卡) * 1000)) / (double)1000;
+                    double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_UpS+Probablity_UpA+Probablity_A) * 1000)) / (double)1000;
                     if (pro_0 < Probablity_UpS)
                     {
                         gr.name = Text_UpS;
@@ -187,8 +188,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.type = TypeS.Character.ToString();
                         gr.class_ = "A";
                         gr.quality = 2;
-
-                        int temp = rd.Next(3);
+                        int temp = rd.Next(0,4);
                         if (temp == 0)
                         {
                             gr.name = Text_A1; ;
@@ -205,7 +205,7 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_KC角色卡 + Probablity_KC角色碎片)
                 {
-                    if (rd.Next(0, Convert.ToInt32((Probablity_KC角色碎片) * 1000)) / (double)1000 < Probablity_Sdebris)
+                    if (rd.Next(0, Convert.ToInt32((Probablity_UpS + Probablity_UpA + Probablity_A) * 1000)) / (double)1000 < Probablity_Sdebris)
                     {
                         gr.name = Text_UpS + "碎片";
                         gr.value = 2700;
@@ -353,7 +353,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.quality = 2;
 
                         gr.type = TypeS.Character.ToString();
-                        int temp = rd.Next(3);
+                        int temp = rd.Next(0,4);
                         if (temp == 0)
                         {
                             gr.name = Text_A1; ;

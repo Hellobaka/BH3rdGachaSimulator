@@ -57,6 +57,7 @@ namespace me.luohuaming.Gacha.UI
             /// 抽卡项目星级
             /// </summary>
             public int evaluation;
+            public bool isnew;
         }
         #region 扩充
         public double Probablity_KC角色卡;

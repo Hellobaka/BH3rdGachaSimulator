@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Native.Sdk.Cqp.EventArgs;
 using Native.Sdk.Cqp.Interface;
@@ -64,6 +65,7 @@ namespace me.luohuaming.Gacha.UI
             map1.Dispose();
             map2.Dispose();
             g1.Dispose();
+            GC.Collect();
             return bitMap;
         }
 
@@ -345,12 +347,13 @@ namespace me.luohuaming.Gacha.UI
                 Random rd = new Random();
                 long temp1 = cq.FromGroup.Id;
                 long temp2 = cq.FromQQ.Id;
+                ls= ItemExistInRepositories(ls, temp1, temp2);
                 foreach (var item in ls)
                 {
                     img = GenerateCard(item.evaluation, 1, item);
                     background = CombinImage(background, img, x, y, -1, false);
                     //x + 133,y - 17
-                    if (!ItemExistInRepositories(item.name,temp1,temp2))
+                    if (item.isnew)
                     {
                         img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\New!.png");
                         background = CombinImage(background, img, x + 133, y - 17, img.Width, img.Height);
@@ -465,6 +468,11 @@ namespace me.luohuaming.Gacha.UI
                 background = AddText2Image(background, "Powered by @水银之翼", p, font, color, 0);
                 if (INIhelper.IniRead("ExtraConfig", "ImageFormat", "jpg", cq.CQApi.AppDirectory + "Config.ini") == "jpg")
                 {
+                    if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
+                    {
+                        Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
+                    }
+                    //cq.CQLog.Info($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg");
                     background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg", ImageFormat.Jpeg);
                     background.Dispose();
                     img.Dispose();
@@ -475,7 +483,11 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else
                 {
-
+                    if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
+                    {
+                        Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
+                    }
+                    //cq.CQLog.Info($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg");
                     background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.png");
                     background.Dispose();
                     img.Dispose();
@@ -826,13 +838,14 @@ namespace me.luohuaming.Gacha.UI
 
         static string GetDate()
         {
-            return DateTime.Now.ToString().Replace("/", "").Replace(":", "").Replace(" ","");
+            return DateTime.Now.ToString("yyyyMMddHHmmss");
         }
 
         public static string GetAppImageDirectory(string dir)
         {
             var ImageDirectory = Path.Combine(Environment.CurrentDirectory, "data", "image");
-            //return dir.Substring(0, dir.IndexOf("\\app\\me.cqp.luohuaming.Gacha")) + "\\image";
+            //var path= dir.Substring(0, dir.IndexOf("\\app\\me.cqp.luohuaming.Gacha")) + "\\image";
+
             return ImageDirectory;
         }
 
@@ -885,19 +898,27 @@ namespace me.luohuaming.Gacha.UI
         /// <param name="groupid"></param>
         /// <param name="qq"></param>
         /// <returns></returns>
-        public bool ItemExistInRepositories(string name, long groupid, long qq)
+        public List<Gacha.GachaResult> ItemExistInRepositories(List<Gacha.GachaResult> ls, long groupid, long qq)
         {
             string str;
             string path = $@"{CQSave.cq_start.CQApi.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
-            str = $"select count(*) from Repositories where name='{name}' and fromgroup={groupid} and qq={qq}";
-            SQLiteCommand cmd = new SQLiteCommand(str, cn);
-            SQLiteDataReader sr = cmd.ExecuteReader();
-            sr.Read();
-            return (sr.GetInt32(0) != 0) ? true : false;
+            foreach(var item in ls)
+            {
+                Thread.Sleep(100);
+                str = $"select count(*) from Repositories where name='{item.name}' and fromgroup={groupid} and qq={qq}";
+                SQLiteCommand cmd = new SQLiteCommand(str, cn);
+                using (SQLiteDataReader sr = cmd.ExecuteReader())
+                {                
+                    sr.Read();
+                    item.isnew=(sr.GetInt32(0) == 0) ? true : false;
+                }
+            }
+            cn.Close();
+            GC.Collect();
+            return ls;
         }
-
     }
 
 }

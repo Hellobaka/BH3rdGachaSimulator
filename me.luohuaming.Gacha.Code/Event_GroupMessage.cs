@@ -11,6 +11,7 @@ using System.Data;
 using System.IO;
 using Native.Sdk.Cqp.Model;
 using Native.Tool.IniConfig.Linq;
+using Native.Sdk.Cqp;
 
 namespace me.luohuaming.Gacha.Code
 {
@@ -72,7 +73,7 @@ namespace me.luohuaming.Gacha.Code
             cq = e;
             CQSave.cq_group = e;
             if (INIhelper.IniRead("接口", "Group", "0", $"{e.CQApi.AppDirectory}Config.ini") == "0") return;
-            if (!GroupInini()&&!e.Message.Text.StartsWith("#抽卡开启")) return;
+            if (!GroupInini(e)&&!e.Message.Text.StartsWith("#抽卡开启")) return;
             ReadConfig(e);
             bool exist = IDExist(e.FromQQ.Id);
             long controlgroup = Convert.ToInt64(INIhelper.IniRead("后台群", "Id", "0", e.CQApi.AppDirectory + "\\Config.ini"));
@@ -968,6 +969,70 @@ namespace me.luohuaming.Gacha.Code
                 }
 
             }
+            else if(e.Message.Text.Replace("＃", "#").StartsWith("#置抽卡管理"))
+            {
+                e.Handler = true;
+                if (e.FromGroup.Id == controlgroup || CheckAdmin(e))
+                {
+                    try
+                    {
+                        string[] targetid = e.Message.Text.Substring("#置抽卡管理".Length).Trim().Replace('，',',').Split(',');
+                        Convert.ToInt64(targetid[1]);
+                        if (targetid[2].IndexOf("[CQ:at") != -1)
+                        {
+                            targetid[2] = targetid[3].Replace("qq=", "").Replace("]", "");
+                        }
+                        else
+                        {
+                            Convert.ToInt64(targetid[2]);
+                        }
+                        if (targetid.Length != 3 && targetid.Length!=4)
+                        {
+                            e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ), "输入格式非法，例子(依次为群号与QQ号):#置抽卡管理,671467200,2185367837(或者@2185367837)");
+                            return;
+                        }
+                        string path = e.CQApi.AppDirectory + "Config.ini";
+                        if (GroupInini(e))
+                        {
+                            if (CheckAdmin(Convert.ToInt64(targetid[1]),Convert.ToInt64(targetid[2])))
+                            {
+                                e.CQApi.SendGroupMessage(e.FromGroup, e.FromQQ.CQCode_At(),"目标QQ在目标群已经是管理了，不需要重复设置");
+                                return;
+                            }
+                            else
+                            {
+                                int count = INIhelper.IniRead($"{targetid[1]}", "Count", "0", path).ToInt32();
+                                INIhelper.IniWrite($"{targetid[1]}", $"Index{count}", targetid[2], path);
+                                INIhelper.IniWrite($"{targetid[1]}", $"Count", (++count).ToString(), path);
+                            }
+                        }
+                        else
+                        {
+                            e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ), $"此群未开启，请先输入{order_opengacha}");
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ), "请保证纯数字输入，例子(依次为群号与QQ号):#置抽卡管理,671467200,2185367837(或者@2185367837)");
+                        return;
+                    }
+                    e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ), "设置成功");
+                    return;
+                }
+                else
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ), "权限不足，请在后台群或者开通抽卡机管理员权限");
+                    return;
+                }
+            }
+            else if(e.Message.Text.StartsWith("#更换池子"))
+            {
+                string temp = e.Message.Text.Substring("#更换池子".Length).Trim();
+                ChangePool.PoolName = temp;
+                e.CQApi.SendGroupMessage(e.FromGroup, ChangePool.GetResult(e));
+                return;
+            }
             else
             {
                 return;
@@ -1038,17 +1103,49 @@ namespace me.luohuaming.Gacha.Code
             return str;
         }
 
-        bool GroupInini()
+        bool GroupInini(CQGroupMessageEventArgs e)
         {
-            int count = Convert.ToInt32(INIhelper.IniRead("群控", "Count", "0", cq.CQApi.AppDirectory + "\\Config.ini"));
+            int count = Convert.ToInt32(INIhelper.IniRead("群控", "Count", "0", e.CQApi.AppDirectory + "\\Config.ini"));
             for (int i = 0; i < count; i++)
             {
-                if (cq.FromGroup.Id == Convert.ToInt64(INIhelper.IniRead("群控", $"Item{i}", "0", cq.CQApi.AppDirectory + "\\Config.ini")))
+                if (e.FromGroup.Id == Convert.ToInt64(INIhelper.IniRead("群控", $"Item{i}", "0", e.CQApi.AppDirectory + "\\Config.ini")))
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        bool CheckAdmin(CQGroupMessageEventArgs e)
+        {
+            string path = e.CQApi.AppDirectory + "Config.ini";
+            int count = INIhelper.IniRead($"{e.FromGroup.Id}", "Count", "0", path).ToInt32();
+            bool flag = false;
+            for (int i = 0; i < count; i++)
+            {
+                if (e.FromQQ.Id == INIhelper.IniRead($"{e.FromGroup.Id}",$"Index{i}","0",path).ToInt64())
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
+        }
+
+        bool CheckAdmin(long FromGroup,long FromQQ)
+        {
+            string path = cq.CQApi.AppDirectory + "Config.ini";
+            int count = INIhelper.IniRead($"{FromGroup}", "Count", "0", path).ToInt32();
+            bool flag = false;
+            for (int i = 0; i < count; i++)
+            {
+                if (FromQQ == INIhelper.IniRead($"{FromGroup}", $"Index{i}", "0", path).ToInt64())
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            return flag;
         }
 
         void ReadConfig(CQGroupMessageEventArgs e)

@@ -30,9 +30,18 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    FileInfo info=new FileInfo($@"{e.CQApi.AppDirectory}data.db");
+                    if (info.Length == 0) 
+                    {
+                        File.Delete($@"{e.CQApi.AppDirectory}data.db");
+                        Event_GroupMessage.CreateDB($@"{e.CQApi.AppDirectory}data.db");
+                        e.CQLog.WriteLine(Native.Sdk.Cqp.Enum.CQLogLevel.Info, "已创建数据库");
+                        goto jumpout;
+                    }
                     Event_GroupMessage.CheckDB($@"{e.CQApi.AppDirectory}data.db",e);
                 }
             }
+            jumpout:
             cq = e;
             CQSave.cq_start = e;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace me.luohuaming.Gacha.UI
 {
-    public class INIhelper
+    public static class INIhelper
     {
         /// <summary>
         /// 修改INI配置文件
@@ -72,5 +72,28 @@ namespace me.luohuaming.Gacha.UI
         {
             return GetPrivateProfileString(section, key, def,retval,size ,filePath);
         }
+        public static int ToInt32(this object str)
+        {
+            try
+            {
+                return Convert.ToInt32(str);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public static long ToInt64(this object str)
+        {
+            try
+            {
+                return Convert.ToInt64(str);
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
     }
 }
