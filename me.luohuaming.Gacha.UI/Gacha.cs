@@ -317,7 +317,7 @@ namespace me.luohuaming.Gacha.UI
             }
             else
             {
-                string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
+                string path = $@"{CQSave.AppDirectory}\概率\扩充概率.txt";
                 if (INIhelper.IniRead("详情", "Baodi",  "1", path)=="1")
                 {
                     Count = 0;
@@ -465,8 +465,8 @@ namespace me.luohuaming.Gacha.UI
                 double pro_0 = rd.Next(0, 10000) / (double)100;
                 if (pro_0 <= 50)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead( "详情", "Count_Weapon2","0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(INIhelper.IniRead( "详情", "Count_Weapon2","0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                    gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                     gr.value = 2500;
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
@@ -478,8 +478,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                    gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                     switch (rd.Next(0, 3))
                     {
                         case 0:
@@ -636,8 +636,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon3", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Weapon3_Item{rd.Next(0, count)}", "3星武器", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon3", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                    gr.name = INIhelper.IniRead("详情", $"Weapon3_Item{rd.Next(0, count)}", "3星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
                     gr.value = 26000;
@@ -649,8 +649,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_Stigmata3Total + Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata3", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Stigmata3_Item{rd.Next(0, count)}", "3星圣痕", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata3", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                    gr.name = INIhelper.IniRead("详情", $"Stigmata3_Item{rd.Next(0, count)}", "3星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                     switch (rd.Next(0, 3))
                     {
                         case 0:
@@ -677,8 +677,8 @@ namespace me.luohuaming.Gacha.UI
                     double pro_0 = rd.Next(0, 10000) / (double)100;
                     if (pro_0 <= 50)
                     {
-                        int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon2", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                        gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                        int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                        gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                         gr.value = 25000;
                         gr.count = 1;
                         gr.type = TypeS.Weapon.ToString();
@@ -690,8 +690,8 @@ namespace me.luohuaming.Gacha.UI
                     }
                     else
                     {
-                        int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                        gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                        int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                        gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                         switch (rd.Next(0, 3))
                         {
                             case 0:
@@ -717,7 +717,7 @@ namespace me.luohuaming.Gacha.UI
             }
             else
             {
-                string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
+                string path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
                 if (INIhelper.IniRead("详情", "Baodi", "1", path) == "1")
                 {
                     Count_JZ = 0;
@@ -951,7 +951,7 @@ namespace me.luohuaming.Gacha.UI
                     else if (pro_1 < Probablity_BP角色卡 + Probablity_BP角色碎片 + Probablity_BP装备)
                     {
                         double pro_2 = rd.Next(0, (int)(10000 * (Probablity_BPWeapon4 + Probablity_BPStigmata4))) / (double)10000;
-                        string path = $@"{cq.CQApi.AppDirectory}概率\标配概率.txt";
+                        string path = $@"{CQSave.AppDirectory}概率\标配概率.txt";
                         if (pro_2 < Probablity_BPWeapon4)
                         {
                             gr.name = GetBPWeapon();
@@ -1102,7 +1102,7 @@ namespace me.luohuaming.Gacha.UI
             }
             else
             {
-                string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
+                string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
                 if (INIhelper.IniRead("设置", "Baodi", "1", path) == "1")
                 {
                     Count = 0;
@@ -1226,8 +1226,8 @@ namespace me.luohuaming.Gacha.UI
                 double pro_0 = rd.Next(0, 10000) / (double)100;
                 if (pro_0 <= 50)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon2", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                    gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                     gr.value = 2500;
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
@@ -1239,8 +1239,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
+                    gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
                     switch (rd.Next(0, 3))
                     {
                         case 0:
@@ -1267,7 +1267,7 @@ namespace me.luohuaming.Gacha.UI
         string GetBPCharacter (string pos)
         {
             int count;
-            string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
+            string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
             Random rd = new Random(GetRandomSeed());
             string result = "";
             switch (pos)
@@ -1291,7 +1291,7 @@ namespace me.luohuaming.Gacha.UI
         string GetBPWeapon()
         {
             int count;
-            string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
+            string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
             Random rd = new Random(GetRandomSeed());
             string result;
             count = Convert.ToInt32(INIhelper.IniRead("详情_Weapon", "Count", "0", path));
@@ -1302,7 +1302,7 @@ namespace me.luohuaming.Gacha.UI
         string GetBPStigmata()
         {
             int count;
-            string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
+            string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
             Random rd = new Random(GetRandomSeed());
             string result, pos = "";
             switch (rd.Next(0, 3))
@@ -1327,7 +1327,7 @@ namespace me.luohuaming.Gacha.UI
             string path;
             if(cq != null)
             {
-                path= $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
+                path= $@"{CQSave.AppDirectory}\概率\扩充概率.txt";
             }
             else
             {
@@ -1360,7 +1360,7 @@ namespace me.luohuaming.Gacha.UI
             string path = "";
             if (cq!=null)
             {
-                path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
+                path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
             }
             else
             {
@@ -1434,7 +1434,7 @@ namespace me.luohuaming.Gacha.UI
             string path = "";
             if (cq!=null)
             {
-                path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
+                path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
             }
             else
             {

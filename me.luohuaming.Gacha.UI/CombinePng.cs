@@ -77,10 +77,10 @@ namespace me.luohuaming.Gacha.UI
             float x = 0;
             for (int i = 0; i < money.ToString().Length; i++)
             {
-                Image img = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{money.ToString().Substring(i, 1)}.png");
+                Image img = Image.FromFile($@"{CQSave.AppDirectory}数字\{money.ToString().Substring(i, 1)}.png");
                 if (i > 0)
                 {
-                    Image img_His = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{money.ToString().Substring(i - 1, 1)}.png");
+                    Image img_His = Image.FromFile($@"{CQSave.AppDirectory}数字\{money.ToString().Substring(i - 1, 1)}.png");
                     x += img_His.Width - WordTrap;
                 }
                 g1.DrawImage(img, x, 0, img.Width, 29);
@@ -95,10 +95,10 @@ namespace me.luohuaming.Gacha.UI
             float x = 0;
             for (int i = 0; i < diamond.ToString().Length; i++)
             {
-                Image img = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{diamond.ToString().Substring(i, 1)}.png");
+                Image img = Image.FromFile($@"{CQSave.AppDirectory}数字\{diamond.ToString().Substring(i, 1)}.png");
                 if (i > 0)
                 {
-                    Image img_His = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{diamond.ToString().Substring(i - 1, 1)}.png");
+                    Image img_His = Image.FromFile($@"{CQSave.AppDirectory}数字\{diamond.ToString().Substring(i - 1, 1)}.png");
                     x += img_His.Width - WordTrap;
                 }
                 g1.DrawImage(img, x, 0, img.Width, 29);
@@ -113,25 +113,25 @@ namespace me.luohuaming.Gacha.UI
             float x = 0;
             for (int i = 0; i < AP.ToString().Length; i++)
             {
-                Image img = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{AP.ToString().Substring(i, 1)}.png");
+                Image img = Image.FromFile($@"{CQSave.AppDirectory}数字\{AP.ToString().Substring(i, 1)}.png");
                 if (i > 0)
                 {
-                    Image img_His = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{AP.ToString().Substring(i - 1, 1)}.png");
+                    Image img_His = Image.FromFile($@"{CQSave.AppDirectory}数字\{AP.ToString().Substring(i - 1, 1)}.png");
                     x += img_His.Width - WordTrap;
                 }
                 g1.DrawImage(img, x, 0, img.Width, 29);
             }
-            Image img_Last = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{AP.ToString().Substring(AP.ToString().Length - 1, 1)}.png");
+            Image img_Last = Image.FromFile($@"{CQSave.AppDirectory}数字\{AP.ToString().Substring(AP.ToString().Length - 1, 1)}.png");
             x += img_Last.Width - WordTrap;
-            Image img_2 = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\斜杠.png");
+            Image img_2 = Image.FromFile($@"{CQSave.AppDirectory}数字\斜杠.png");
             g1.DrawImage(img_2, x + 1, 0, img_2.Width, 29);
             x += img_2.Width + 1;
             for (int i = 0; i < AP_Max.ToString().Length; i++)
             {
-                Image img = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{AP_Max.ToString().Substring(i, 1)}.png");
+                Image img = Image.FromFile($@"{CQSave.AppDirectory}数字\{AP_Max.ToString().Substring(i, 1)}.png");
                 if (i > 0)
                 {
-                    Image img_His = Image.FromFile($@"{cq.CQApi.AppDirectory}数字\{AP_Max.ToString().Substring(i - 1, 1)}.png");
+                    Image img_His = Image.FromFile($@"{CQSave.AppDirectory}数字\{AP_Max.ToString().Substring(i - 1, 1)}.png");
                     x += img_His.Width - WordTrap;
                 }
                 g1.DrawImage(img, x, 0, img.Width, 29);
@@ -334,7 +334,15 @@ namespace me.luohuaming.Gacha.UI
             img_3.Dispose();
             return $"{GetAppImageDirectory(cq_0.CQApi.AppDirectory)}\\装备结果\\{name}.jpg";
         }
-
+        /// <summary>
+        /// 合成子模块
+        /// </summary>
+        /// <param name="ls">抽卡结果数组</param>
+        /// <param name="region">来源:0 扩充，1 精准，2标配</param>
+        /// <param name="JZPos">精准池来源:1 A池，2 B池</param>
+        /// <param name="count">单抽与十连</param>
+        /// <param name="Diamond">水晶数目</param>
+        /// <returns></returns>
         public string Gacha(List<Gacha.GachaResult> ls,int region,int JZPos,int count,int Diamond)
         {
             try
@@ -342,12 +350,21 @@ namespace me.luohuaming.Gacha.UI
                 int x, y;
                 x = 160;
                 y = 190;
-                Image background = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\抽卡背景.png");
+                Image background = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\抽卡背景.png");
                 Image img = null;
                 Random rd = new Random();
-                long temp1 = cq.FromGroup.Id;
-                long temp2 = cq.FromQQ.Id;
-                ls= ItemExistInRepositories(ls, temp1, temp2);
+                long temp1, temp2;
+                if (cq != null)
+                {
+                     temp1= cq.FromGroup.Id;
+                     temp2 = cq.FromQQ.Id;
+                }
+                else
+                {
+                     temp1 = -1;
+                     temp2 = CQSave.cq_private.FromQQ.Id;
+                }
+                ls = ItemExistInRepositories(ls, temp1, temp2);
                 foreach (var item in ls)
                 {
                     img = GenerateCard(item.evaluation, 1, item);
@@ -355,7 +372,7 @@ namespace me.luohuaming.Gacha.UI
                     //x + 133,y - 17
                     if (item.isnew)
                     {
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\New!.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\New!.png");
                         background = CombinImage(background, img, x + 133, y - 17, img.Width, img.Height);
                     }
                     if (item.type == 抽卡.TypeS.Stigmata.ToString())
@@ -363,15 +380,15 @@ namespace me.luohuaming.Gacha.UI
                         switch (item.name.Substring(item.name.Length - 1))
                         {
                             case "上":
-                                img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata1.png");
+                                img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Stigmata1.png");
                                 background = CombinImage(background, img, x - 18, y - 18, 65, 65);
                                 break;
                             case "中":
-                                img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata2.png");
+                                img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Stigmata2.png");
                                 background = CombinImage(background, img, x - 18, y - 18, 65, 65);
                                 break;
                             case "下":
-                                img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Stigmata3.png");
+                                img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Stigmata3.png");
                                 background = CombinImage(background, img, x - 18, y - 18, 65, 65);
                                 break;
                         }
@@ -412,11 +429,11 @@ namespace me.luohuaming.Gacha.UI
                     case 0:
                         if (count == 1)
                         {
-                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\扩充单抽.png");
+                            img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\扩充单抽.png");
                         }
                         else
                         {
-                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\扩充十连.png");
+                            img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\扩充十连.png");
                         }
                         background = CombinImage(background, img_3, 126, 960, -1, false);
                         break;
@@ -426,21 +443,21 @@ namespace me.luohuaming.Gacha.UI
                             case 1:
                                 if (count == 1)
                                 {
-                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准A单抽.png");
+                                    img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\精准A单抽.png");
                                 }
                                 else
                                 {
-                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准A十连.png");
+                                    img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\精准A十连.png");
                                 }
                                 break;
                             case 2:
                                 if (count == 2)
                                 {
-                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准B单抽.png");
+                                    img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\精准B单抽.png");
                                 }
                                 else
                                 {
-                                    img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\精准B十连.png");
+                                    img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\精准B十连.png");
                                 }
                                 break;
                         }
@@ -449,31 +466,31 @@ namespace me.luohuaming.Gacha.UI
                     case 2:
                         if (count == 1)
                         {
-                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\标配单抽.png");
+                            img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\标配单抽.png");
                         }
                         else
                         {
-                            img_3 = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\标配十连.png");
+                            img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\标配十连.png");
                         }
                         background = CombinImage(background, img_3, 126, 960, -1, false);
                         break;
                 }
-                if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
+                if (!Directory.Exists($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果"))
                 {
-                    Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
+                    Directory.CreateDirectory($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果");
                 }
                 Point p = new Point(1471, 813);
                 Font font = new Font("汉仪丫丫体简", 15F);
                 Color color = Color.FromArgb(0, 0, 0);
                 background = AddText2Image(background, "Powered by @水银之翼", p, font, color, 0);
-                if (INIhelper.IniRead("ExtraConfig", "ImageFormat", "jpg", cq.CQApi.AppDirectory + "Config.ini") == "jpg")
+                if (INIhelper.IniRead("ExtraConfig", "ImageFormat", "jpg", CQSave.AppDirectory + "Config.ini") == "jpg")
                 {
-                    if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
+                    if (!Directory.Exists($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果"))
                     {
-                        Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
+                        Directory.CreateDirectory($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果");
                     }
-                    //cq.CQLog.Info($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg");
-                    background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg", ImageFormat.Jpeg);
+                    //cq.CQLog.Info($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果\{name}.jpg");
+                    background.Save($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果\{name}.jpg", ImageFormat.Jpeg);
                     background.Dispose();
                     img.Dispose();
                     img_1.Dispose();
@@ -483,12 +500,12 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else
                 {
-                    if (!Directory.Exists($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果"))
+                    if (!Directory.Exists($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果"))
                     {
-                        Directory.CreateDirectory($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果");
+                        Directory.CreateDirectory($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果");
                     }
-                    //cq.CQLog.Info($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.jpg");
-                    background.Save($@"{GetAppImageDirectory(cq.CQApi.AppDirectory)}\装备结果\{name}.png");
+                    //cq.CQLog.Info($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果\{name}.jpg");
+                    background.Save($@"{GetAppImageDirectory(CQSave.AppDirectory)}\装备结果\{name}.png");
                     background.Dispose();
                     img.Dispose();
                     img_1.Dispose();
@@ -702,40 +719,40 @@ namespace me.luohuaming.Gacha.UI
         public Image GenerateCard(int fullstar, int emptystar, Gacha.GachaResult gr)
         {
 
-            Image background = (gr.quality == 1) ? Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\框蓝.png") : Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\框.png");
+            Image background = (gr.quality == 1) ? Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\框蓝.png") : Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\框.png");
             Image main = null;
             try
             {
                 switch (gr.type)
                 {
                     case "Character":
-                        main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\角色卡\{gr.name}.png");
+                        main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\角色卡\{gr.name}.png");
                         background = CombinImage(background, main, 5, 14, 196, 172);
                         break;
                     case "debri":
-                        main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\碎片\{gr.name}.png");
+                        main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\碎片\{gr.name}.png");
                         background = CombinImage(background, main, 5, 14, 196, 172);
                         break;
                     case "Stigmata":
-                        main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\圣痕卡\{gr.name}.png");
+                        main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\圣痕卡\{gr.name}.png");
                         background = CombinImage(background, main, 5, 14, 196, 172);
 
                         break;
                     case "Material":
-                        main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\材料\{gr.name}.png");
+                        main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\材料\{gr.name}.png");
                         background = CombinImage(background, main, 26, 17, 178, 170);
                         break;
                     case "Weapon":
-                        main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\武器\{gr.name}.png");
+                        main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\武器\{gr.name}.png");
                         background = CombinImage(background, main, 5, 14, 196, 172);
                         break;
                 }
             }
             catch
             {
-                main = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\ItemEmpty #1004496.png");
+                main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\ItemEmpty #1004496.png");
                 background = CombinImage(background, main, 48, 13, 119, 172);
-                long controlgroup =Convert.ToInt64( INIhelper.IniRead("后台群", "Id", "0", cq.CQApi.AppDirectory + "Config.ini"));
+                long controlgroup =Convert.ToInt64( INIhelper.IniRead("后台群", "Id", "0", CQSave.AppDirectory + "Config.ini"));
                 if (controlgroup != 0) cq.CQApi.SendGroupMessage(controlgroup, $"发现图片缺失,请排查是否为命名错误 type={gr.type} name={gr.name}");                
             }
 
@@ -745,22 +762,22 @@ namespace me.luohuaming.Gacha.UI
                 switch (gr.class_)
                 {
                     case "SSS":
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_5M.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_5M.png");
                         break;
                     case "SS":
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_4M.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_4M.png");
                         break;
                     case "S":
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_3M.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_3M.png");
                         break;
                     case "A":
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_2M.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_2M.png");
                         break;
                     case "B":
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_1M.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_1M.png");
                         break;
                 }
-                //Image img = Image.FromFile((gr.class_ == "S") ? $@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_3M.png" : $@"{cq.CQApi.AppDirectory}装备卡\框\Star_Avatar_2M.png");
+                //Image img = Image.FromFile((gr.class_ == "S") ? $@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_3M.png" : $@"{CQSave.AppDirectory}装备卡\框\Star_Avatar_2M.png");
                 background = CombinImage(background, img, 53, 160, 106, 91);
                 return background;
             }
@@ -805,11 +822,11 @@ namespace me.luohuaming.Gacha.UI
                 {
                     if (ch[i] == '1')
                     {
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\StarBig #1916506.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\StarBig #1916506.png");
                     }
                     else
                     {
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\StarBigGray.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\StarBigGray.png");
                     }
                     background = CombinImage(background, img, x, y, 33, 33);
                     x += trap;
@@ -823,11 +840,11 @@ namespace me.luohuaming.Gacha.UI
                 {
                     if (ch[i] == '1')
                     {
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\StarBig #1916506.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\StarBig #1916506.png");
                     }
                     else
                     {
-                        img = Image.FromFile($@"{cq.CQApi.AppDirectory}装备卡\框\StarBigGray.png");
+                        img = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\StarBigGray.png");
                     }
                     background = CombinImage(background, img, x, y, 33, 33);
                     x += trap;

@@ -96,6 +96,11 @@ namespace me.luohuaming.Gacha.Code
                     gc.KC_Gacha(),
                     gc.KC_GachaSub()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
@@ -147,6 +152,11 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\扩充概率.txt";
@@ -184,6 +194,11 @@ namespace me.luohuaming.Gacha.Code
                     gc.JZ_GachaMain(),
                     gc.JZ_GachaMaterial()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
@@ -237,6 +252,11 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
@@ -274,6 +294,11 @@ namespace me.luohuaming.Gacha.Code
                     gc.JZ_GachaMain(),
                     gc.JZ_GachaMaterial()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
@@ -326,6 +351,11 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\精准概率.txt";
@@ -377,6 +407,11 @@ namespace me.luohuaming.Gacha.Code
                         }
                     }
                 }
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
@@ -413,6 +448,11 @@ namespace me.luohuaming.Gacha.Code
                     gc.BP_GachaMain(),
                     gc.BP_GachaSub()
                 };
+                var tasksql = new Task(() =>
+                {
+                    AddItem2Repositories(ls, e);
+                });
+                tasksql.Start();
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 string path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
@@ -632,7 +672,8 @@ namespace me.luohuaming.Gacha.Code
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
             Random rd = new Random();
-            SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES(-1,{id},0,0,{rd.Next(registermin, registermax)})", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES(-1,{id},0,0,{rd.Next(registermin, registermax)},0,0,0,0)", cn);
+            cq.CQLog.Debug("sqldebug", cmd.CommandText);
             cmd.ExecuteNonQuery();
             cn.Close();
         }
@@ -727,6 +768,67 @@ namespace me.luohuaming.Gacha.Code
                 cmd.Connection = cn;
                 cmd.CommandText = $"DROP TABLE IF EXISTS {tablename}";
                 cmd.ExecuteNonQuery();
+            }
+            cn.Close();
+        }
+
+        void AddItem2Repositories(List<UI.Gacha.GachaResult> ls, CQPrivateMessageEventArgs e)
+        {
+            //type 为项目类型（Weapon、Stigmata……；name为名称；class_为A、B或者S；level为等级 ；value为价值；quality为卡片颜色(0=绿，1=蓝，2=紫，3=金；date为项目最后更新时间
+            string path = $@"{cq.CQApi.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            foreach (var item in ls)
+            {
+                string str;
+                if (item.type == UI.Gacha.TypeS.debri.ToString() || item.type == UI.Gacha.TypeS.Material.ToString()) //为碎片与材料，可以叠加
+                {
+                    str = $"select count(*) from Repositories where name='{item.name}' and fromgroup='-1' and qq={e.FromQQ.Id}";
+                    SQLiteCommand cmd = new SQLiteCommand(str, cn);
+                    SQLiteDataReader sr = cmd.ExecuteReader();
+                    sr.Read();
+                    if (sr.GetInt32(0) != 0)
+                    {
+                        str = $"Update Repositories set count=count+{item.count},date='{DateTime.Now.ToString()}' where name='{item.name}' and fromgroup='-1' and qq={e.FromQQ.Id}";
+                    }
+                    else
+                    {
+                        str = $"INSERT INTO 'Repositories' VALUES('-1',{e.FromQQ.Id},'{item.type}','{item.name}','{item.class_}',{item.level},{item.value},{item.quality},{item.count},'{DateTime.Now.ToString()}')";
+                        //cq.CQLog.Debug("sqldebug", str);
+                    }
+                    sr.Close();
+                    try
+                    {
+                        cmd = new SQLiteCommand(str, cn);
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception e1)
+                    {
+                        cq.CQLog.Info("抽卡机仓库", str);
+                        cq.CQLog.Info("抽卡机仓库", e1.Message);
+                    }
+                }
+                else//为角色卡，武器与圣痕，不可叠加
+                {
+                    str = $"INSERT INTO 'Repositories' VALUES('-1',{e.FromQQ.Id},'{item.type}','{item.name}','{item.class_}',{item.level},{item.value},{item.quality},{item.count},'{DateTime.Now.ToString()}')";
+                    try
+                    {
+                        SQLiteCommand cmd = new SQLiteCommand(str, cn);
+                        cmd.ExecuteNonQuery();
+                        //cq.CQLog.Info("抽卡机仓库", str);
+                        if (item.quality == 2)
+                        {
+                            str = $"update UserData set purple_count=purple_count+1 where fromgroup='-1' and qq='{e.FromQQ.Id}'";
+                            cmd = new SQLiteCommand(str, cn);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception e1)
+                    {
+                        cq.CQLog.Info("抽卡机仓库", str);
+                        cq.CQLog.Info("抽卡机仓库", e1.Message);
+                    }
+                }
             }
             cn.Close();
         }

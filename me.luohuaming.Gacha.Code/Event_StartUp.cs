@@ -17,6 +17,7 @@ namespace me.luohuaming.Gacha.Code
         public void CQStartup(object sender, CQStartupEventArgs e)
         {
             CQSave.cq_start = e;
+            CQSave.AppDirectory = e.CQApi.AppDirectory;
             if (!File.Exists($@"{e.CQApi.AppDirectory}装备卡\框\抽卡背景.png"))
             {
                 e.CQLog.Warning("错误","数据包未安装，插件无法运行，请仔细阅读论坛插件说明安装数据包，之后重启酷Q");
