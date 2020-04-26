@@ -1,5 +1,5 @@
 {
-"GachaVersion":"1.3.4",
-"Date":"2020.4.15",
-"Whatsnew":"修复私聊接口爆炸的bug"
+"GachaVersion":"1.3.5",
+"Date":"2020.4.26",
+"Whatsnew":"通过爬取官方公告来获取池子内容"
 }

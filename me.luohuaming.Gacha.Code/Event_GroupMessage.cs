@@ -1077,7 +1077,7 @@ namespace me.luohuaming.Gacha.Code
                     }
                     else
                     {
-                        str += "立刻更改请回复#now,定时更改请回复#time";
+                        str += "立刻更改请回复#now";
                     }
                 }
                 else
