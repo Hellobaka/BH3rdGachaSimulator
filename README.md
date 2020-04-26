@@ -36,7 +36,7 @@
 
 ## 如何使用
 1.下载插件[本体](https://cqp.cc/t/47221) 扩展名为cpk<br>
-2.下载插件所必须的[数据包](https://www.lanzous.com/ias6b4j) (2020.3.26)<br>
+2.下载插件所必须的[数据包](https://lanzous.com/ibietkh) (2020.4.17)<br>
 3.下载插件需要的[字体](https://www.lanzous.com/i9hl6ve) (2020.2.19)<br>
 4.将cpk复制到酷Q的插件目录 ...\CQP-xiaoi\酷Q Pro\app下<br>
 ![说明图片1](https://i.loli.net/2020/03/21/QfVBumNkZ54j1bP.png)<br>
