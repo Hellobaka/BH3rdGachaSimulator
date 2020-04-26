@@ -74,10 +74,12 @@ namespace me.luohuaming.Gacha.Code
             ReadConfig();
             UI.Gacha gc = new UI.Gacha();
             long controlgroup = Convert.ToInt64(INIhelper.IniRead("后台群", "Id", "0", e.CQApi.AppDirectory + "\\Config.ini"));
-            string str = "";
+            string str = "",INIPath=CQSave.AppDirectory+"Config.ini";
+
             if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_KC1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchKC1", "1", INIPath) == "0") return;
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -119,6 +121,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_KC10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchKC10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -175,6 +179,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZA1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchJZA1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -218,6 +224,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZA10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchJZA10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -275,6 +283,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZB1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchJZB1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -317,6 +327,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZB10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchJZB10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -374,6 +386,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_BP10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchBP10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -430,6 +444,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_BP1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchBP1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>", $"").Replace("<#>", diamond.ToString()));
@@ -509,6 +525,8 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_querydiamond)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchQueDiamond", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendPrivateMessage(e.FromQQ, noReg.Replace("<@>","").Replace("<#>", diamond.ToString()));
@@ -520,11 +538,15 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_help)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchGetHelp", "1", INIPath) == "0") return;
+
                 str = help;
             }
             else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_getpool)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchGetPool", "1", INIPath) == "0") return;
+
                 string UPS, UPA, UPWeapon, UPStigmata;
                 UPS = INIhelper.IniRead("详情", "UpS", "S角色", e.CQApi.AppDirectory + "\\概率\\扩充概率.txt");
                 UPA = INIhelper.IniRead("详情", "UpA", "A角色", e.CQApi.AppDirectory + "\\概率\\扩充概率.txt");
@@ -532,6 +554,53 @@ namespace me.luohuaming.Gacha.Code
                 UPStigmata = INIhelper.IniRead("详情", "UpStigmata", "四星圣痕", e.CQApi.AppDirectory + "\\概率\\精准概率.txt");
                 e.CQApi.SendPrivateMessage(e.FromQQ, $"当前扩充池为 {UPS} {UPA}\n当前精准池为 {UPWeapon} {UPStigmata}");
                 return;
+            }
+            else if (e.Message.Text.Replace("＃", "#").StartsWith("#氪金"))
+            {
+                e.Handler = true;
+                if (INIhelper.IniRead("ExrtaConfig", "SwitchKaKin", "1", INIPath) == "0") return;
+
+                string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
+                string[] temp = e.Message.Text.Split(' ');
+                if (temp.Length != 3)
+                {
+                    e.CQApi.SendPrivateMessage(e.FromQQ, $"输入的格式不正确！请按照 #氪金 目标QQ号或者at目标 数量 的格式填写");
+                    return;
+                }
+                else
+                {
+                    try
+                    {
+                        long targetId = Convert.ToInt64(temp[1].Replace("[CQ:at,qq=", "").Replace("]", ""));
+                        int countdia = Convert.ToInt32(temp[2]);
+                        try
+                        {
+                            if (!IDExist(targetId))
+                            {
+                                e.CQApi.SendPrivateMessage(e.FromQQ, "操作对象不存在");
+                                return;
+                            }
+                            path = $@"{cq.CQApi.AppDirectory}data.db";
+                            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+                            cn.Open();
+                            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond WHERE Fromgroup='-1' and qq='{targetId}'", cn);
+                            cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(targetId) + countdia;
+                            cmd.ExecuteNonQuery();
+                            e.CQApi.SendPrivateMessage(e.FromQQ, $"操作成功,为[CQ:at,qq={targetId}]充值{countdia}水晶,剩余{GetDiamond(targetId)}水晶");
+                            return;
+                        }
+                        catch
+                        {
+                            e.CQApi.SendPrivateMessage(e.FromQQ, str = "操作失败了……");
+                            return;
+                        }
+                    }
+                    catch
+                    {
+                        e.CQApi.SendPrivateMessage(e.FromQQ, $"输入的格式不正确！请按照格式输入纯数字");
+                        return;
+                    }
+                }
             }
             else
             {

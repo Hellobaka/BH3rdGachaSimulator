@@ -39,7 +39,7 @@ namespace Native.Sdk.Cqp.Model
 		/// <summary>
 		/// 获取当前实例的原始消息
 		/// </summary>
-		public string Text { get; private set; }
+		public string Text { get; set; }
 
 		/// <summary>
 		/// 获取一个值, 指示当前消息是否为正则消息

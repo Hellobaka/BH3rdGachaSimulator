@@ -18,7 +18,7 @@ namespace me.luohuaming.Gacha.Code
     public class Event_GroupMessage : IGroupMessage
     {
         static CQGroupMessageEventArgs cq;
-        #region 字段
+        #region --字段--
         string order_KC1;
         string order_KC10;
         string order_JZA1;
@@ -66,8 +66,11 @@ namespace me.luohuaming.Gacha.Code
         int signmax;
         int registermin;
         int registermax;
-        #endregion
+
         int diamond;
+        public static long testTimeLingchen;
+        #endregion
+        
         public void GroupMessage(object sender, CQGroupMessageEventArgs e)
         {
             cq = e;
@@ -77,11 +80,14 @@ namespace me.luohuaming.Gacha.Code
             ReadConfig(e);
             bool exist = IDExist(e.FromQQ.Id);
             long controlgroup = Convert.ToInt64(INIhelper.IniRead("后台群", "Id", "0", e.CQApi.AppDirectory + "\\Config.ini"));
-            string str = "";
+            string str = "",INIPath=CQSave.AppDirectory+"Config.ini";
             UI.Gacha gc = new UI.Gacha();
-            if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_KC1)
+            e.Message.Text = e.Message.Text.Replace("＃", "#");
+            if (e.Message.Text.Replace(" ", "") == order_KC1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchKC1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -134,9 +140,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个扩充单抽";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_KC10)
+            else if (e.Message.Text.Replace(" ", "") == order_KC10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchKC10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -205,9 +213,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个扩充十连";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZA1)
+            else if (e.Message.Text.Replace(" ", "").ToUpper() == order_JZA1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchJZA1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -264,9 +274,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个精准单抽";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZA10)
+            else if (e.Message.Text.Replace(" ", "").ToUpper() == order_JZA10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchJZA10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -338,9 +350,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个精准十连";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZB1)
+            else if (e.Message.Text.Replace(" ", "").ToUpper() == order_JZB1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchJZB1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -396,9 +410,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个精准单抽";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#").ToUpper() == order_JZB10)
+            else if (e.Message.Text.Replace(" ", "").ToUpper() == order_JZB10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchJZB10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -469,9 +485,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个精准十连";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_BP10)
+            else if (e.Message.Text.Replace(" ", "") == order_BP10)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchBP10", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -541,9 +559,11 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个标配十连";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_BP1)
+            else if (e.Message.Text.Replace(" ", "") == order_BP1)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchBP1", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -597,7 +617,7 @@ namespace me.luohuaming.Gacha.Code
                 GC.Collect();
                 str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 申请了一个标配单抽";
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_sign)
+            else if (e.Message.Text.Replace(" ", "") == order_sign)
             {
                 e.Handler = true;
                 if (!exist)
@@ -619,7 +639,7 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_register)
+            else if (e.Message.Text.Replace(" ", "") == order_register)
             {
                 e.Handler = true;
                 if (!exist)
@@ -636,9 +656,11 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_querydiamond)
+            else if (e.Message.Text.Replace(" ", "") == order_querydiamond)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchQueDiamond", "1", INIPath) == "0") return;
+
                 if (!exist)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -648,9 +670,11 @@ namespace me.luohuaming.Gacha.Code
                 e.CQApi.SendGroupMessage(e.FromGroup, queryDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                 return;
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_signreset)
+            else if (e.Message.Text.Replace(" ", "") == order_signreset)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchResSign", "1", INIPath) == "0") return;
+
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
                 int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
                 bool InGroup = false;
@@ -695,16 +719,20 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_help)
+            else if (e.Message.Text.Replace(" ", "") == order_help)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchGetHelp", "1", INIPath) == "0") return;
+
                 str = help.Replace(@"\n", "\n");
                 e.CQApi.SendGroupMessage(e.FromGroup, str);
                 return;
             }
-            else if (e.Message.Text.Replace(" ", "").Replace("＃", "#") == order_getpool)
+            else if (e.Message.Text.Replace(" ", "") == order_getpool)
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchGetPool", "1", INIPath) == "0") return;
+
                 string UPS, UPA, UPWeaponA, UPStigmataA, UPWeaponB, UPStigmataB;
                 UPS = INIhelper.IniRead("详情", "UpS", "S角色", e.CQApi.AppDirectory + "\\概率\\扩充概率.txt");
                 UPA = INIhelper.IniRead("详情", "UpA", "A角色", e.CQApi.AppDirectory + "\\概率\\扩充概率.txt");
@@ -715,9 +743,10 @@ namespace me.luohuaming.Gacha.Code
                 e.CQApi.SendGroupMessage(e.FromGroup, $"当前扩充池为 {UPS} {UPA}\n当前精准A池为 {UPWeaponA} {UPStigmataA}\n当前精准B池为 {UPWeaponB} {UPStigmataB}");
                 return;
             }
-            else if (e.Message.Text.Replace("＃", "#").StartsWith("#氪金"))
+            else if (e.Message.Text.StartsWith("#氪金"))
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchKaKin", "1", INIPath) == "0") return;                
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
                 int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
                 bool InGroup = false;
@@ -775,7 +804,7 @@ namespace me.luohuaming.Gacha.Code
                     }
                 }
             }
-            else if (e.Message.Text.Replace("＃", "#").ToUpper().StartsWith("#SQL"))
+            else if (e.Message.Text.ToUpper().StartsWith("#SQL"))
             {
                 e.Handler = true;
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
@@ -814,9 +843,11 @@ namespace me.luohuaming.Gacha.Code
                 }
                 return;
             }
-            else if(e.Message.Text.Replace("＃", "#").StartsWith(order_opengacha))
+            else if(e.Message.Text.StartsWith(order_opengacha))
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchOpenGroup", "1", INIPath) == "0") return;
+
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
                 int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
                 bool InGroup = false;
@@ -885,9 +916,11 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
             }
-            else if(e.Message.Text.Replace("＃", "#").StartsWith(order_closegacha))
+            else if(e.Message.Text.StartsWith(order_closegacha))
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchCloseGroup", "1", INIPath) == "0") return;
+
                 string path = $@"{cq.CQApi.AppDirectory}\Config.ini";
                 int count = Convert.ToInt32(INIhelper.IniRead(e.FromGroup.Id.ToString(), "Count", "0", path));
                 bool InGroup = false;
@@ -969,9 +1002,11 @@ namespace me.luohuaming.Gacha.Code
                 }
 
             }
-            else if(e.Message.Text.Replace("＃", "#").StartsWith("#置抽卡管理"))
+            else if(e.Message.Text.StartsWith("#置抽卡管理"))
             {
                 e.Handler = true;
+                if (INIhelper.IniRead("ExtraConfig", "SwitchOpenAdmin", "1", INIPath) == "0") return;
+
                 if (e.FromGroup.Id == controlgroup || CheckAdmin(e))
                 {
                     try
@@ -1028,9 +1063,40 @@ namespace me.luohuaming.Gacha.Code
             }
             else if(e.Message.Text.StartsWith("#更换池子"))
             {
-                string temp = e.Message.Text.Substring("#更换池子".Length).Trim();
-                ChangePool.PoolName = temp;
-                e.CQApi.SendGroupMessage(e.FromGroup, ChangePool.GetResult(e));
+                e.Handler = true;
+                if (CheckAdmin(e))
+                {
+                    string option = e.Message.Text.Substring("#更换池子".Length).Trim();
+                    //ChangePool.PoolName = temp;
+                    //e.CQApi.SendGroupMessage(e.FromGroup, ChangePool.GetResult(e));
+                    e.FromGroup.SendGroupMessage("获取中……请耐心等待");
+                    str = new PaChonger().GetPoolOnline(option);
+                    if (string.IsNullOrEmpty(str))
+                    {
+                        str = "查无此池";
+                    }
+                    else
+                    {
+                        str += "立刻更改请回复#now,定时更改请回复#time";
+                    }
+                }
+                else
+                {
+                    str = "权限不足，拒绝操作";
+                }
+                e.FromGroup.SendGroupMessage(str);
+                return;
+            }
+            else if (e.Message.Text.ToLower() == "#now")
+            {
+                e.Handler = true;
+                e.FromGroup.SendGroupMessage(ChangePool());
+                return;
+            }
+            else if (e.Message.Text.ToLower() == "#time")
+            {
+                e.Handler = true;
+                e.FromGroup.SendGroupMessage("还没开发……");
                 return;
             }
             else
@@ -1040,7 +1106,12 @@ namespace me.luohuaming.Gacha.Code
             if (controlgroup == 0) return;
             e.CQApi.SendGroupMessage(controlgroup, str);
         }
-
+        #region --工具函数--
+        /// <summary>
+        /// 获取文字抽卡结果
+        /// </summary>
+        /// <param name="ls"></param>
+        /// <returns></returns>
         string TextGacha(List<UI.Gacha.GachaResult> ls)
         {
             string str = "";
@@ -1103,6 +1174,11 @@ namespace me.luohuaming.Gacha.Code
             return str;
         }
 
+        /// <summary>
+        /// 查询群是否在配置中
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         bool GroupInini(CQGroupMessageEventArgs e)
         {
             int count = Convert.ToInt32(INIhelper.IniRead("群控", "Count", "0", e.CQApi.AppDirectory + "\\Config.ini"));
@@ -1116,6 +1192,11 @@ namespace me.luohuaming.Gacha.Code
             return false;
         }
 
+        /// <summary>
+        /// 查询发言人是否为发言群指定的管理员
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         bool CheckAdmin(CQGroupMessageEventArgs e)
         {
             string path = e.CQApi.AppDirectory + "Config.ini";
@@ -1132,6 +1213,12 @@ namespace me.luohuaming.Gacha.Code
             return flag;
         }
 
+        /// <summary>
+        /// 使用群与QQ号作为限制，查询是否为管理员
+        /// </summary>
+        /// <param name="FromGroup"></param>
+        /// <param name="FromQQ"></param>
+        /// <returns></returns>
         bool CheckAdmin(long FromGroup,long FromQQ)
         {
             string path = cq.CQApi.AppDirectory + "Config.ini";
@@ -1148,6 +1235,10 @@ namespace me.luohuaming.Gacha.Code
             return flag;
         }
 
+        /// <summary>
+        /// 抽卡指令与回答初始化
+        /// </summary>
+        /// <param name="e"></param>
         void ReadConfig(CQGroupMessageEventArgs e)
         {
             string path = $@"{cq.CQApi.AppDirectory}Config.ini";
@@ -1169,23 +1260,23 @@ namespace me.luohuaming.Gacha.Code
             order_closegacha = INIhelper.IniRead("Order", "CloseGacha", "#抽卡关闭", path);
             order_opengacha = INIhelper.IniRead("Order", "OpenGacha", "#抽卡开启", path);
 
-            KC1 = INIhelper.IniRead("Answer", "KC1", "少女祈祷中……", path);
-            KC10 = INIhelper.IniRead("Answer", "KC10", "少女祈祷中……", path);
-            JZA1 = INIhelper.IniRead("Answer", "JZA1", "少女祈祷中……", path);
-            JZA10 = INIhelper.IniRead("Answer", "JZA10", "少女祈祷中……", path);
-            JZB1 = INIhelper.IniRead("Answer", "JZB1", "少女祈祷中……", path);
-            JZB10 = INIhelper.IniRead("Answer", "JZB10", "少女祈祷中……", path);
-            BP1 = INIhelper.IniRead("Answer", "BP1", "少女祈祷中……", path);
-            BP10 = INIhelper.IniRead("Answer", "BP10", "少女祈祷中……", path);
+            KC1 = INIhelper.IniRead("Answer", "KC1", "少女祈祷中……", path).Replace("\\n", "\n");
+            KC10 = INIhelper.IniRead("Answer", "KC10", "少女祈祷中……", path).Replace("\\n", "\n"); ;
+            JZA1 = INIhelper.IniRead("Answer", "JZA1", "少女祈祷中……", path).Replace("\\n", "\n"); ;
+            JZA10 = INIhelper.IniRead("Answer", "JZA10", "少女祈祷中……", path).Replace("\\n", "\n"); ;
+            JZB1 = INIhelper.IniRead("Answer", "JZB1", "少女祈祷中……", path).Replace("\\n", "\n"); ;
+            JZB10 = INIhelper.IniRead("Answer", "JZB10", "少女祈祷中……", path).Replace("\\n", "\n"); ;
+            BP1 = INIhelper.IniRead("Answer", "BP1", "少女祈祷中……", path).Replace("\\n", "\n"); ;
+            BP10 = INIhelper.IniRead("Answer", "BP10", "少女祈祷中……", path).Replace("\\n", "\n"); ;
 
-            register = INIhelper.IniRead("Answer", "Register", "<@>欢迎上舰，这是你的初始资源(<#>)水晶", path);
-            mutiRegister = INIhelper.IniRead("Answer", "MutiRegister", "重复注册是不行的哦", path);
-            sign1 = INIhelper.IniRead("Answer", "Sign1", "大姐你回来了，天气这么好一起多逛逛吧", path);
-            sign2 = INIhelper.IniRead("Answer", "Sign2", "<@>这是你今天清扫甲板的报酬，拿好(<#>水晶)", path);
-            mutiSign = INIhelper.IniRead("Answer", "MutiSign", "今天的甲板挺亮的，擦一遍就行了", path);
-            noReg = INIhelper.IniRead("Answer", "NoReg", "<@>不是清洁工吧？来输入#抽卡注册 来上舰", path);
-            lowDiamond = INIhelper.IniRead("Answer", "LowDiamond", "<@>水晶不足，无法进行抽卡，你还剩余<#>水晶", path);
-            queryDiamond = INIhelper.IniRead("Answer", "QueryDiamond", "<@>你手头还有<#>水晶", path);
+            register = INIhelper.IniRead("Answer", "Register", "<@>欢迎上舰，这是你的初始资源(<#>)水晶", path).Replace("\\n", "\n"); ;
+            mutiRegister = INIhelper.IniRead("Answer", "MutiRegister", "重复注册是不行的哦", path).Replace("\\n", "\n"); ;
+            sign1 = INIhelper.IniRead("Answer", "Sign1", "大姐你回来了，天气这么好一起多逛逛吧", path).Replace("\\n", "\n"); ;
+            sign2 = INIhelper.IniRead("Answer", "Sign2", "<@>这是你今天清扫甲板的报酬，拿好(<#>水晶)", path).Replace("\\n", "\n"); ;
+            mutiSign = INIhelper.IniRead("Answer", "MutiSign", "今天的甲板挺亮的，擦一遍就行了", path).Replace("\\n", "\n"); ;
+            noReg = INIhelper.IniRead("Answer", "NoReg", "<@>不是清洁工吧？来输入#抽卡注册 来上舰", path).Replace("\\n", "\n"); ;
+            lowDiamond = INIhelper.IniRead("Answer", "LowDiamond", "<@>水晶不足，无法进行抽卡，你还剩余<#>水晶", path).Replace("\\n", "\n"); ;
+            queryDiamond = INIhelper.IniRead("Answer", "QueryDiamond", "<@>你手头还有<#>水晶", path).Replace("\\n", "\n"); ;
             IniObject iObject = IniObject.Load(path, Encoding.Default);     // 从指定的文件中读取 Ini 配置项, 参数1: 文件路径, 参数2: 编码格式 [默认: ANSI]
             try
             {
@@ -1200,12 +1291,12 @@ namespace me.luohuaming.Gacha.Code
             {
                 help = "水银抽卡人 给你抽卡的自信(～￣▽￣)～ \n合成图片以及发送图片需要一些时间，请耐心等待\n单抽是没有保底的\n#抽卡注册\n#我的水晶\n#打扫甲板（签到）\n#甲板积灰（重置签到，管理员限定）\n#氪金 目标账号 数量(管理员限定 暂不支持自定义修改)\n\n#精准单抽(A/B)大小写随意\n#扩充单抽\n#精准十连(A/B)大小写随意\n#扩充十连\n#标配单抽\n#标配十连";
             }
-            reset1 = INIhelper.IniRead("Answer", "Reset1", "贝贝龙来甲板找女王♂van，把甲板弄脏了，大家又得打扫一遍", path);
-            reset2 = INIhelper.IniRead("Answer", "Reset2", "草履虫非要给鸭子做饭，厨房爆炸了，黑紫色的东西撒了一甲板，把甲板弄脏了，大家又得打扫一遍", path);
-            reset3 = INIhelper.IniRead("Answer", "Reset3", "你和女武神们被从深渊扔了回来，来自深渊的炉灰把甲板弄脏了，大家又得打扫一遍", path);
-            reset4 = INIhelper.IniRead("Answer", "Reset4", "由于神秘东方村庄的诅咒，你抽卡的泪水把甲板弄脏了，大家又得打扫一遍", path);
-            reset5 = INIhelper.IniRead("Answer", "Reset5", "理律疯狂在甲板上逮虾户，把甲板弄脏了，大家又得打扫一遍", path);
-            reset6 = INIhelper.IniRead("Answer", "Reset6", "希儿到处找不到鸭子，里人格暴走，把甲板弄脏了，大家又得打扫一遍", path);
+            reset1 = INIhelper.IniRead("Answer", "Reset1", "贝贝龙来甲板找女王♂van，把甲板弄脏了，大家又得打扫一遍", path).Replace("\\n", "\n"); ;
+            reset2 = INIhelper.IniRead("Answer", "Reset2", "草履虫非要给鸭子做饭，厨房爆炸了，黑紫色的东西撒了一甲板，把甲板弄脏了，大家又得打扫一遍", path).Replace("\\n", "\n"); ;
+            reset3 = INIhelper.IniRead("Answer", "Reset3", "你和女武神们被从深渊扔了回来，来自深渊的炉灰把甲板弄脏了，大家又得打扫一遍", path).Replace("\\n", "\n"); ;
+            reset4 = INIhelper.IniRead("Answer", "Reset4", "由于神秘东方村庄的诅咒，你抽卡的泪水把甲板弄脏了，大家又得打扫一遍", path).Replace("\\n", "\n"); ;
+            reset5 = INIhelper.IniRead("Answer", "Reset5", "理律疯狂在甲板上逮虾户，把甲板弄脏了，大家又得打扫一遍", path).Replace("\\n", "\n"); ;
+            reset6 = INIhelper.IniRead("Answer", "Reset6", "希儿到处找不到鸭子，里人格暴走，把甲板弄脏了，大家又得打扫一遍", path).Replace("\\n", "\n"); ;
 
             registermin = Convert.ToInt32(INIhelper.IniRead("GetDiamond", "RegisterMin", "0", path));
             registermax = Convert.ToInt32(INIhelper.IniRead("GetDiamond", "RegisterMax", "14000", path));
@@ -1213,6 +1304,121 @@ namespace me.luohuaming.Gacha.Code
             signmax = Convert.ToInt32(INIhelper.IniRead("GetDiamond", "SignMax", "14000", path));
         }
 
+        /// <summary>
+        /// 判断两个时间戳是否隔天
+        /// </summary>
+        /// <param name="dt1">用于判断的时间戳</param>
+        /// <param name="dt2">实时时间戳</param>
+        public bool JudgeifTimestampOverday(long dt1, long dt2)
+        {
+            testTimeLingchen = dt1 - ((dt1 + 8 * 3600) % 86400);
+            if (dt2 > dt1)
+            {
+                if (dt2 - testTimeLingchen > 24 * 60 * 60)
+                {
+                    return true;//是明天
+                }
+                else
+                {
+                    return false;//是今天
+                }
+            }
+            else
+            {
+                return false;//是昨天
+            }
+        }
+
+        /// <summary>
+        ///获取时间戳
+        /// </summary>
+        /// <returns></returns>
+        public long GetTimeStamp()
+        {
+            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToInt64(ts.TotalSeconds);
+        }
+
+        /// <summary>
+        /// 根据获取到的内容更换池子
+        /// </summary>
+        /// <returns></returns>
+        string ChangePool()
+        {
+            if(PaChonger.JZStigmata.Count==0&& PaChonger.JZWeapon.Count==0&&
+                PaChonger.KC.Count == 0 && PaChonger.KC.Count == 0)
+            {
+                return "未获取公告内容，请先执行#更换池子 关键字 功能";
+            }
+
+            string ret_Text = "已更换 ";
+
+            string path = CQSave.AppDirectory + "\\概率\\精准概率.txt";
+            if(PaChonger.JZWeapon.Count!=0 && PaChonger.JZStigmata.Count != 0&&
+               PaChonger.UPAStigmata!="" && PaChonger.UPAWeapon != "" )
+            {
+                INIhelper.IniWrite("详情", "A_UpWeapon", PaChonger.UPAWeapon, path);
+                INIhelper.IniWrite("详情", "A_UpStigmata", PaChonger.UPAStigmata, path);
+                int count = 0;
+                for(int i = 0; i < PaChonger.JZWeapon.Count; i++)
+                {
+                    if (PaChonger.JZWeapon[i] == PaChonger.UPAWeapon) continue;
+                    INIhelper.IniWrite("详情", $"A_Weapon_Item{count}", PaChonger.JZWeapon[i], path);
+                    count++;
+                }
+                count = 0;
+                for (int i = 1; i < PaChonger.JZStigmata.Count; i++)
+                {
+                    if (PaChonger.JZStigmata[i] == PaChonger.UPAStigmata) continue;
+                    INIhelper.IniWrite("详情", $"A_Stigmata_Item{count}", PaChonger.JZStigmata[i], path);
+                    count++;
+                }
+                ret_Text += "精准A ";
+            }
+            if (PaChonger.JZWeapon.Count != 0 && PaChonger.JZStigmata.Count != 0 &&
+               PaChonger.UPBStigmata != "" && PaChonger.UPBWeapon != "")
+            {
+                INIhelper.IniWrite("详情", "B_UpWeapon", PaChonger.UPBWeapon, path);
+                INIhelper.IniWrite("详情", "B_UpStigmata", PaChonger.UPBStigmata, path);
+                int count = 0;
+                for (int i = 0; i < PaChonger.JZWeapon.Count; i++)
+                {
+                    if (PaChonger.JZWeapon[i] == PaChonger.UPBWeapon) continue;
+                    INIhelper.IniWrite("详情", $"B_Weapon_Item{count}", PaChonger.JZWeapon[i], path);
+                    count++;
+                }
+                count = 0;
+                for (int i = 1; i < PaChonger.JZStigmata.Count; i++)
+                {
+                    if (PaChonger.JZStigmata[i] == PaChonger.UPBStigmata) continue;
+                    INIhelper.IniWrite("详情", $"B_Stigmata_Item{count}", PaChonger.JZStigmata[i], path);
+                    count++;
+                }
+                ret_Text += "精准B ";
+            }
+            path = CQSave.AppDirectory + "\\概率\\扩充概率.txt";
+            if (PaChonger.KC.Count != 0 && PaChonger.KC.Count != 0)
+            {
+                INIhelper.IniWrite("详情", "UpS", PaChonger.KC[0], path);
+                INIhelper.IniWrite("详情", "UpA", PaChonger.KC[1], path);
+
+                for (int i = 1; i < PaChonger.KC.Count; i++)
+                {
+                    INIhelper.IniWrite("详情", $"Item{i - 1}", PaChonger.KC[i], path);
+                }
+                ret_Text += "扩充 ";
+            }
+            new PaChonger().Initialize();
+            return ret_Text == "已更换 " ? "获取出错" : ret_Text;
+        }
+
+
+        #endregion
+
+        #region --数据库操作--
+        /// <summary>
+        /// 签到重置
+        /// </summary>
         void SignReset()
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1225,6 +1431,10 @@ namespace me.luohuaming.Gacha.Code
 
         }
 
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="id">QQ号</param>
         void Register(long id)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1236,6 +1446,11 @@ namespace me.luohuaming.Gacha.Code
             cn.Close();
         }
 
+        /// <summary>
+        /// 查询目标QQ号是否已经存在于数据库
+        /// </summary>
+        /// <param name="id">QQ号</param>
+        /// <returns></returns>
         bool IDExist(long id)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1249,6 +1464,11 @@ namespace me.luohuaming.Gacha.Code
             return count == 1;
         }
 
+        /// <summary>
+        /// 获取水晶数
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public int GetDiamond(long id)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1266,6 +1486,12 @@ namespace me.luohuaming.Gacha.Code
             return diamond;
         }
 
+        /// <summary>
+        /// 使水晶减少
+        /// </summary>
+        /// <param name="id">QQ号</param>
+        /// <param name="num">减少目标数量</param>
+        /// <returns></returns>
         int SubDiamond(long id, int num)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1278,6 +1504,12 @@ namespace me.luohuaming.Gacha.Code
             return GetDiamond(cq.FromQQ.Id);
         }
 
+        /// <summary>
+        /// 为数据库 UserData 的 Count_Gacha字段加目标数量
+        /// </summary>
+        /// <param name="group">群号</param>
+        /// <param name="id">QQ号</param>
+        /// <param name="count">目标数量</param>
         void AddCount_Gacha(long group,long id, int count)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1287,6 +1519,10 @@ namespace me.luohuaming.Gacha.Code
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// 为数据库 UserData 的 Count_Sign字段加1
+        /// </summary>
+        /// <param name="id"></param>
         void AddCount_Sign(long id)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1296,6 +1532,11 @@ namespace me.luohuaming.Gacha.Code
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// 向个人仓库加入物品
+        /// </summary>
+        /// <param name="ls"></param>
+        /// <param name="e"></param>
         void AddItem2Repositories(List<UI.Gacha.GachaResult> ls,CQGroupMessageEventArgs e)
         {
             //type 为项目类型（Weapon、Stigmata……；name为名称；class_为A、B或者S；level为等级 ；value为价值；quality为卡片颜色(0=绿，1=蓝，2=紫，3=金；date为项目最后更新时间
@@ -1356,6 +1597,11 @@ namespace me.luohuaming.Gacha.Code
             cn.Close();
         }
 
+        /// <summary>
+        /// 签到
+        /// </summary>
+        /// <param name="id">QQ号</param>
+        /// <returns></returns>
         int Sign(long id)
         {
             long timestamp = 0; int money = 0;
@@ -1385,6 +1631,10 @@ namespace me.luohuaming.Gacha.Code
             return -1;
         }
 
+        /// <summary>
+        /// 创建数据库
+        /// </summary>
+        /// <param name="path">路径</param>
         public static void CreateDB(string path)
         {
             //string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1402,7 +1652,10 @@ namespace me.luohuaming.Gacha.Code
 
             cn.Close();
         }
-        
+
+        /// <summary>
+        /// 删除数据库
+        /// </summary>
         static void DeleteDB()
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1412,6 +1665,10 @@ namespace me.luohuaming.Gacha.Code
             }
         }
 
+        /// <summary>
+        /// 删除表
+        /// </summary>
+        /// <param name="tablename">目标表名</param>
         static void DeleteTable(string tablename)
         {
             string path = $@"{cq.CQApi.AppDirectory}data.db";
@@ -1427,6 +1684,11 @@ namespace me.luohuaming.Gacha.Code
             cn.Close();
         }
 
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="tablename">目标表名</param>
+        /// <param name="cn">SQLiteConnection 类型变量</param>
         static void CreateTable(string tablename, SQLiteConnection cn)
         {
             SQLiteCommand cmd = new SQLiteCommand
@@ -1436,7 +1698,12 @@ namespace me.luohuaming.Gacha.Code
             };
             cmd.ExecuteNonQuery();
         }
-        //检查total_diamond等字段与表Repositories是否存在
+
+        /// <summary>
+        /// 检查total_diamond等字段与表Repositories是否存在
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="e"></param>
         public static void CheckDB(string path,CQStartupEventArgs e)
         {
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
@@ -1513,37 +1780,6 @@ namespace me.luohuaming.Gacha.Code
             }
             cn.Close();
         }
-
-        public static long testTimeLingchen;
-        /// <summary>
-        /// 判断两个时间戳是否隔天
-        /// </summary>
-        /// <param name="dt1">用于判断的时间戳</param>
-        /// <param name="dt2">实时时间戳</param>
-        public static bool JudgeifTimestampOverday(long dt1, long dt2)
-        {
-            testTimeLingchen = dt1 - ((dt1 + 8 * 3600) % 86400);
-            if (dt2 > dt1)
-            {
-                if (dt2 - testTimeLingchen > 24 * 60 * 60)
-                {
-                    return true;//是明天
-                }
-                else
-                {
-                    return false;//是今天
-                }
-            }
-            else
-            {
-                return false;//是昨天
-            }
-        }
-        //获取时间戳
-        public static long GetTimeStamp()
-        {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return Convert.ToInt64(ts.TotalSeconds);
-        }
+        #endregion
     }
 }

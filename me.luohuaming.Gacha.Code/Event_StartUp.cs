@@ -18,6 +18,8 @@ namespace me.luohuaming.Gacha.Code
         {
             CQSave.cq_start = e;
             CQSave.AppDirectory = e.CQApi.AppDirectory;
+            CQSave.ImageDirectory = GetAppImageDirectory();
+            CQSave.CQLog = e.CQLog;
             if (!File.Exists($@"{e.CQApi.AppDirectory}装备卡\框\抽卡背景.png"))
             {
                 e.CQLog.Warning("错误","数据包未安装，插件无法运行，请仔细阅读论坛插件说明安装数据包，之后重启酷Q");
@@ -37,14 +39,18 @@ namespace me.luohuaming.Gacha.Code
                         File.Delete($@"{e.CQApi.AppDirectory}data.db");
                         Event_GroupMessage.CreateDB($@"{e.CQApi.AppDirectory}data.db");
                         e.CQLog.WriteLine(Native.Sdk.Cqp.Enum.CQLogLevel.Info, "已创建数据库");
-                        goto jumpout;
+                        return;
                     }
                     Event_GroupMessage.CheckDB($@"{e.CQApi.AppDirectory}data.db",e);
                 }
             }
-            jumpout:
-            cq = e;
-            CQSave.cq_start = e;
+
         }
+        public static string GetAppImageDirectory()
+        {
+            var ImageDirectory = Path.Combine(Environment.CurrentDirectory, "data", "image");
+            return ImageDirectory;
+        }
+
     }
 }

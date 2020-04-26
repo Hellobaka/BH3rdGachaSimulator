@@ -15,5 +15,7 @@ namespace me.luohuaming.Gacha.UI
         public static CQStartupEventArgs cq_start;
         public static CQPrivateMessageEventArgs cq_private;
         public static string AppDirectory;
+        public static string ImageDirectory;
+        public static Native.Sdk.Cqp.CQLog CQLog;
     }
 }
