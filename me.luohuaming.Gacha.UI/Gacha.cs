@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Native.Sdk.Cqp.EventArgs;
 using Native.Sdk.Cqp.Interface;
+using Native.Tool.IniConfig;
 
 namespace me.luohuaming.Gacha.UI
 {
@@ -114,7 +116,8 @@ namespace me.luohuaming.Gacha.UI
         public double Probablity_BPWeapon4;
         public double Probablity_BPStigmata4;
         #endregion
-        //private CQMenuCallEventArgs cq = CQSave.cq_menu;
+        static IniConfig ini;
+        static string path;
         private CQGroupMessageEventArgs cq = CQSave.cq_group;
         #region 材料
         public double Probablity_Material镜面;
@@ -149,8 +152,13 @@ namespace me.luohuaming.Gacha.UI
         {
             Random rd = new Random(GetRandomSeed());
             double pro_1 = rd.Next(0, 1000000) / (double)10000;
+
+            path = Path.Combine(CQSave.AppDirectory, "概率", "扩充概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             Count++;
-            jumpin:
+        jumpin:
             GachaResult gr = new GachaResult();
             //
             if (Count < 10)
@@ -159,7 +167,7 @@ namespace me.luohuaming.Gacha.UI
                 {
                     GetTargetItem = true;
                     Count = 0;
-                    double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_UpS+Probablity_UpA+Probablity_A) * 1000)) / (double)1000;
+                    double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_UpS + Probablity_UpA + Probablity_A) * 1000)) / (double)1000;
                     if (pro_0 < Probablity_UpS)
                     {
                         gr.name = Text_UpS;
@@ -188,7 +196,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.type = TypeS.Character.ToString();
                         gr.class_ = "A";
                         gr.quality = 2;
-                        int temp = rd.Next(0,4);
+                        int temp = rd.Next(0, 4);
                         if (temp == 0)
                         {
                             gr.name = Text_A1; ;
@@ -317,8 +325,7 @@ namespace me.luohuaming.Gacha.UI
             }
             else
             {
-                string path = $@"{CQSave.AppDirectory}\概率\扩充概率.txt";
-                if (INIhelper.IniRead("详情", "Baodi",  "1", path)=="1")
+                if (ini.Object["详情"]["Baodi"].GetValueOrDefault("1") == "1")
                 {
                     Count = 0;
                     GetTargetItem = false;
@@ -353,7 +360,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.quality = 2;
 
                         gr.type = TypeS.Character.ToString();
-                        int temp = rd.Next(0,4);
+                        int temp = rd.Next(0, 4);
                         if (temp == 0)
                         {
                             gr.name = Text_A1; ;
@@ -381,6 +388,11 @@ namespace me.luohuaming.Gacha.UI
             GachaResult gr = new GachaResult();
             Random rd = new Random(GetRandomSeed());
             double pro_2 = rd.Next(0, 100000) / (double)1000;
+
+            path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             if (pro_2 < Probablity_Material技能材料)
             {
                 gr.name = "高级技能材料";
@@ -465,8 +477,8 @@ namespace me.luohuaming.Gacha.UI
                 double pro_0 = rd.Next(0, 10000) / (double)100;
                 if (pro_0 <= 50)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead( "详情", "Count_Weapon2","0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Weapon2"].GetValueOrDefault("0"));
+                    gr.name = ini.Object["详情"][$"Weapon2_Item{rd.Next(0, count)}"].GetValueOrDefault("2星武器");
                     gr.value = 2500;
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
@@ -478,8 +490,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Stigmata2"].GetValueOrDefault("0"));
+                    gr.name = ini.Object["详情"][$"Stigmata2_Item{rd.Next(0, count)}"].GetValueOrDefault("2星圣痕");
                     switch (rd.Next(0, 3))
                     {
                         case 0:
@@ -510,6 +522,11 @@ namespace me.luohuaming.Gacha.UI
             Random rd = new Random(GetRandomSeed());
             double pro_1 = rd.Next(0, 10000000) / (double)100000;
             Count_JZ++;
+
+            path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
         jumpin:
             GachaResult gr = new GachaResult();
 
@@ -636,8 +653,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon3", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Weapon3_Item{rd.Next(0, count)}", "3星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Weapon3"].GetValueOrDefault("0"));
+                    gr.name = ini.Object["详情"][$"Weapon3_Item{rd.Next(0, count)}"].GetValueOrDefault("3星武器");
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
                     gr.value = 26000;
@@ -649,8 +666,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_Stigmata3Total + Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata3", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Stigmata3_Item{rd.Next(0, count)}", "3星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Stigmata3"].GetValueOrDefault("0"));
+                    gr.name = ini.Object["详情"][$"Stigmata3_Item{rd.Next(0, count)}"].GetValueOrDefault("3星圣痕");
                     switch (rd.Next(0, 3))
                     {
                         case 0:
@@ -677,8 +694,8 @@ namespace me.luohuaming.Gacha.UI
                     double pro_0 = rd.Next(0, 10000) / (double)100;
                     if (pro_0 <= 50)
                     {
-                        int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                        gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                        int count = Convert.ToInt32(ini.Object["详情"]["Count_Weapon2"].GetValueOrDefault("0"));
+                        gr.name = ini.Object["详情"][$"Weapon2_Item{rd.Next(0, count)}"].GetValueOrDefault("2星武器");
                         gr.value = 25000;
                         gr.count = 1;
                         gr.type = TypeS.Weapon.ToString();
@@ -690,8 +707,8 @@ namespace me.luohuaming.Gacha.UI
                     }
                     else
                     {
-                        int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                        gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                        int count = Convert.ToInt32(ini.Object["详情"]["Count_Stigmata2"].GetValueOrDefault("0"));
+                        gr.name = ini.Object["详情"][$"Stigmata2_Item{rd.Next(0, count)}"].GetValueOrDefault("2星圣痕");
                         switch (rd.Next(0, 3))
                         {
                             case 0:
@@ -717,8 +734,7 @@ namespace me.luohuaming.Gacha.UI
             }
             else
             {
-                string path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
-                if (INIhelper.IniRead("详情", "Baodi", "1", path) == "1")
+                if (ini.Object["详情"]["Baodi"].GetValueOrDefault("1") == "1")
                 {
                     Count_JZ = 0;
                     GetTargetItem = false;
@@ -852,6 +868,11 @@ namespace me.luohuaming.Gacha.UI
             double pro_0 = Probablity_JZ装备经验 + Probablity_JZ通用进化材料 + Probablity_JZGold;
             double pro_1 = rd.Next(0, Convert.ToInt32(pro_0 * 100)) / (double)100;
             GachaResult gr = new GachaResult();
+
+            path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             if (pro_1 < Probablity_JZ通用进化材料)
             {
                 gr.name = "相转移镜面";
@@ -917,6 +938,10 @@ namespace me.luohuaming.Gacha.UI
         {
             Random rd = new Random(GetRandomSeed());
             double pro_1 = rd.Next(0, 1000000) / (double)10000;
+            path = Path.Combine(CQSave.AppDirectory, "概率", "标配概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             Count++;
         jumpin:
             GachaResult gr = new GachaResult();
@@ -924,7 +949,7 @@ namespace me.luohuaming.Gacha.UI
             {
                 if (pro_1 < Probablity_BP角色卡)
                 {
-                    GetTargetItem = true;                    
+                    GetTargetItem = true;
                     double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_BP角色卡) * 1000)) / (double)1000;
                     if (pro_0 < Probablity_BPS)
                     {
@@ -996,7 +1021,7 @@ namespace me.luohuaming.Gacha.UI
                         gr.quality = 2;
                         return gr;
                     }
-                    else if(pro_0<Probablity_BPSdebris+Probablity_BPAdebris)
+                    else if (pro_0 < Probablity_BPSdebris + Probablity_BPAdebris)
                     {
                         gr.value = 2600;
                         gr.count = rd.Next(4, 9);
@@ -1102,12 +1127,11 @@ namespace me.luohuaming.Gacha.UI
             }
             else
             {
-                string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
-                if (INIhelper.IniRead("设置", "Baodi", "1", path) == "1")
+                if (ini.Object["设置"]["Baodi"].GetValueOrDefault("1") == "1")
                 {
                     Count = 0;
                     GetTargetItem = false;
-                    double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_BP角色卡-Probablity_BPB) * 1000)) / (double)1000;
+                    double pro_0 = rd.Next(0, Convert.ToInt32((Probablity_BP角色卡 - Probablity_BPB) * 1000)) / (double)1000;
                     if (pro_0 < Probablity_BPS)
                     {
                         gr.name = GetBPCharacter("S");
@@ -1142,6 +1166,10 @@ namespace me.luohuaming.Gacha.UI
             GachaResult gr = new GachaResult();
             Random rd = new Random(GetRandomSeed());
             double pro_2 = rd.Next(0, 100000) / (double)1000;
+            path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             if (pro_2 < Probablity_Material技能材料)
             {
                 gr.name = "高级技能材料";
@@ -1226,8 +1254,8 @@ namespace me.luohuaming.Gacha.UI
                 double pro_0 = rd.Next(0, 10000) / (double)100;
                 if (pro_0 <= 50)
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Weapon2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Weapon2_Item{rd.Next(0, count)}", "2星武器", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Weapon2"].GetValueOrDefault("0"));
+                    gr.name = ini.Object["详情"][$"Weapon2_Item{rd.Next(0, count)}"].GetValueOrDefault("2星武器");
                     gr.value = 2500;
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
@@ -1239,8 +1267,8 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else
                 {
-                    int count = Convert.ToInt32(INIhelper.IniRead("详情", "Count_Stigmata2", "0", $@"{CQSave.AppDirectory}\概率\精准概率.txt"));
-                    gr.name = INIhelper.IniRead("详情", $"Stigmata2_Item{rd.Next(0, count)}", "2星圣痕", $@"{CQSave.AppDirectory}\概率\精准概率.txt");
+                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Stigmata2"].GetValueOrDefault("0"));
+                    gr.name = ini.Object["详情"][$"Stigmata2_Item{rd.Next(0, count)}"].GetValueOrDefault("2星圣痕");
                     switch (rd.Next(0, 3))
                     {
                         case 0:
@@ -1264,25 +1292,28 @@ namespace me.luohuaming.Gacha.UI
             }
         }
 
-        string GetBPCharacter (string pos)
+        string GetBPCharacter(string pos)
         {
             int count;
-            string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
             Random rd = new Random(GetRandomSeed());
             string result = "";
+            path = Path.Combine(CQSave.AppDirectory, "概率", "标配概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             switch (pos)
             {
                 case "S":
-                    count = Convert.ToInt32(INIhelper.IniRead("详情_S", "Count", "0", path));
-                    result = INIhelper.IniRead("详情_S", $"Index{rd.Next(1, count + 1)}", $"S角色{count}", path);                    
+                    count = Convert.ToInt32(ini.Object["详情_S"]["Count"].GetValueOrDefault("0"));
+                    result = ini.Object["详情_S"][$"Index{rd.Next(1, count + 1)}"].GetValueOrDefault($"S角色{count}");
                     break;
                 case "A":
-                    count = Convert.ToInt32(INIhelper.IniRead("详情_A", "Count", "0", path));
-                    result = INIhelper.IniRead("详情_A", $"Index{rd.Next(1, count + 1)}", $"A角色{count}", path);
+                    count = Convert.ToInt32(ini.Object["详情_A"]["Count"].GetValueOrDefault("0"));
+                    result = ini.Object["详情_A"][$"Index{rd.Next(1, count + 1)}"].GetValueOrDefault($"A角色{count}");
                     break;
                 case "B":
-                    count = Convert.ToInt32(INIhelper.IniRead("详情_B", "Count", "0", path));
-                    result = INIhelper.IniRead("详情_B", $"Index{rd.Next(1, count + 1)}", $"B角色{count}", path);
+                    count = Convert.ToInt32(ini.Object["详情_B"]["Count"].GetValueOrDefault("0"));
+                    result = ini.Object["详情_B"][$"Index{rd.Next(1, count + 1)}"].GetValueOrDefault($"B角色{count}");
                     break;
             }
             return result;
@@ -1291,18 +1322,24 @@ namespace me.luohuaming.Gacha.UI
         string GetBPWeapon()
         {
             int count;
-            string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
+            path = Path.Combine(CQSave.AppDirectory, "概率", "标配概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             Random rd = new Random(GetRandomSeed());
             string result;
-            count = Convert.ToInt32(INIhelper.IniRead("详情_Weapon", "Count", "0", path));
-            result = INIhelper.IniRead("详情_Weapon", $"Index{rd.Next(1, count + 1)}", $"四星武器{count}", path);
+            count = Convert.ToInt32(ini.Object["详情_Weapon"]["Count"].GetValueOrDefault("0"));
+            result = ini.Object["详情_Weapon"][$"Index{rd.Next(1, count + 1)}"].GetValueOrDefault($"四星武器{count}");
             return result;
         }
 
         string GetBPStigmata()
         {
             int count;
-            string path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
+            path = Path.Combine(CQSave.AppDirectory, "概率", "标配概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             Random rd = new Random(GetRandomSeed());
             string result, pos = "";
             switch (rd.Next(0, 3))
@@ -1317,113 +1354,102 @@ namespace me.luohuaming.Gacha.UI
                     pos = "下";
                     break;
             }
-            count = Convert.ToInt32(INIhelper.IniRead("详情_Stigmata", "Count", "0", path));
-            result = INIhelper.IniRead("详情_Stigmata", $"Index{rd.Next(1, count + 1)}", $"四星圣痕{count}{pos}", path);
+            count = Convert.ToInt32(ini.Object["详情_Stigmata"]["Count"].GetValueOrDefault("0"));
+            result = ini.Object["详情_Stigmata"][$"Index{rd.Next(1, count + 1)}"].GetValueOrDefault($"四星圣痕{count}{pos}");
             return result;
         }
 
         public void Read_Kuochong()
         {
-            string path;
-            if(cq != null)
-            {
-                path= $@"{CQSave.AppDirectory}\概率\扩充概率.txt";
-            }
-            else
-            {
-                path= $@"{CQSave.cq_private.CQApi.AppDirectory}\概率\扩充概率.txt";
-            }
-            Probablity_KC角色卡 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色卡", "15.00", path).Replace("%", ""));
-            Probablity_KC角色碎片 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色碎片", "26.25", path).Replace("%", ""));
-            Probablity_KC材料 = Convert.ToDouble(INIhelper.IniRead("综合概率", "材料", "58.75", path).Replace("%", ""));
-            Probablity_UpS = Convert.ToDouble(INIhelper.IniRead("详细概率", "UpS角色", "1.50", path).Replace("%", ""));
-            Probablity_UpA = Convert.ToDouble(INIhelper.IniRead("详细概率", "UpA角色", "4.50", path).Replace("%", ""));
-            Probablity_A = Convert.ToDouble(INIhelper.IniRead("详细概率", "A角色", "3.00", path).Replace("%", ""));
-            Probablity_Adebris = Convert.ToDouble(INIhelper.IniRead("详细概率", "UpA角色碎片", "15.00", path).Replace("%", ""));
-            Probablity_Sdebris = Convert.ToDouble(INIhelper.IniRead("详细概率", "UpS角色碎片", "2.25", path).Replace("%", ""));
-            Probablity_Material技能材料 = Convert.ToDouble(INIhelper.IniRead("详细概率", "技能材料", "10.00", path).Replace("%", ""));
-            Probablity_Material反应炉 = Convert.ToDouble(INIhelper.IniRead("详细概率", "低星装备材料", "26.41", path).Replace("%", ""));
-            Probablity_Material紫色角色经验 = Convert.ToDouble(INIhelper.IniRead("详细概率", "角色经验", "11.17", path).Replace("%", ""));
-            Probablity_Material吼咪宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼咪宝藏", "2.232", path).Replace("%", ""));
-            Probablity_Material吼美宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼美宝藏", "3.334", path).Replace("%", ""));
-            Probablity_Material吼姆宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼姆宝藏", "5.556", path).Replace("%", ""));
+            path = Path.Combine(CQSave.AppDirectory, "概率", "扩充概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
 
-            Text_UpS = INIhelper.IniRead("详情", "UpS", "S角色卡", path);
-            Text_UpA = INIhelper.IniRead("详情", "UpA", "UpA角色卡", path);
-            Text_A1 = INIhelper.IniRead("详情", "Item0", "A角色卡1", path);
-            Text_A2 = INIhelper.IniRead("详情", "Item1", "A角色卡2", path);
-            Text_A3 = INIhelper.IniRead("详情", "Item2", "A角色卡3", path);
+            Probablity_KC角色卡 = Convert.ToDouble(ini.Object["综合概率"]["角色卡"].GetValueOrDefault("15.00").Replace("%", ""));
+            Probablity_KC角色碎片 = Convert.ToDouble(ini.Object["综合概率"]["角色碎片"].GetValueOrDefault("26.25").Replace("%", ""));
+            Probablity_KC材料 = Convert.ToDouble(ini.Object["综合概率"]["材料"].GetValueOrDefault("58.75").Replace("%", ""));
+            Probablity_UpS = Convert.ToDouble(ini.Object["详细概率"]["UpS角色"].GetValueOrDefault("1.50").Replace("%", ""));
+            Probablity_UpA = Convert.ToDouble(ini.Object["详细概率"]["UpA角色"].GetValueOrDefault("4.50").Replace("%", ""));
+            Probablity_A = Convert.ToDouble(ini.Object["详细概率"]["A角色"].GetValueOrDefault("3.00").Replace("%", ""));
+            Probablity_Adebris = Convert.ToDouble(ini.Object["详细概率"]["UpA角色碎片"].GetValueOrDefault("15.00").Replace("%", ""));
+            Probablity_Sdebris = Convert.ToDouble(ini.Object["详细概率"]["UpS角色碎片"].GetValueOrDefault("2.25").Replace("%", ""));
+            Probablity_Material技能材料 = Convert.ToDouble(ini.Object["详细概率"]["技能材料"].GetValueOrDefault("10.00").Replace("%", ""));
+            Probablity_Material反应炉 = Convert.ToDouble(ini.Object["详细概率"]["低星装备材料"].GetValueOrDefault("26.41").Replace("%", ""));
+            Probablity_Material紫色角色经验 = Convert.ToDouble(ini.Object["详细概率"]["角色经验"].GetValueOrDefault("11.17").Replace("%", ""));
+            Probablity_Material吼咪宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼咪宝藏"].GetValueOrDefault("2.232").Replace("%", ""));
+            Probablity_Material吼美宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼美宝藏"].GetValueOrDefault("3.334").Replace("%", ""));
+            Probablity_Material吼姆宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼姆宝藏"].GetValueOrDefault("5.556").Replace("%", ""));
+
+            Text_UpS = ini.Object["详情"]["UpS"].GetValueOrDefault("S角色卡");
+            Text_UpA = ini.Object["详情"]["UpA"].GetValueOrDefault("UpA角色卡");
+            Text_A1 = ini.Object["详情"]["Item0"].GetValueOrDefault("A角色卡1");
+            Text_A2 = ini.Object["详情"]["Item1"].GetValueOrDefault("A角色卡2");
+            Text_A3 = ini.Object["详情"]["Item2"].GetValueOrDefault("A角色卡3");
         }
 
         public void Read_Jingzhun(int pos)
         {
-            string path = "";
-            if (cq!=null)
-            {
-                path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
-            }
-            else
-            {
-                path = $@"{CQSave.cq_private.CQApi.AppDirectory}\概率\精准概率.txt";
-            }
-            Probablity_Weapon4Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "4星武器", "4.958", path).Replace("%", ""));
-            Probablity_Stigmata4Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "4星圣痕", "7.437", path).Replace("%", ""));
-            Probablity_Weapon3Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "3星武器", "11.231", path).Replace("%", ""));
-            Probablity_Stigmata3Total = Convert.ToDouble(INIhelper.IniRead("综合概率", "3星圣痕", "33.694", path).Replace("%", ""));
-            Probablity_JZ通用进化材料 = Convert.ToDouble(INIhelper.IniRead("综合概率", "通用进化材料", "17.072", path).Replace("%", ""));
-            Probablity_JZ装备经验 = Convert.ToDouble(INIhelper.IniRead("综合概率", "装备经验", "17.072", path).Replace("%", ""));
-            Probablity_JZGold = Convert.ToDouble(INIhelper.IniRead("综合概率", "金币", "8.536", path).Replace("%", ""));
+            path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+            Probablity_Weapon4Total = Convert.ToDouble(ini.Object["综合概率"]["4星武器"].GetValueOrDefault("4.958").Replace("%", ""));
+            Probablity_Stigmata4Total = Convert.ToDouble(ini.Object["综合概率"]["4星圣痕"].GetValueOrDefault("7.437").Replace("%", ""));
+            Probablity_Weapon3Total = Convert.ToDouble(ini.Object["综合概率"]["3星武器"].GetValueOrDefault("11.231").Replace("%", ""));
+            Probablity_Stigmata3Total = Convert.ToDouble(ini.Object["综合概率"]["3星圣痕"].GetValueOrDefault("33.694").Replace("%", ""));
+            Probablity_JZ通用进化材料 = Convert.ToDouble(ini.Object["综合概率"]["通用进化材料"].GetValueOrDefault("17.072").Replace("%", ""));
+            Probablity_JZ装备经验 = Convert.ToDouble(ini.Object["综合概率"]["装备经验"].GetValueOrDefault("17.072").Replace("%", ""));
+            Probablity_JZGold = Convert.ToDouble(ini.Object["综合概率"]["金币"].GetValueOrDefault("8.536").Replace("%", ""));
 
-            Probablity_JZUpWeapon4 = Convert.ToDouble(INIhelper.IniRead("详细概率", "Up武器", "2.479", path).Replace("%", ""));
-            Probablity_JZUpStigmata4 = Convert.ToDouble(INIhelper.IniRead("详细概率", "Up圣痕单件", "1.240", path).Replace("%", ""));
-            Probablity_JZWeapon4 = Convert.ToDouble(INIhelper.IniRead("详细概率", "四星武器", "0.413", path).Replace("%", ""));
-            Probablity_JZStigmata4 = Convert.ToDouble(INIhelper.IniRead("详细概率", "四星圣痕单件", "0.310", path).Replace("%", ""));
-            Probablity_Weapon3 = Convert.ToDouble(INIhelper.IniRead("详细概率", "三星武器", "0.511", path).Replace("%", ""));
-            Probablity_Stigmata3 = Convert.ToDouble(INIhelper.IniRead("详细概率", "三星圣痕单件", "0.936", path).Replace("%", ""));
-            Probablity_Material镜面 = Convert.ToDouble(INIhelper.IniRead("详细概率", "镜面", "6.828", path).Replace("%", ""));
-            Probablity_Material反应炉 = Convert.ToDouble(INIhelper.IniRead("详细概率", "反应炉", "10.242", path).Replace("%", ""));
-            Probablity_Material紫色经验材料 = Convert.ToDouble(INIhelper.IniRead("详细概率", "紫色经验材料", "8.536", path).Replace("%", ""));
-            Probablity_Material蓝色经验材料 = Convert.ToDouble(INIhelper.IniRead("详细概率", "蓝色经验材料", "8.536", path).Replace("%", ""));
-            Probablity_Material吼咪宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼咪宝藏", "1.707", path).Replace("%", ""));
-            Probablity_Material吼美宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼美宝藏", "2.561", path).Replace("%", ""));
-            Probablity_Material吼姆宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼姆宝藏", "4.267", path).Replace("%", ""));
+            Probablity_JZUpWeapon4 = Convert.ToDouble(ini.Object["详细概率"]["Up武器"].GetValueOrDefault("2.479").Replace("%", ""));
+            Probablity_JZUpStigmata4 = Convert.ToDouble(ini.Object["详细概率"]["Up圣痕单件"].GetValueOrDefault("1.240").Replace("%", ""));
+            Probablity_JZWeapon4 = Convert.ToDouble(ini.Object["详细概率"]["四星武器"].GetValueOrDefault("0.413").Replace("%", ""));
+            Probablity_JZStigmata4 = Convert.ToDouble(ini.Object["详细概率"]["四星圣痕单件"].GetValueOrDefault("0.310").Replace("%", ""));
+            Probablity_Weapon3 = Convert.ToDouble(ini.Object["详细概率"]["三星武器"].GetValueOrDefault("0.511").Replace("%", ""));
+            Probablity_Stigmata3 = Convert.ToDouble(ini.Object["详细概率"]["三星圣痕单件"].GetValueOrDefault("0.936").Replace("%", ""));
+            Probablity_Material镜面 = Convert.ToDouble(ini.Object["详细概率"]["镜面"].GetValueOrDefault("6.828").Replace("%", ""));
+            Probablity_Material反应炉 = Convert.ToDouble(ini.Object["详细概率"]["反应炉"].GetValueOrDefault("10.242").Replace("%", ""));
+            Probablity_Material紫色经验材料 = Convert.ToDouble(ini.Object["详细概率"]["紫色经验材料"].GetValueOrDefault("8.536").Replace("%", ""));
+            Probablity_Material蓝色经验材料 = Convert.ToDouble(ini.Object["详细概率"]["蓝色经验材料"].GetValueOrDefault("8.536").Replace("%", ""));
+            Probablity_Material吼咪宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼咪宝藏"].GetValueOrDefault("1.707").Replace("%", ""));
+            Probablity_Material吼美宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼美宝藏"].GetValueOrDefault("2.561").Replace("%", ""));
+            Probablity_Material吼姆宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼姆宝藏"].GetValueOrDefault("4.267").Replace("%", ""));
 
 
             switch (pos)
             {
                 case 1:
-                    Text_UpWeapon = INIhelper.IniRead("详情", "A_UpWeapon", "Up四星武器", path);
-                    Text_UpStigmata = INIhelper.IniRead("详情", "A_UpStigmata", "Up四星圣痕", path);
-                    Text_Weapon1 = INIhelper.IniRead("详情", "A_Weapon_Item0", "四星武器1", path);
-                    Text_Weapon2 = INIhelper.IniRead("详情", "A_Weapon_Item1", "四星武器2", path);
-                    Text_Weapon3 = INIhelper.IniRead("详情", "A_Weapon_Item2", "四星武器3", path);
-                    Text_Weapon4 = INIhelper.IniRead("详情", "A_Weapon_Item3", "四星武器4", path);
-                    Text_Weapon5 = INIhelper.IniRead("详情", "A_Weapon_Item4", "四星武器5", path);
-                    Text_Weapon6 = INIhelper.IniRead("详情", "A_Weapon_Item5", "四星武器6", path);
-                    Text_Stigmata1 = INIhelper.IniRead("详情", "A_Stigmata_Item0", "四星圣痕1", path);
-                    Text_Stigmata2 = INIhelper.IniRead("详情", "A_Stigmata_Item1", "四星圣痕2", path);
-                    Text_Stigmata3 = INIhelper.IniRead("详情", "A_Stigmata_Item2", "四星圣痕3", path);
-                    Text_Stigmata4 = INIhelper.IniRead("详情", "A_Stigmata_Item3", "四星圣痕4", path);
+                    Text_UpWeapon = ini.Object["详情"]["A_UpWeapon"].GetValueOrDefault("Up四星武器");
+                    Text_UpStigmata = ini.Object["详情"]["A_UpStigmata"].GetValueOrDefault("Up四星圣痕");
+                    Text_Weapon1 = ini.Object["详情"]["A_Weapon_Item0"].GetValueOrDefault("四星武器1");
+                    Text_Weapon2 = ini.Object["详情"]["A_Weapon_Item1"].GetValueOrDefault("四星武器2");
+                    Text_Weapon3 = ini.Object["详情"]["A_Weapon_Item2"].GetValueOrDefault("四星武器3");
+                    Text_Weapon4 = ini.Object["详情"]["A_Weapon_Item3"].GetValueOrDefault("四星武器4");
+                    Text_Weapon5 = ini.Object["详情"]["A_Weapon_Item4"].GetValueOrDefault("四星武器5");
+                    Text_Weapon6 = ini.Object["详情"]["A_Weapon_Item5"].GetValueOrDefault("四星武器6");
+                    Text_Stigmata1 = ini.Object["详情"]["A_Stigmata_Item0"].GetValueOrDefault("四星圣痕1");
+                    Text_Stigmata2 = ini.Object["详情"]["A_Stigmata_Item1"].GetValueOrDefault("四星圣痕2");
+                    Text_Stigmata3 = ini.Object["详情"]["A_Stigmata_Item2"].GetValueOrDefault("四星圣痕3");
+                    Text_Stigmata4 = ini.Object["详情"]["A_Stigmata_Item3"].GetValueOrDefault("四星圣痕4");
                     break;
                 case 2:
-                    Text_UpWeapon = INIhelper.IniRead("详情", "B_UpWeapon", "Up四星武器", path);
-                    Text_UpStigmata = INIhelper.IniRead("详情", "B_UpStigmata", "Up四星圣痕", path);
-                    if(string.IsNullOrEmpty(Text_UpWeapon)||string.IsNullOrEmpty(Text_UpStigmata))
+                    Text_UpWeapon = ini.Object["详情"]["B_UpWeapon"].GetValueOrDefault("Up四星武器");
+                    Text_UpStigmata = ini.Object["详情"]["B_UpStigmata"].GetValueOrDefault("Up四星圣痕");
+                    if (string.IsNullOrEmpty(Text_UpWeapon) || string.IsNullOrEmpty(Text_UpStigmata))
                     {
-                        Text_UpWeapon = INIhelper.IniRead("详情", "B_UpWeaponBackup", "Up四星武器", path);
-                        Text_UpStigmata = INIhelper.IniRead("详情", "B_UpStigmataBackup", "Up四星圣痕", path);
+                        Text_UpWeapon = ini.Object["详情"]["B_UpWeaponBackup"].GetValueOrDefault("Up四星武器");
+                        Text_UpStigmata = ini.Object["详情"]["B_UpStigmataBackup"].GetValueOrDefault("Up四星圣痕");
 
                     }
-                    Text_Weapon1 = INIhelper.IniRead("详情", "B_Weapon_Item0", "四星武器1", path);
-                    Text_Weapon2 = INIhelper.IniRead("详情", "B_Weapon_Item1", "四星武器2", path);
-                    Text_Weapon3 = INIhelper.IniRead("详情", "B_Weapon_Item2", "四星武器3", path);
-                    Text_Weapon4 = INIhelper.IniRead("详情", "B_Weapon_Item3", "四星武器4", path);
-                    Text_Weapon5 = INIhelper.IniRead("详情", "B_Weapon_Item4", "四星武器5", path);
-                    Text_Weapon6 = INIhelper.IniRead("详情", "B_Weapon_Item5", "四星武器6", path);
-                    Text_Stigmata1 = INIhelper.IniRead("详情", "B_Stigmata_Item0", "四星圣痕1", path);
-                    Text_Stigmata2 = INIhelper.IniRead("详情", "B_Stigmata_Item1", "四星圣痕2", path);
-                    Text_Stigmata3 = INIhelper.IniRead("详情", "B_Stigmata_Item2", "四星圣痕3", path);
-                    Text_Stigmata4 = INIhelper.IniRead("详情", "B_Stigmata_Item3", "四星圣痕4", path);
+                    Text_Weapon1 = ini.Object["详情"]["B_Weapon_Item0"].GetValueOrDefault("四星武器1");
+                    Text_Weapon2 = ini.Object["详情"]["B_Weapon_Item1"].GetValueOrDefault("四星武器2");
+                    Text_Weapon3 = ini.Object["详情"]["B_Weapon_Item2"].GetValueOrDefault("四星武器3");
+                    Text_Weapon4 = ini.Object["详情"]["B_Weapon_Item3"].GetValueOrDefault("四星武器4");
+                    Text_Weapon5 = ini.Object["详情"]["B_Weapon_Item4"].GetValueOrDefault("四星武器5");
+                    Text_Weapon6 = ini.Object["详情"]["B_Weapon_Item5"].GetValueOrDefault("四星武器6");
+                    Text_Stigmata1 = ini.Object["详情"]["B_Stigmata_Item0"].GetValueOrDefault("四星圣痕1");
+                    Text_Stigmata2 = ini.Object["详情"]["B_Stigmata_Item1"].GetValueOrDefault("四星圣痕2");
+                    Text_Stigmata3 = ini.Object["详情"]["B_Stigmata_Item2"].GetValueOrDefault("四星圣痕3");
+                    Text_Stigmata4 = ini.Object["详情"]["B_Stigmata_Item3"].GetValueOrDefault("四星圣痕4");
                     break;
             }
 
@@ -1431,33 +1457,28 @@ namespace me.luohuaming.Gacha.UI
 
         public void Read_BP()
         {
-            string path = "";
-            if (cq!=null)
-            {
-                path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
-            }
-            else
-            {
-                path = $@"{CQSave.cq_private.CQApi.AppDirectory}\概率\标配概率.txt";
-            }
-            Probablity_BP角色卡 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色卡", "6.00", path).Replace("%", ""));
-            Probablity_BP角色碎片 = Convert.ToDouble(INIhelper.IniRead("综合概率", "角色碎片", "17.25", path).Replace("%", ""));
-            Probablity_BP装备 = Convert.ToDouble(INIhelper.IniRead("综合概率", "四星装备", "1.19", path).Replace("%", ""));
-            Probablity_BP材料 = Convert.ToDouble(INIhelper.IniRead("综合概率", "材料", "75.56", path).Replace("%", ""));
-            Probablity_BPS = Convert.ToDouble(INIhelper.IniRead("详细概率", "S角色", "1.50", path).Replace("%", ""));
-            Probablity_BPA = Convert.ToDouble(INIhelper.IniRead("详细概率", "A角色", "4.50", path).Replace("%", ""));
-            Probablity_BPB = Convert.ToDouble(INIhelper.IniRead("详细概率", "B角色", "1.00", path).Replace("%", ""));
-            Probablity_BPSdebris = Convert.ToDouble(INIhelper.IniRead("详细概率", "S角色碎片", "2.25", path).Replace("%", ""));
-            Probablity_BPAdebris = Convert.ToDouble(INIhelper.IniRead("详细概率", "A角色碎片", "15.00", path).Replace("%", ""));
-            Probablity_BPWeapon4 = Convert.ToDouble(INIhelper.IniRead("详细概率", "4星武器", "0.46", path).Replace("%", ""));
-            Probablity_BPStigmata4 = Convert.ToDouble(INIhelper.IniRead("详细概率", "4星圣痕", "0.73", path).Replace("%", ""));
+            path = Path.Combine(CQSave.AppDirectory, "概率", "标配概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
 
-            Probablity_Material技能材料 = Convert.ToDouble(INIhelper.IniRead("详细概率", "技能材料", "10.00", path).Replace("%", ""));
-            Probablity_Material反应炉 = Convert.ToDouble(INIhelper.IniRead("详细概率", "低星装备材料", "26.41", path).Replace("%", ""));
-            Probablity_Material紫色角色经验 = Convert.ToDouble(INIhelper.IniRead("详细概率", "角色经验", "11.17", path).Replace("%", ""));
-            Probablity_Material吼咪宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼咪宝藏", "2.232", path).Replace("%", ""));
-            Probablity_Material吼美宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼美宝藏", "3.334", path).Replace("%", ""));
-            Probablity_Material吼姆宝藏 = Convert.ToDouble(INIhelper.IniRead("详细概率", "吼姆宝藏", "5.556", path).Replace("%", ""));
+            Probablity_BP角色卡 = Convert.ToDouble(ini.Object["综合概率"]["角色卡"].GetValueOrDefault("6.00").Replace("%", ""));
+            Probablity_BP角色碎片 = Convert.ToDouble(ini.Object["综合概率"]["角色碎片"].GetValueOrDefault("17.25").Replace("%", ""));
+            Probablity_BP装备 = Convert.ToDouble(ini.Object["综合概率"]["四星装备"].GetValueOrDefault("1.19").Replace("%", ""));
+            Probablity_BP材料 = Convert.ToDouble(ini.Object["综合概率"]["材料"].GetValueOrDefault("75.56").Replace("%", ""));
+            Probablity_BPS = Convert.ToDouble(ini.Object["详细概率"]["S角色"].GetValueOrDefault("1.50").Replace("%", ""));
+            Probablity_BPA = Convert.ToDouble(ini.Object["详细概率"]["A角色"].GetValueOrDefault("4.50").Replace("%", ""));
+            Probablity_BPB = Convert.ToDouble(ini.Object["详细概率"]["B角色"].GetValueOrDefault("1.00").Replace("%", ""));
+            Probablity_BPSdebris = Convert.ToDouble(ini.Object["详细概率"]["S角色碎片"].GetValueOrDefault("2.25").Replace("%", ""));
+            Probablity_BPAdebris = Convert.ToDouble(ini.Object["详细概率"]["A角色碎片"].GetValueOrDefault("15.00").Replace("%", ""));
+            Probablity_BPWeapon4 = Convert.ToDouble(ini.Object["详细概率"]["4星武器"].GetValueOrDefault("0.46").Replace("%", ""));
+            Probablity_BPStigmata4 = Convert.ToDouble(ini.Object["详细概率"]["4星圣痕"].GetValueOrDefault("0.73").Replace("%", ""));
+
+            Probablity_Material技能材料 = Convert.ToDouble(ini.Object["详细概率"]["技能材料"].GetValueOrDefault("10.00").Replace("%", ""));
+            Probablity_Material反应炉 = Convert.ToDouble(ini.Object["详细概率"]["低星装备材料"].GetValueOrDefault("26.41").Replace("%", ""));
+            Probablity_Material紫色角色经验 = Convert.ToDouble(ini.Object["详细概率"]["角色经验"].GetValueOrDefault("11.17").Replace("%", ""));
+            Probablity_Material吼咪宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼咪宝藏"].GetValueOrDefault("2.232").Replace("%", ""));
+            Probablity_Material吼美宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼美宝藏"].GetValueOrDefault("3.334").Replace("%", ""));
+            Probablity_Material吼姆宝藏 = Convert.ToDouble(ini.Object["详细概率"]["吼姆宝藏"].GetValueOrDefault("5.556").Replace("%", ""));
         }
     }
 }

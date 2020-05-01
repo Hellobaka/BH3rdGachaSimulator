@@ -1,5 +1,5 @@
 ## 崩坏3抽卡模拟图片版
-基于Jie2GG的[Native.FrameWork](https://github.com/Jie2GG/Native.Framework)框架，依托于酷Q平台进行开发
+基于Jie2GG的[Native.FrameWork](https://github.com/Jie2GG/Native.Framework)框架的v4.2.1.0429版本，依托于酷Q平台进行开发
 
 ## 引言
 交流群:671467200<br>

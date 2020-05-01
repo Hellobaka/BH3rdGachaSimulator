@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Native.Sdk.Cqp.EventArgs;
 using Native.Sdk.Cqp.Interface;
+using Native.Tool.IniConfig;
 
 namespace me.luohuaming.Gacha.UI
 {
@@ -23,7 +24,7 @@ namespace me.luohuaming.Gacha.UI
         static public int Width_Diamond;
         static public int Height_1 = 45;
         static public float WordTrap = 3;
-
+        static IniConfig ini;
         public Image CombinImage(Image background, Image newimg, int x, int y, int Pos_Simata, bool isnew)
         {
             Bitmap map1 = new Bitmap(background);
@@ -487,7 +488,9 @@ namespace me.luohuaming.Gacha.UI
                 Font font = new Font("汉仪丫丫体简", 15F);
                 Color color = Color.FromArgb(0, 0, 0);
                 background = AddText2Image(background, "Powered by @水银之翼", p, font, color, 0);
-                if (INIhelper.IniRead("ExtraConfig", "ImageFormat", "jpg", CQSave.AppDirectory + "Config.ini") == "jpg")
+                ini = new IniConfig(CQSave.AppDirectory + "Config.ini");
+                ini.Load();
+                if (ini.Object["ExtraConfig"]["ImageFormat"].GetValueOrDefault("jpg") == "jpg")
                 {
                     if (!Directory.Exists($@"{CQSave.ImageDirectory}\装备结果"))
                     {
@@ -756,7 +759,9 @@ namespace me.luohuaming.Gacha.UI
             {
                 main = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\ItemEmpty #1004496.png");
                 background = CombinImage(background, main, 48, 13, 119, 172);
-                long controlgroup =Convert.ToInt64( INIhelper.IniRead("后台群", "Id", "0", CQSave.AppDirectory + "Config.ini"));
+                ini = new IniConfig(CQSave.AppDirectory + "Config.ini");
+                ini.Load();
+                long controlgroup =Convert.ToInt64( ini.Object["后台群"]["Id"].GetValueOrDefault("0"));
                 if (controlgroup != 0) cq.CQApi.SendGroupMessage(controlgroup, $"发现图片缺失,请排查是否为命名错误 type={gr.type} name={gr.name}");                
             }
 

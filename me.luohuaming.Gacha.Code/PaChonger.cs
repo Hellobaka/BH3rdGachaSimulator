@@ -13,6 +13,7 @@ using HtmlAgilityPack;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using System.Diagnostics;
 using me.luohuaming.Gacha.UI;
+using Native.Tool.IniConfig;
 
 namespace me.luohuaming.Gacha.Code
 {
@@ -50,6 +51,7 @@ namespace me.luohuaming.Gacha.Code
         public static List<string> KC = new List<string>();
         public static DateTime KCStartTime;
         public static string ret_Text;
+        static IniConfig ini;
         #endregion
 
         /// <summary>
@@ -700,12 +702,15 @@ namespace me.luohuaming.Gacha.Code
             }
             return result;
         }
+
         //进行OCR
         public OCR_Result TXOCR()
         {
             string image = HttpTool.UrlEncode(Convert.ToBase64String(File.ReadAllBytes($"{CQSave.ImageDirectory}\\ocrtemp.jpg"))).Replace("%3d", "%3D").Replace("%2f", "%2F").Replace("%2b", "%2B");
-            string app_id = "2123406403";
-            string app_key = "KtGhR0iLzgWbdykj";
+            ini = new IniConfig(CQSave.AppDirectory + "Config.ini");
+            ini.Load();
+            string app_id = ini.Object["OCR"]["app_id"].GetValueOrDefault("");
+            string app_key = ini.Object["OCR"]["app_key"].GetValueOrDefault("");
             string timestamp = GetTimeStamp().ToString();
             Random rd = new Random();
             string noicestr = rd.Next().ToString();

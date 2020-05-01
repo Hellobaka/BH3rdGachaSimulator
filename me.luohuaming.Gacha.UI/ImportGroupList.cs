@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Native.Sdk.Cqp.EventArgs;
+using Native.Tool.IniConfig;
+using Native.Tool.IniConfig.Linq;
 
 namespace me.luohuaming.Gacha.UI
 {
@@ -19,22 +21,25 @@ namespace me.luohuaming.Gacha.UI
             InitializeComponent();
         }
         static CQMenuCallEventArgs cq;
+        static IniConfig ini;
         private void ImportGroupList_Load(object sender, EventArgs e)
         {
             cq = CQSave.cq_menu;
-           
-            List<Native.Sdk.Cqp.Model.GroupInfo> ls= cq.CQApi.GetGroupList();
-            foreach(var item in ls)
+            string path = CQSave.AppDirectory + "Config.ini";
+            ini = new IniConfig(path);
+            ini.Load();
+            var ls = cq.CQApi.GetGroupList();
+            foreach (var item in ls)
             {
                 dataGridView1.Rows.Add(item.Group.Id, item.Name.ToString());
             }
             Label_Status.Text = "就绪     |";
             Label_Text.Text = $"已载入{ls.Count}个群...       ";
 
-            int count = Convert.ToInt32(INIhelper.IniRead("群控", "Count", "0", cq.CQApi.AppDirectory + "\\Config.ini"));
+            int count = Convert.ToInt32(ini.Object["群控"]["Count"].GetValueOrDefault("0"));
             for (int i = 0; i < count; i++)
             {
-                listBox_Group.Items.Add(INIhelper.IniRead("群控", $"Item{i}", "0", cq.CQApi.AppDirectory + "\\Config.ini"));
+                listBox_Group.Items.Add(ini.Object["群控"][$"Item{i}"].GetValueOrDefault("0"));
             }
             label_Count.Text = $"计数:{listBox_Group.Items.Count}个";
         }
@@ -42,7 +47,7 @@ namespace me.luohuaming.Gacha.UI
         private void button_AllExport_Click(object sender, EventArgs e)
         {
             listBox_Group.Items.Clear();
-            for(int i=0;i<dataGridView1.Rows.Count;i++)
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 listBox_Group.Items.Add(dataGridView1.Rows[i].Cells[0].Value.ToString());
             }
@@ -50,13 +55,13 @@ namespace me.luohuaming.Gacha.UI
         }
 
         private void button_SelectExport_Click(object sender, EventArgs e)
-        {            
-            for(int i=0;i<dataGridView1.SelectedRows.Count;i++)
+        {
+            for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
             {
                 bool flag = true;
                 foreach (var item in listBox_Group.Items)
                 {
-                    if(item.ToString()== dataGridView1.SelectedRows[i].Cells[0].Value.ToString())
+                    if (item.ToString() == dataGridView1.SelectedRows[i].Cells[0].Value.ToString())
                     {
                         Label_Error.Visible = true;
                         Label_Error.Text = $"错误:项目 {item.ToString()} 已存在";
@@ -66,7 +71,7 @@ namespace me.luohuaming.Gacha.UI
                         break;
                     }
                 }
-                if(flag)listBox_Group.Items.Add(dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
+                if (flag) listBox_Group.Items.Add(dataGridView1.SelectedRows[i].Cells[0].Value.ToString());
             }
             label_Count.Text = $"计数:{listBox_Group.Items.Count}个";
         }
@@ -91,7 +96,7 @@ namespace me.luohuaming.Gacha.UI
         private void listBox_Group_KeyDown(object sender, KeyEventArgs e)
         {
             if (listBox_Group.SelectedIndex < 0) return;
-            if (e.KeyData==Keys.Delete)
+            if (e.KeyData == Keys.Delete)
             {
                 listBox_Group.Items.Remove(listBox_Group.SelectedItem);
                 listBox_Group.SelectedItem = 0;
@@ -104,7 +109,7 @@ namespace me.luohuaming.Gacha.UI
             long admin = 0;
             try
             {
-                if(!string.IsNullOrEmpty(textBox_Admin.Text)) admin = Convert.ToInt64(textBox_Admin.Text);
+                if (!string.IsNullOrEmpty(textBox_Admin.Text)) admin = Convert.ToInt64(textBox_Admin.Text);
             }
             catch
             {
@@ -112,36 +117,37 @@ namespace me.luohuaming.Gacha.UI
                 return;
             }
             string path = cq.CQApi.AppDirectory + "\\Config.ini";
-            
-            if(listBox_Group.Items.Count==0)
+
+            if (listBox_Group.Items.Count == 0)
             {
-                if(MessageBox.Show("当前没有群在配置中，是否继续保存？","提示",MessageBoxButtons.YesNo)==DialogResult.Cancel)
+                if (MessageBox.Show("当前没有群在配置中，是否继续保存？", "提示", MessageBoxButtons.YesNo) == DialogResult.Cancel)
                 {
                     return;
                 }
             }
-            INIhelper.IniWrite("群控", "Count", listBox_Group.Items.Count.ToString(), path);
+
+            ini.Object["群控"]["Count"]=new IValue(listBox_Group.Items.Count.ToString());
             for (int i = 0; i < listBox_Group.Items.Count; i++)
             {
-                INIhelper.IniWrite("群控", $"Item{i}", listBox_Group.Items[i].ToString(), path);
+                ini.Object["群控"][$"Item{i}"]=new IValue(listBox_Group.Items[i].ToString());
             }
-            if(!string.IsNullOrEmpty(textBox_Admin.Text))
+            if (!string.IsNullOrEmpty(textBox_Admin.Text))
             {
-                foreach(var item in listBox_Group.Items)
+                foreach (var item in listBox_Group.Items)
                 {
                     string groupid = item.ToString();
-                    if(INIhelper.IniRead(groupid, "Count", "0", path)!="0")
+                    if (ini.Object[groupid]["Count"].GetValueOrDefault("0") != "0")
                     {
-                        if(checkBox_CoverSetting.Checked)
+                        if (checkBox_CoverSetting.Checked)
                         {
-                            if(!string.IsNullOrEmpty(textBox_Admin.Text))
+                            if (!string.IsNullOrEmpty(textBox_Admin.Text))
                             {
-                                INIhelper.IniWrite(groupid, "Count", "1", path);
-                                INIhelper.IniWrite(groupid, $"Index0", textBox_Admin.Text, path);
+                                ini.Object[groupid]["Count"]=new IValue("1");
+                                ini.Object[groupid][$"Index0"]=new IValue(textBox_Admin.Text);
                             }
                             else
                             {
-                                INIhelper.IniWrite(groupid, "Count", "0", path);
+                                ini.Object[groupid]["Count"]=new IValue("0");
                             }
                         }
                     }
@@ -149,16 +155,18 @@ namespace me.luohuaming.Gacha.UI
                     {
                         if (!string.IsNullOrEmpty(textBox_Admin.Text))
                         {
-                            INIhelper.IniWrite(groupid, "Count", "1", path);
-                            INIhelper.IniWrite(groupid, $"Index0", textBox_Admin.Text, path);
+                            ini.Object[groupid]["Count"]=new IValue("1");
+                            ini.Object[groupid][$"Index0"]=new IValue(textBox_Admin.Text);
                         }
                         else
                         {
-                            INIhelper.IniWrite(groupid, "Count", "0", path);
+                            ini.Object[groupid]["Count"]=new IValue("0");
                         }
                     }
                 }
             }
+            ini.Save();
+
             MessageBox.Show("更改已保存");
         }
     }
