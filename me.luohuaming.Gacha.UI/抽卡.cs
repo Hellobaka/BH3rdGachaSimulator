@@ -1815,7 +1815,11 @@ namespace me.luohuaming.Gacha.UI
             ini.Object["详情"]["UpA"]=new IValue(textBox_KuochongUpA.Text);
             ini.Object["详情"]["Baodi"]=new IValue((checkBox_KuochongBaodi.Checked) ? "1" : "0");
             ini.Object["详情"]["ResultAt"]=new IValue((checkBox_KuochongAt.Checked) ? "1" : "0");
+            ini.Save();
 
+            path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
             for (int i = 0; i < listBox_Kuochong.Items.Count; i++)
             {
                 ini.Object["详情"][$"Item{i}"]=new IValue(listBox_Kuochong.Items[i].ToString());
@@ -1850,7 +1854,11 @@ namespace me.luohuaming.Gacha.UI
             {
                 ini.Object["详情"][$"B_Stigmata_Item{i}"]=new IValue(listBox_JingzhunStigmata.Items[i].ToString());
             }
+            ini.Save();
 
+            path = Path.Combine(CQSave.AppDirectory, "Config.ini");
+            ini = new IniConfig(path);
+            ini.Load();
             ini.Object["后台群"]["Id"]=new IValue(textBox_ControlGroup.Text);
             ini.Object["群控"]["Count"]=new IValue(listBox_Group.Items.Count.ToString());
             for (int i = 0; i < listBox_Group.Items.Count; i++)
@@ -1859,9 +1867,24 @@ namespace me.luohuaming.Gacha.UI
             }
             ini.Object["接口"]["Private"]=new IValue((checkBox1.Checked) ? "1" : "0");
             ini.Object["接口"]["Group"]=new IValue((checkBox2.Checked) ? "1" : "0");
+            if (listBox_Group.SelectedIndex >= 0)
+            {
+                string groupid = listBox_Group.Items[listBox_Group.SelectedIndex].ToString();
+                path = $@"{cq.CQApi.AppDirectory}\Config.ini";
+                ini.Object[groupid]["Count"] = new IValue(listBox_Admin.Items.Count.ToString());
+                for (int i = 0; i < listBox_Admin.Items.Count; i++)
+                {
+                    ini.Object[groupid][$"Index{i}"] = new IValue(listBox_Admin.Items[i].ToString());
+                }
+            }
+            ini.Save();
+
+            path = Path.Combine(CQSave.AppDirectory, "概率", "标配概率.txt");
+            ini = new IniConfig(path);
+            ini.Load();
+
             if (listBox_BPS.Items.Count > 0)
             {
-                path = $@"{cq.CQApi.AppDirectory}\概率\标配概率.txt";
                 ini.Object["设置"]["Baodi"]=new IValue((checkBox_BPBaodi.Checked) ? "1" : "0");
                 ini.Object["设置"]["ResultAt"]=new IValue((checkBox_BPAt.Checked) ? "1" : "0");
 
@@ -1882,16 +1905,7 @@ namespace me.luohuaming.Gacha.UI
                     ini.Object["详情_B"][$"Index{i + 1}"]=new IValue(listBox_BPB.Items[i].ToString());
                 }
             }
-            if (listBox_Group.SelectedIndex >= 0)
-            {
-                string groupid = listBox_Group.Items[listBox_Group.SelectedIndex].ToString();
-                path = $@"{cq.CQApi.AppDirectory}\Config.ini";
-                ini.Object[groupid]["Count"]=new IValue(listBox_Admin.Items.Count.ToString());
-                for (int i = 0; i < listBox_Admin.Items.Count; i++)
-                {
-                    ini.Object[groupid][$"Index{i}"]=new IValue(listBox_Admin.Items[i].ToString());
-                }
-            }
+
             ini.Save();
 
             MessageBox.Show("更改已保存");
