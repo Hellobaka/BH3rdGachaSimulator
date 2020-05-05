@@ -1456,7 +1456,7 @@ namespace me.luohuaming.Gacha.Code
             int count = Convert.ToInt32(ini.Object["群控"]["Count"].GetValueOrDefault("0"));
             for (int i = 0; i < count; i++)
             {
-                if (e.FromGroup.Id == Convert.ToInt64(ini.Object["群控"][$"Item{i}"].GetValueOrDefault("0")))
+                if (e.FromGroup.Id == ini.Object["群控"][$"Item{i}"].GetValueOrDefault((long)0))
                 {
                     return true;
                 }
@@ -1478,7 +1478,7 @@ namespace me.luohuaming.Gacha.Code
             bool flag = false;
             for (int i = 0; i < count; i++)
             {
-                if (e.FromQQ.Id == ini.Object[$"{e.FromGroup.Id}"][$"Index{i}"].GetValueOrDefault(0))
+                if (e.FromQQ.Id == ini.Object[$"{e.FromGroup.Id}"][$"Index{i}"].GetValueOrDefault((long)0))
                 {
                     flag = true;
                     break;
@@ -1503,7 +1503,7 @@ namespace me.luohuaming.Gacha.Code
             bool flag = false;
             for (int i = 0; i < count; i++)
             {
-                if (FromQQ == ini.Object[$"{FromGroup}"][$"Index{i}"].GetValueOrDefault(0))
+                if (FromQQ == ini.Object[$"{FromGroup}"][$"Index{i}"].GetValueOrDefault((long)0))
                 {
                     flag = true;
                     break;
