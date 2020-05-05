@@ -93,27 +93,27 @@ namespace me.luohuaming.Gacha.Code
                                 if (count > 60)
                                 {
                                     string imgurl = "";
-                                    List<string> Uptime = new List<string>();
-                                    foreach (var item in rootnode.ChildNodes)
-                                    {
-                                        if (item.SelectSingleNode("img[1]") != null)
-                                        {
-                                            try
-                                            {
-                                                HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
-                                                imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
-                                                Uptime = GetUpDate(imgurl);
-                                                for (int i = 0; i < Uptime.Count; i++)
-                                                {
-                                                    Uptime[i] = Date2DateTtime(Uptime[i]).ToString();
-                                                }
-                                            }
-                                            catch
-                                            {
+                                    //List<string> Uptime = new List<string>();
+                                    //foreach (var item in rootnode.ChildNodes)
+                                    //{
+                                    //    if (item.SelectSingleNode("img[1]") != null)
+                                    //    {
+                                    //        try
+                                    //        {
+                                    //            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
+                                    //            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
+                                    //            Uptime = GetUpDate(imgurl);
+                                    //            for (int i = 0; i < Uptime.Count; i++)
+                                    //            {
+                                    //                Uptime[i] = Date2DateTtime(Uptime[i]).ToString();
+                                    //            }
+                                    //        }
+                                    //        catch
+                                    //        {
 
-                                            }
-                                        }
-                                    }
+                                    //        }
+                                    //    }
+                                    //}
                                     foreach (var item in rootnode.ChildNodes)
                                     {
                                         if (item.InnerText.Contains("精准补给A为"))
@@ -126,27 +126,27 @@ namespace me.luohuaming.Gacha.Code
                                                 UPAWeapon=result[0];
                                                 UPAStigmata=result[1];
                                             }
-                                            try
-                                            {
-                                                if (Uptime.Count == 4)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else if (Uptime.Count == 2)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else
-                                                {
-                                                    CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取异常");
-                                                }
-                                            }
-                                            catch
-                                            {
-                                                CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取失败");
-                                            }
+                                            //try
+                                            //{
+                                            //    if (Uptime.Count == 4)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else if (Uptime.Count == 2)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取异常");
+                                            //    }
+                                            //}
+                                            //catch
+                                            //{
+                                            //    CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取失败");
+                                            //}
                                         }
                                         if (item.InnerText.Contains("精准补给B为"))
                                         {
@@ -158,27 +158,27 @@ namespace me.luohuaming.Gacha.Code
                                                 UPBWeapon=result[0];
                                                 UPBStigmata=result[1];
                                             }
-                                            try
-                                            {
-                                                if (Uptime.Count == 4)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[2]}\n";
-                                                    JZBStartTime = Convert.ToDateTime(Uptime[2]);
-                                                }
-                                                else if (Uptime.Count == 2)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
-                                                    JZBStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else
-                                                {
-                                                    CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取异常");
-                                                }
-                                            }
-                                            catch
-                                            {
-                                                CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取失败");
-                                            }
+                                            //try
+                                            //{
+                                            //    if (Uptime.Count == 4)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[2]}\n";
+                                            //        JZBStartTime = Convert.ToDateTime(Uptime[2]);
+                                            //    }
+                                            //    else if (Uptime.Count == 2)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZBStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取异常");
+                                            //    }
+                                            //}
+                                            //catch
+                                            //{
+                                            //    CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取失败");
+                                            //}
                                         }
                                         if (item.InnerText.Contains("【★4武器】"))
                                         {
@@ -234,23 +234,23 @@ namespace me.luohuaming.Gacha.Code
                                 else if (count == 16)
                                 {
                                     string imgurl = "";
-                                    List<string> Uptime = new List<string>();
-                                    foreach (var item in rootnode.ChildNodes)
-                                    {
-                                        if (item.SelectSingleNode("img[1]") != null)
-                                        {
-                                            try
-                                            {
-                                                HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
-                                                imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
-                                                Uptime = GetUpDate(imgurl);
-                                            }
-                                            catch
-                                            {
+                                    //List<string> Uptime = new List<string>();
+                                    //foreach (var item in rootnode.ChildNodes)
+                                    //{
+                                    //    if (item.SelectSingleNode("img[1]") != null)
+                                    //    {
+                                    //        try
+                                    //        {
+                                    //            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
+                                    //            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
+                                    //            Uptime = GetUpDate(imgurl);
+                                    //        }
+                                    //        catch
+                                    //        {
 
-                                            }
-                                        }
-                                    }
+                                    //        }
+                                    //    }
+                                    //}
                                     foreach (var item in rootnode.ChildNodes)
                                     {
                                         if (item.InnerText.Contains("精准补给A为"))
@@ -263,27 +263,27 @@ namespace me.luohuaming.Gacha.Code
                                                 UPAWeapon=result[0];
                                                 UPAStigmata=result[1];
                                             }
-                                            try
-                                            {
-                                                if (Uptime.Count == 4)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else if (Uptime.Count == 2)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else
-                                                {
-                                                    CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取异常");
-                                                }
-                                            }
-                                            catch
-                                            {
-                                                CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取失败");
-                                            }
+                                            //try
+                                            //{
+                                            //    if (Uptime.Count == 4)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else if (Uptime.Count == 2)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取异常");
+                                            //    }
+                                            //}
+                                            //catch
+                                            //{
+                                            //    CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取失败");
+                                            //}
                                         }
                                         if (item.InnerText.Contains("精准补给B为"))
                                         {
@@ -295,29 +295,29 @@ namespace me.luohuaming.Gacha.Code
                                                 UPBWeapon=result[2];
                                                 UPBStigmata=result[3];
                                             }
-                                            try
-                                            {
-                                                if (Uptime.Count == 4)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //try
+                                            //{
+                                            //    if (Uptime.Count == 4)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                                    JZBStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else if (Uptime.Count == 2)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZBStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else if (Uptime.Count == 2)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                                    JZBStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else
-                                                {
-                                                    CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取异常");
-                                                }
-                                            }
-                                            catch
-                                            {
-                                                CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取失败");
-                                            }
+                                            //        JZBStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取异常");
+                                            //    }
+                                            //}
+                                            //catch
+                                            //{
+                                            //    CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取失败");
+                                            //}
                                         }
                                         if (item.InnerText.Contains("【★4武器】"))
                                         {
@@ -367,25 +367,24 @@ namespace me.luohuaming.Gacha.Code
                                 }
                                 else if (count == 14)
                                 {
-                                    string imgurl = "";
-                                    List<string> Uptime = new List<string>();
+                                    //string imgurl = "";
+                                    //List<string> Uptime = new List<string>();
+                                    //foreach (var item in rootnode.ChildNodes)
+                                    //{
+                                    //    if (item.SelectSingleNode("img[1]") != null)
+                                    //    {
+                                    //        try
+                                    //        {
+                                    //            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
+                                    //            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
+                                    //            Uptime = GetUpDate(imgurl);
+                                    //        }
+                                    //        catch
+                                    //        {
 
-                                    foreach (var item in rootnode.ChildNodes)
-                                    {
-                                        if (item.SelectSingleNode("img[1]") != null)
-                                        {
-                                            try
-                                            {
-                                                HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
-                                                imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
-                                                Uptime = GetUpDate(imgurl);
-                                            }
-                                            catch
-                                            {
-
-                                            }
-                                        }
-                                    }
+                                    //        }
+                                    //    }
+                                    //}
                                     foreach (var item in rootnode.ChildNodes)
                                     {
                                         if (item.InnerText.Contains("精准补给A为"))
@@ -398,29 +397,29 @@ namespace me.luohuaming.Gacha.Code
                                                 UPAWeapon=result[0];
                                                 UPAStigmata=result[1];
                                             }
-                                            try
-                                            {
-                                                if (Uptime.Count == 4)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //try
+                                            //{
+                                            //    if (Uptime.Count == 4)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else if (Uptime.Count == 2)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else if (Uptime.Count == 2)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else
-                                                {
-                                                    CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取异常");
-                                                }
-                                            }
-                                            catch
-                                            {
-                                                CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取失败");
-                                            }
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取异常");
+                                            //    }
+                                            //}
+                                            //catch
+                                            //{
+                                            //    CQSave.CQLog.Info("崩坏三公告获取", "精准A时间获取失败");
+                                            //}
                                         }
                                         if (item.InnerText.Contains("精准补给B为"))
                                         {
@@ -432,29 +431,29 @@ namespace me.luohuaming.Gacha.Code
                                                 UPBWeapon=result[0];
                                                 UPBStigmata=result[1];
                                             }
-                                            try
-                                            {
-                                                if (Uptime.Count == 4)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //try
+                                            //{
+                                            //    if (Uptime.Count == 4)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else if (Uptime.Count == 2)
-                                                {
-                                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else if (Uptime.Count == 2)
+                                            //    {
+                                            //        ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                                    JZAStartTime = Convert.ToDateTime(Uptime[0]);
-                                                }
-                                                else
-                                                {
-                                                    CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取异常");
-                                                }
-                                            }
-                                            catch
-                                            {
-                                                CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取失败");
-                                            }
+                                            //        JZAStartTime = Convert.ToDateTime(Uptime[0]);
+                                            //    }
+                                            //    else
+                                            //    {
+                                            //        CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取异常");
+                                            //    }
+                                            //}
+                                            //catch
+                                            //{
+                                            //    CQSave.CQLog.Info("崩坏三公告获取", "精准B时间获取失败");
+                                            //}
                                         }
                                         if (item.InnerText.Contains("【★4武器】"))
                                         {
@@ -514,28 +513,28 @@ namespace me.luohuaming.Gacha.Code
                             {
                                 rootnode = htmlDoc.DocumentNode.SelectSingleNode($"/html[1]/body[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[3]/div[2]");
                                 var count = rootnode.ChildNodes.Count;
-                                string imgurl = "";
-                                List<string> Uptime = new List<string>();
-                                foreach (var item in rootnode.ChildNodes)
-                                {
-                                    if (item.SelectSingleNode("img[1]") != null)
-                                    {
-                                        try
-                                        {
-                                            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
-                                            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
-                                            Uptime = GetUpDate(imgurl);
-                                            for (int i = 0; i < Uptime.Count; i++)
-                                            {
-                                                Uptime[i] = Date2DateTtime(Uptime[i]).ToString();
-                                            }
-                                        }
-                                        catch
-                                        {
+                                //string imgurl = "";
+                                //List<string> Uptime = new List<string>();
+                                //foreach (var item in rootnode.ChildNodes)
+                                //{
+                                //    if (item.SelectSingleNode("img[1]") != null)
+                                //    {
+                                //        try
+                                //        {
+                                //            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
+                                //            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
+                                //            Uptime = GetUpDate(imgurl);
+                                //            for (int i = 0; i < Uptime.Count; i++)
+                                //            {
+                                //                Uptime[i] = Date2DateTtime(Uptime[i]).ToString();
+                                //            }
+                                //        }
+                                //        catch
+                                //        {
 
-                                        }
-                                    }
-                                }
+                                //        }
+                                //    }
+                                //}
                                 //扩充项目
                                 ret_Text += "扩充补给 UP:\n";
                                 foreach (var item in GetUpStaff(title.Substring(0, title.IndexOf("扩充补给"))))
@@ -570,16 +569,16 @@ namespace me.luohuaming.Gacha.Code
                                     }
                                     if (KCCount == 3) break;
                                 }
-                                if (Uptime.Count < 2)
-                                {
-                                    CQSave.CQLog.Info("崩坏三公告获取", "扩充时间获取异常");
-                                }
-                                else
-                                {
-                                    ret_Text += $"开始时间:{Uptime[0]}\n";
+                                //if (Uptime.Count < 2)
+                                //{
+                                //    CQSave.CQLog.Info("崩坏三公告获取", "扩充时间获取异常");
+                                //}
+                                //else
+                                //{
+                                //    ret_Text += $"开始时间:{Uptime[0]}\n";
 
-                                    KCStartTime = Convert.ToDateTime(Uptime[0]);
-                                }
+                                //    KCStartTime = Convert.ToDateTime(Uptime[0]);
+                                //}
                             }
                             catch (Exception ex)
                             {

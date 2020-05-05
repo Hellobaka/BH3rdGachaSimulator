@@ -1123,11 +1123,11 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.StartsWith("#更换池子"))
             {
                 e.Handler = true;
-                if (ini.Object["OCR"]["app_id"].GetValueOrDefault("") == "")
-                {
-                    e.CQLog.Warning("参数缺失", $"请到插件数据 Config.ini 下OCR字段填写App_id与App_key。若没有可到插件论坛页面按照提示获取.");
-                    return;
-                }
+                //if (ini.Object["OCR"]["app_id"].GetValueOrDefault("") == "")
+                //{
+                //    e.CQLog.Warning("参数缺失", $"请到插件数据 Config.ini 下OCR字段填写App_id与App_key。若没有可到插件论坛页面按照提示获取.");
+                //    return;
+                //}
                 if (CheckAdmin(e))
                 {
                     string option = e.Message.Text.Substring("#更换池子".Length).Trim();
@@ -1166,6 +1166,11 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.StartsWith("#抽干家底"))
             { 
                 e.Handler = true;
+                if(e.Message.Text.Trim()== "#抽干家底")
+                {
+                    e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ),"请指定要抽取的池子，扩充或者精准A/B");
+                    return;
+                }
                 string order = e.Message.Text.Substring("#抽干家底".Length).Trim().ToUpper().Replace(" ","");
                 if (order == "扩充")
                 {                      
