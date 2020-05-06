@@ -65,3 +65,7 @@ clone下载之后，设置Native.Core项目的生成目录为 ...\CQP-xiaoi\酷Q
 GitHub：https://github.com/Jie2GG/Native.Framework<br>
 
 感谢解包大佬提供的解包！没有解包图片就没有这个项目了
+## 赞助环节
+小小项目维护不易，您的赞助将成为我持续更新的动力。只要我还在玩崩坏三一天，我就会一直维护下去!<br>
+![AliPay](https://i.loli.net/2020/05/06/PAI3zJMTai9EOsC.jpg)
+![WeChatPay](https://i.loli.net/2020/05/06/HjITkviRJGfAox4.png)
