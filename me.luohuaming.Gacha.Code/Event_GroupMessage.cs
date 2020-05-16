@@ -128,7 +128,7 @@ namespace me.luohuaming.Gacha.Code
                 tasksql.Start(); CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
-                path = $@"{CQSave.AppDirectory}\概率\扩充概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["ResultAt"].GetValueOrDefault("0") == "0")
@@ -202,7 +202,7 @@ namespace me.luohuaming.Gacha.Code
                 tasksql.Start(); CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
-                path = $@"{CQSave.AppDirectory}\概率\扩充概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["ResultAt"].GetValueOrDefault("0") == "0")
@@ -265,7 +265,7 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
 
-                path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["A_ResultAt"].GetValueOrDefault("0") == "0")
@@ -343,7 +343,7 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
 
-                path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["A_ResultAt"].GetValueOrDefault("0") == "0")
@@ -406,7 +406,7 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
 
-                path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["B_ResultAt"].GetValueOrDefault("0") == "0")
@@ -483,7 +483,7 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
 
-                path = $@"{CQSave.AppDirectory}\概率\精准概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["B_ResultAt"].GetValueOrDefault("0") == "0")
@@ -559,7 +559,7 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
-                path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
 
@@ -620,7 +620,7 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
-                path = $@"{CQSave.AppDirectory}\概率\标配概率.txt";
+                path = $@"{CQSave.AppDirectory}Config.ini";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["ResultAt"].GetValueOrDefault("0") == "0")
@@ -1626,26 +1626,24 @@ namespace me.luohuaming.Gacha.Code
             {
                 ini.Object["详情"]["A_UpWeapon"] = new IValue(PaChonger.UPAWeapon);
                 ini.Object["详情"]["A_UpStigmata"] = new IValue(PaChonger.UPAStigmata);
-                ini.Save();
 
                 int count = 0;
                 for (int i = 0; i < PaChonger.JZWeapon.Count; i++)
                 {
                     if (PaChonger.JZWeapon[i] == PaChonger.UPAWeapon) continue;
                     ini.Object["详情"][$"A_Weapon_Item{count}"] = new IValue(PaChonger.JZWeapon[i]);
-                    ini.Save();
 
                     count++;
                 }
                 count = 0;
-                for (int i = 1; i < PaChonger.JZStigmata.Count; i++)
+                for (int i = 0; i < PaChonger.JZStigmata.Count; i++)
                 {
                     if (PaChonger.JZStigmata[i] == PaChonger.UPAStigmata) continue;
-                    ini.Object["详情"][$"A_Stigmata_Item{count}"] = new IValue(PaChonger.JZStigmata[i]);
-                    ini.Save();
+                    ini.Object["详情"][$"A_Stigmata_Item{count}"] = new IValue(PaChonger.JZStigmata[i]);                    
 
                     count++;
                 }
+                ini.Save();
                 ret_Text += "精准A ";
             }
 
@@ -1653,25 +1651,24 @@ namespace me.luohuaming.Gacha.Code
                PaChonger.UPBStigmata != "" && PaChonger.UPBWeapon != "")
             {
                 ini.Object["详情"]["B_UpWeapon"] = new IValue(PaChonger.UPBWeapon);
-                ini.Object["详情"]["B_UpStigmata"] = new IValue(PaChonger.UPBStigmata);
-                ini.Save();
+                ini.Object["详情"]["B_UpStigmata"] = new IValue(PaChonger.UPBStigmata);                
 
                 int count = 0;
                 for (int i = 0; i < PaChonger.JZWeapon.Count; i++)
                 {
                     if (PaChonger.JZWeapon[i] == PaChonger.UPBWeapon) continue;
                     ini.Object["详情"][$"B_Weapon_Item{count}"] = new IValue(PaChonger.JZWeapon[i]);
-                    ini.Save();
 
                     count++;
                 }
                 count = 0;
-                for (int i = 1; i < PaChonger.JZStigmata.Count; i++)
+                for (int i = 0; i < PaChonger.JZStigmata.Count; i++)
                 {
                     if (PaChonger.JZStigmata[i] == PaChonger.UPBStigmata) continue;
                     ini.Object["详情"][$"B_Stigmata_Item{count}"] = new IValue(PaChonger.JZStigmata[i]);
                     count++;
                 }
+                ini.Save();
                 ret_Text += "精准B ";
             }
 

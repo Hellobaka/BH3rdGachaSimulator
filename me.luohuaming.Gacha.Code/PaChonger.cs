@@ -513,28 +513,28 @@ namespace me.luohuaming.Gacha.Code
                             {
                                 rootnode = htmlDoc.DocumentNode.SelectSingleNode($"/html[1]/body[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[3]/div[2]");
                                 var count = rootnode.ChildNodes.Count;
-                                //string imgurl = "";
-                                //List<string> Uptime = new List<string>();
-                                //foreach (var item in rootnode.ChildNodes)
-                                //{
-                                //    if (item.SelectSingleNode("img[1]") != null)
-                                //    {
-                                //        try
-                                //        {
-                                //            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
-                                //            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
-                                //            Uptime = GetUpDate(imgurl);
-                                //            for (int i = 0; i < Uptime.Count; i++)
-                                //            {
-                                //                Uptime[i] = Date2DateTtime(Uptime[i]).ToString();
-                                //            }
-                                //        }
-                                //        catch
-                                //        {
+                                string imgurl = "";
+                                List<string> Uptime = new List<string>();
+                                foreach (var item in rootnode.ChildNodes)
+                                {
+                                    if (item.SelectSingleNode("img[1]") != null)
+                                    {
+                                        try
+                                        {
+                                            HttpWebClient.Get(item.SelectSingleNode("img[1]").GetAttributeValue("src", ""));
+                                            imgurl = item.SelectSingleNode("img[1]").GetAttributeValue("src", "");
+                                            Uptime = GetUpDate(imgurl);
+                                            for (int i = 0; i < Uptime.Count; i++)
+                                            {
+                                                Uptime[i] = Date2DateTtime(Uptime[i]).ToString();
+                                            }
+                                        }
+                                        catch
+                                        {
 
-                                //        }
-                                //    }
-                                //}
+                                        }
+                                    }
+                                }
                                 //扩充项目
                                 ret_Text += "扩充补给 UP:\n";
                                 foreach (var item in GetUpStaff(title.Substring(0, title.IndexOf("扩充补给"))))
@@ -542,12 +542,23 @@ namespace me.luohuaming.Gacha.Code
                                     ret_Text += $"{item}\n";
                                     KC.Add(item);
                                 }
-                                var kuochong = rootnode.SelectSingleNode($"p[2]");
-                                GetUpStaff(kuochong.InnerText);
+                                if (KC.Count <= 2)
+                                { 
+                                    var kuochong = rootnode.SelectSingleNode($"p[2]");
+                                    foreach(var item in GetUpStaff(kuochong.InnerText))
+                                    {
+                                        if (!KC.Contains(item))
+                                        {
+                                            ret_Text += $"{item}\n";
+                                            KC.Add(item);
+                                        }
+                                    }
+                                }
                                 ret_Text += "其他角色:\n";
                                 int KCCount = 0;
                                 foreach (var item in res.data.item_list)
                                 {
+                                    item.itemstring = item.itemstring.Replace(":", "·");
                                     string path = Path.Combine($@"{CQSave.AppDirectory}\装备卡\角色卡\", $"{item.itemstring}.png");                                    
                                     if (File.Exists(path))
                                     {
