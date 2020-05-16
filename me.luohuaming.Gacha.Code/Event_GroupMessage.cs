@@ -128,11 +128,14 @@ namespace me.luohuaming.Gacha.Code
                 tasksql.Start(); CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\扩充概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 1, diamond - 280)}]");
@@ -144,6 +147,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0, 0, 1, diamond - 280)}]");
@@ -202,11 +208,14 @@ namespace me.luohuaming.Gacha.Code
                 tasksql.Start(); CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\扩充概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 0, 0, 10, diamond - 2800)}]");
@@ -218,6 +227,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 0, 0, 10, diamond - 2800)}]");
@@ -265,11 +277,14 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
 
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["A_ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 1, diamond - 280)}]");
@@ -282,6 +297,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 1, 1, diamond - 280)}]");
@@ -343,11 +361,14 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
 
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["A_ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 1, 10, diamond - 2800)}]");
@@ -360,6 +381,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 1, 10, diamond - 2800)}]");
@@ -406,11 +430,14 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
 
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["B_ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
@@ -422,6 +449,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 2, 1, diamond - 280)}]");
@@ -483,11 +513,14 @@ namespace me.luohuaming.Gacha.Code
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
 
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["B_ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
@@ -499,6 +532,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 1, 2, 10, diamond - 2800)}]");
@@ -559,12 +595,15 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\标配概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
 
                 if (ini.Object["设置"]["ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
@@ -576,6 +615,9 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 2, 0, 10, diamond - 2800)}]");
@@ -620,11 +662,14 @@ namespace me.luohuaming.Gacha.Code
                 CombinePng cp = new CombinePng();
                 SubDiamond(cq.FromQQ.Id, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
-                path = $@"{CQSave.AppDirectory}Config.ini";
+                path = $@"{CQSave.AppDirectory}概率\标配概率.txt";
                 ini = new IniConfig(path);
                 ini.Load();
                 if (ini.Object["详情"]["ResultAt"].GetValueOrDefault("0") == "0")
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
@@ -636,6 +681,10 @@ namespace me.luohuaming.Gacha.Code
                 }
                 else
                 {
+                    path = $@"{CQSave.AppDirectory}Config.ini";
+                    ini = new IniConfig(path);
+                    ini.Load();
+
                     if (ini.Object["ExtraConfig"]["TextGacha"].GetValueOrDefault("0") == "0")
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"[CQ:at,qq={e.FromQQ.Id}][CQ:image,file={cp.Gacha(ls, 2, 0, 1, diamond - 280)}]");
