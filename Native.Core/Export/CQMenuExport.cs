@@ -44,6 +44,15 @@ namespace Native.App.Export
 				Menu_menuAHandler += AppData.UnityContainer.Resolve<IMenuCall> ("控制窗口").MenuCall;	
 			}	
 			
+			/*	
+			 * Name: 自定义池子设置	
+			 * Function: _menuB	
+			 */	
+			if (AppData.UnityContainer.IsRegistered<IMenuCall> ("自定义池子设置"))	
+			{	
+				Menu_menuBHandler += AppData.UnityContainer.Resolve<IMenuCall> ("自定义池子设置").MenuCall;	
+			}	
+			
 		}	
 		#endregion	
 		
@@ -60,6 +69,22 @@ namespace Native.App.Export
 			{	
 				CQMenuCallEventArgs args = new CQMenuCallEventArgs (AppData.CQApi, AppData.CQLog, "控制窗口", "_menuA");	
 				Menu_menuAHandler (typeof (CQMenuExport), args);	
+			}	
+			return 0;	
+		}	
+		
+		/*	
+		 * Name: 自定义池子设置	
+		 * Function: _menuB	
+		 */	
+		public static event EventHandler<CQMenuCallEventArgs> Menu_menuBHandler;	
+		[DllExport (ExportName = "_menuB", CallingConvention = CallingConvention.StdCall)]	
+		public static int Menu_menuB ()	
+		{	
+			if (Menu_menuBHandler != null)	
+			{	
+				CQMenuCallEventArgs args = new CQMenuCallEventArgs (AppData.CQApi, AppData.CQLog, "自定义池子设置", "_menuB");	
+				Menu_menuBHandler (typeof (CQMenuExport), args);	
 			}	
 			return 0;	
 		}	

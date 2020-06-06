@@ -139,7 +139,7 @@ namespace me.luohuaming.Gacha.UI
         /// 使用RNGCryptoServiceProvider生成种子
         /// </summary>
         /// <returns></returns>
-        public int GetRandomSeed()
+        public static int GetRandomSeed()
         {
             Random rd = new Random();
             byte[] bytes = new byte[rd.Next(0, 10000000)];
@@ -653,7 +653,15 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
                 {
-                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Weapon3"].GetValueOrDefault("0"));
+                    int count = 0;
+                    try
+                    {
+                        count = Convert.ToInt32(ini.Object["详情"]["Count_Weapon3"].GetValueOrDefault("0"));
+                    }
+                    catch
+                    {
+                        count = 0;
+                    }
                     gr.name = ini.Object["详情"][$"Weapon3_Item{rd.Next(0, count)}"].GetValueOrDefault("3星武器");
                     gr.count = 1;
                     gr.type = TypeS.Weapon.ToString();
@@ -666,7 +674,15 @@ namespace me.luohuaming.Gacha.UI
                 }
                 else if (pro_1 < Probablity_Stigmata3Total + Probablity_Weapon3Total + Probablity_Weapon4Total + Probablity_Stigmata4Total)
                 {
-                    int count = Convert.ToInt32(ini.Object["详情"]["Count_Stigmata3"].GetValueOrDefault("0"));
+                    int count = 0;
+                    try
+                    {
+                        count=Convert.ToInt32(ini.Object["详情"]["Count_Stigmata3"].GetValueOrDefault("0"));
+                    }
+                    catch
+                    {
+                        count = 0;
+                    }
                     gr.name = ini.Object["详情"][$"Stigmata3_Item{rd.Next(0, count)}"].GetValueOrDefault("3星圣痕");
                     switch (rd.Next(0, 3))
                     {

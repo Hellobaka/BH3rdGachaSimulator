@@ -25,7 +25,7 @@ namespace me.luohuaming.Gacha.UI
         static public int Height_1 = 45;
         static public float WordTrap = 3;
         static IniConfig ini;
-        public Image CombinImage(Image background, Image newimg, int x, int y, int Pos_Simata, bool isnew)
+        public Image CombinImage(Image background, Image newimg, int x, int y)
         {
             Bitmap map1 = new Bitmap(background);
             Bitmap map2 = new Bitmap(newimg);
@@ -36,15 +36,22 @@ namespace me.luohuaming.Gacha.UI
             // 初始化画板
             Graphics g1 = Graphics.FromImage(bitMap);
             // 将画布涂为透明(底部颜色可自行设置)
-            g1.FillRectangle(Brushes.Transparent, new Rectangle(0, 0, width, height));
-            //在x=0，y=0处画上图一
-            g1.DrawImage(map1, 0, 0, background.Width, background.Height);
-            g1.DrawImage(map2, x, y, newimg.Width, newimg.Height);
-            //碎片 圣痕表示 x-18,y-18
-            //new 标识 x+133,y-17
-            map1.Dispose();
-            map2.Dispose();
-            g1.Dispose();
+            try
+            {
+                g1.FillRectangle(Brushes.Transparent, new Rectangle(0, 0, width, height));
+                //在x=0，y=0处画上图一
+                g1.DrawImage(map1, 0, 0, background.Width, background.Height);
+                g1.DrawImage(map2, x, y, newimg.Width, newimg.Height);
+                //碎片 圣痕表示 x-18,y-18
+                //new 标识 x+133,y-17
+                map1.Dispose();
+                map2.Dispose();
+                g1.Dispose();
+            }
+            catch(Exception e)
+            {
+                CQSave.CQLog.Info("图片合成", $"发生错误，错误信息:{e.Message} map1.size={map1.Size} map2.size={map2.Size} bg.size={background.Size}");
+            }
             return bitMap;
         }
 
@@ -57,16 +64,23 @@ namespace me.luohuaming.Gacha.UI
             // 初始化画板
             Graphics g1 = Graphics.FromImage(bitMap);
             // 将画布涂为透明(底部颜色可自行设置)
-            g1.FillRectangle(Brushes.Transparent, new Rectangle(0, 0, 206, 246));
-            //在x=0，y=0处画上图一
-            g1.DrawImage(map1, 0, 0, background.Width, background.Height);
-            g1.DrawImage(map2, x, y, width, height);
-            //碎片 圣痕表示 x-18,y-18
-            //new 标识 x+133,y-17
-            map1.Dispose();
-            map2.Dispose();
-            g1.Dispose();
-            GC.Collect();
+            try
+            {
+                g1.FillRectangle(Brushes.Transparent, new Rectangle(0, 0, 206, 246));
+                //在x=0，y=0处画上图一
+                g1.DrawImage(map1, 0, 0, background.Width, background.Height);
+                g1.DrawImage(map2, x, y, width, height);
+                //碎片 圣痕表示 x-18,y-18
+                //new 标识 x+133,y-17
+                map1.Dispose();
+                map2.Dispose();
+                g1.Dispose();
+                GC.Collect();
+            }
+            catch(Exception e)
+            {
+                CQSave.CQLog.Info("图片合成", $"发生错误，错误信息:{e.Message} map1.size={map1.Size} map2.size={map2.Size} bg.size={background.Size}");
+            }
             return bitMap;
         }
 
@@ -226,7 +240,8 @@ namespace me.luohuaming.Gacha.UI
             foreach (var item in ls)
             {
                 img = GenerateCard(item.evaluation, 1, item);
-                background = CombinImage(background, img, x, y, -1, false);
+                background = CombinImage(background, img, x, y, img.Width,img.Height);
+                if (background == null) return null;
                 if (item.type == 抽卡.TypeS.Stigmata.ToString())
                 {
                     switch (item.name.Substring(item.name.Length - 1))
@@ -265,16 +280,16 @@ namespace me.luohuaming.Gacha.UI
             int money = rd.Next(100000, 100000000);
             Image img_1 = Money(money, 1);
             Width_Gold = 1620 + (164 - img_1.Width) / 2;
-            background = CombinImage(background, img_1, Width_Gold, Height_1, -1, false);
+            background = CombinImage(background, img_1, Width_Gold, Height_1);
             //int Diamond = rd.Next(0, 30000);
             Image img_2 = diamond(rd.Next(0, 456413), 1);
             Width_Diamond = 1975 + (111 - img_2.Width) / 2;
-            background = CombinImage(background, img_2, Width_Diamond, Height_1, -1, false);
+            background = CombinImage(background, img_2, Width_Diamond, Height_1);
             int ap_Max = rd.Next(154, 165);
             int ap = rd.Next(0, ap_Max);
             Image img_3 = AP(ap, ap_Max, 1);
             Width_AP = 1319 + (127 - img_3.Width) / 2;
-            background = CombinImage(background, img_3, Width_AP, Height_1, -1, false);
+            background = CombinImage(background, img_3, Width_AP, Height_1);
             string name = GetDate();
             switch (region)
             {
@@ -287,7 +302,7 @@ namespace me.luohuaming.Gacha.UI
                     {
                         img_3 = Image.FromFile($@"{appdirectory}装备卡\框\扩充十连.png");
                     }
-                    background = CombinImage(background, img_3, 126, 960, -1, false);
+                    background = CombinImage(background, img_3, 126, 960);
                     break;
                 case 1:
                     switch (JZpos)
@@ -313,7 +328,7 @@ namespace me.luohuaming.Gacha.UI
                             }
                             break;
                     }
-                    background = CombinImage(background, img_3, 126, 960, -1, false);
+                    background = CombinImage(background, img_3, 126, 960);
                     break;
                 case 2:
                     if (count == 1)
@@ -324,7 +339,7 @@ namespace me.luohuaming.Gacha.UI
                     {
                         img_3 = Image.FromFile($@"{appdirectory}装备卡\框\标配十连.png");
                     }
-                    background = CombinImage(background, img_3, 126, 960, -1, false);
+                    background = CombinImage(background, img_3, 126, 960);
                     break;
             }
             if (!Directory.Exists($@"{CQSave.ImageDirectory}\装备结果"))
@@ -373,7 +388,7 @@ namespace me.luohuaming.Gacha.UI
                 foreach (var item in ls)
                 {
                     img = GenerateCard(item.evaluation, 1, item);
-                    background = CombinImage(background, img, x, y, -1, false);
+                    background = CombinImage(background, img, x, y);
                     //x + 133,y - 17
                     if (item.isnew)
                     {
@@ -418,16 +433,16 @@ namespace me.luohuaming.Gacha.UI
                 int money = rd.Next(100000, 100000000);
                 Image img_1 = Money(money);
                 Width_Gold = 1620 + (164 - img_1.Width) / 2;
-                background = CombinImage(background, img_1, Width_Gold, Height_1, -1, false);
+                background = CombinImage(background, img_1, Width_Gold, Height_1);
                 //int Diamond = rd.Next(0, 30000);
                 Image img_2 = diamond(Diamond);
                 Width_Diamond = 1975 + (111 - img_2.Width) / 2;
-                background = CombinImage(background, img_2, Width_Diamond, Height_1, -1, false);
+                background = CombinImage(background, img_2, Width_Diamond, Height_1);
                 int ap_Max = rd.Next(154, 165);
                 int ap = rd.Next(0, ap_Max);
                 Image img_3 = AP(ap, ap_Max);
                 Width_AP = 1319 + (127 - img_3.Width) / 2;
-                background = CombinImage(background, img_3, Width_AP, Height_1, -1, false);
+                background = CombinImage(background, img_3, Width_AP, Height_1);
                 string name = GetDate();
                 switch (region)
                 {
@@ -440,7 +455,7 @@ namespace me.luohuaming.Gacha.UI
                         {
                             img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\扩充十连.png");
                         }
-                        background = CombinImage(background, img_3, 126, 960, -1, false);
+                        background = CombinImage(background, img_3, 126, 960);
                         break;
                     case 1:
                         switch (JZPos)
@@ -466,7 +481,7 @@ namespace me.luohuaming.Gacha.UI
                                 }
                                 break;
                         }
-                        background = CombinImage(background, img_3, 126, 960, -1, false);
+                        background = CombinImage(background, img_3, 126, 960);
                         break;
                     case 2:
                         if (count == 1)
@@ -477,7 +492,7 @@ namespace me.luohuaming.Gacha.UI
                         {
                             img_3 = Image.FromFile($@"{CQSave.AppDirectory}装备卡\框\标配十连.png");
                         }
-                        background = CombinImage(background, img_3, 126, 960, -1, false);
+                        background = CombinImage(background, img_3, 126, 960);
                         break;
                 }
                 if (!Directory.Exists($@"{CQSave.ImageDirectory}\装备结果"))

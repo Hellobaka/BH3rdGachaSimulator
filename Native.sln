@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.cqp.luohuaming.Gacha.Cod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.cqp.luohuaming.Gacha.UI", "me.luohuaming.Gacha.UI\me.cqp.luohuaming.Gacha.UI.csproj", "{5C1A52A6-65A7-48B1-9727-F202528AD4FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "me.cqp.luohuaming.Gacha.WPFUI", "me.cqp.luohuaming.Gacha.WPFUI\me.cqp.luohuaming.Gacha.WPFUI.csproj", "{F96E890D-A345-4BC7-9114-1DADC9AAF34A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,14 @@ Global
 		{5C1A52A6-65A7-48B1-9727-F202528AD4FE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C1A52A6-65A7-48B1-9727-F202528AD4FE}.Release|x86.ActiveCfg = Release|Any CPU
 		{5C1A52A6-65A7-48B1-9727-F202528AD4FE}.Release|x86.Build.0 = Release|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Debug|x86.Build.0 = Debug|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Release|x86.ActiveCfg = Release|Any CPU
+		{F96E890D-A345-4BC7-9114-1DADC9AAF34A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

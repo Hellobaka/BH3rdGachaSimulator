@@ -1815,15 +1815,15 @@ namespace me.luohuaming.Gacha.UI
             ini.Object["详情"]["UpA"]=new IValue(textBox_KuochongUpA.Text);
             ini.Object["详情"]["Baodi"]=new IValue((checkBox_KuochongBaodi.Checked) ? "1" : "0");
             ini.Object["详情"]["ResultAt"]=new IValue((checkBox_KuochongAt.Checked) ? "1" : "0");
+            for (int i = 0; i < listBox_Kuochong.Items.Count; i++)
+            {
+                ini.Object["详情"][$"Item{i}"] = new IValue(listBox_Kuochong.Items[i].ToString());
+            }
             ini.Save();
 
             path = Path.Combine(CQSave.AppDirectory, "概率", "精准概率.txt");
             ini = new IniConfig(path);
             ini.Load();
-            for (int i = 0; i < listBox_Kuochong.Items.Count; i++)
-            {
-                ini.Object["详情"][$"Item{i}"]=new IValue(listBox_Kuochong.Items[i].ToString());
-            }
             ini.Object["详情"]["A_UpWeapon"]=new IValue(textBox_JZAUpWeapon.Text);
             ini.Object["详情"]["A_UpStigmata"]=new IValue(textBox_JZAStigmataUp.Text);
             ini.Object["详情"]["A_Baodi"]=new IValue((checkBox_JZABaodi.Checked) ? "1" : "0");

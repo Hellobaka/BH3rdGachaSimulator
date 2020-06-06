@@ -127,6 +127,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\me.cqp.luohuaming.Gacha.WPFUI\me.cqp.luohuaming.Gacha.WPFUI.csproj">
+      <Project>{f96e890d-a345-4bc7-9114-1dadc9aaf34a}</Project>
+      <Name>me.cqp.luohuaming.Gacha.WPFUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\me.luohuaming.Gacha.Code\me.cqp.luohuaming.Gacha.Code.csproj">
       <Project>{25461904-f2cb-43ce-a9e2-b45686aaa8bb}</Project>
       <Name>me.cqp.luohuaming.Gacha.Code</Name>

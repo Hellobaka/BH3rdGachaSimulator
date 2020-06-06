@@ -15,6 +15,9 @@ using Native.Sdk.Cqp;
 using Native.Tool.IniConfig;
 using static me.luohuaming.Gacha.UI.Gacha;
 using System.Web.ModelBinding;
+using System.Text.RegularExpressions;
+using me.luohuaming.Gacha.Code.Func;
+using me.luohuaming.Gacha.Code.CustomPool;
 
 namespace me.luohuaming.Gacha.Code
 {
@@ -26,64 +29,62 @@ namespace me.luohuaming.Gacha.Code
         //ini.Object[$1][$2]=new IValue($3)
         //\.GetValueOrDefault\("(.*?)"\)\.ToInt32\(\)
         //.GetValueOrDefault($1)
-        static CQGroupMessageEventArgs cq;
+        //static CQGroupMessageEventArgs cq;
         static IniConfig ini;
         #region --字段--
-        string order_KC1;
-        string order_KC10;
-        string order_JZA1;
-        string order_JZA10;
-        string order_JZB1;
-        string order_JZB10;
-        string order_BP1;
-        string order_BP10;
+        public static string order_KC1;
+        public static string order_KC10;
+        public static string order_JZA1;
+        public static string order_JZA10;
+        public static string order_JZB1;
+        public static string order_JZB10;
+        public static string order_BP1;
+        public static string order_BP10;
 
-        string order_sign;
-        string order_signreset;
-        string order_querydiamond;
-        string order_help;
-        string order_getpool;
-        string order_register;
-        string order_opengacha;
-        string order_closegacha;
+        public static string order_sign;
+        public static string order_signreset;
+        public static string order_querydiamond;
+        public static string order_help;
+        public static string order_getpool;
+        public static string order_register;
+        public static string order_opengacha;
+        public static string order_closegacha;
 
-        string KC1;
-        string KC10;
-        string JZA1;
-        string JZA10;
-        string JZB1;
-        string JZB10;
-        string BP1;
-        string BP10;
-        string sign1;
-        string sign2;
-        string mutiSign;
-        string noReg;
-        string lowDiamond;
-        string queryDiamond;
-        string help;
-        string register;
-        string mutiRegister;
+        public static string KC1;
+        public static string KC10;
+        public static string JZA1;
+        public static string JZA10;
+        public static string JZB1;
+        public static string JZB10;
+        public static string BP1;
+        public static string BP10;
+        public static string sign1;
+        public static string sign2;
+        public static string mutiSign;
+        public static string noReg;
+        public static string lowDiamond;
+        public static string queryDiamond;
+        public static string help;
+        public static string register;
+        public static string mutiRegister;
+        public static string reset1;
+        public static string reset2;
+        public static string reset3;
+        public static string reset4;
+        public static string reset5;
+        public static string reset6;
 
-        string reset1;
-        string reset2;
-        string reset3;
-        string reset4;
-        string reset5;
-        string reset6;
-
-        int signmin;
-        int signmax;
-        int registermin;
-        int registermax;
-
-        int diamond;
+        public static int signmin;
+        public static int signmax;
+        public static int registermin;
+        public static int registermax;
+        public static int diamond;
         public static long testTimeLingchen;
         #endregion
 
         public void GroupMessage(object sender, CQGroupMessageEventArgs e)
         {
-            cq = e;
+            //cq = e;
             CQSave.cq_group = e;
             string path = $@"{CQSave.AppDirectory}Config.ini";
             ini = new IniConfig(path);
@@ -93,7 +94,7 @@ namespace me.luohuaming.Gacha.Code
             if (!GroupInini(e) && !e.Message.Text.StartsWith("#抽卡开启")) return;
             ReadConfig();
 
-            bool exist = IDExist(e.FromQQ.Id);
+            bool exist = IDExist(e);
             long controlgroup = Convert.ToInt64(ini.Object["后台群"]["Id"].GetValueOrDefault("0"));
             string str = "";
             UI.Gacha gc = new UI.Gacha();
@@ -108,7 +109,7 @@ namespace me.luohuaming.Gacha.Code
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 280)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -126,7 +127,7 @@ namespace me.luohuaming.Gacha.Code
                     AddItem2Repositories(ls, e);
                 });
                 tasksql.Start(); CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 280);
+                SubDiamond(e, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
                 path = $@"{CQSave.AppDirectory}概率\扩充概率.txt";
                 ini = new IniConfig(path);
@@ -173,7 +174,7 @@ namespace me.luohuaming.Gacha.Code
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 2800)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -206,7 +207,7 @@ namespace me.luohuaming.Gacha.Code
                     AddItem2Repositories(ls, e);
                 });
                 tasksql.Start(); CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 2800);
+                SubDiamond(e, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
                 path = $@"{CQSave.AppDirectory}概率\扩充概率.txt";
                 ini = new IniConfig(path);
@@ -255,7 +256,7 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
 
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 280)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -274,7 +275,7 @@ namespace me.luohuaming.Gacha.Code
                 });
                 tasksql.Start();
                 CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 280);
+                SubDiamond(e, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
 
                 path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
@@ -324,7 +325,7 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
 
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 2800)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -358,7 +359,7 @@ namespace me.luohuaming.Gacha.Code
                 });
                 tasksql.Start();
                 CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 2800);
+                SubDiamond(e, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
 
                 path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
@@ -408,7 +409,7 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
 
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 280)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -427,7 +428,7 @@ namespace me.luohuaming.Gacha.Code
                 });
                 tasksql.Start();
                 CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 280);
+                SubDiamond(e, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
 
                 path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
@@ -476,7 +477,7 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
 
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 2800)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -510,7 +511,7 @@ namespace me.luohuaming.Gacha.Code
                 });
                 tasksql.Start();
                 CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 2800);
+                SubDiamond(e, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
 
                 path = $@"{CQSave.AppDirectory}概率\精准概率.txt";
@@ -558,7 +559,7 @@ namespace me.luohuaming.Gacha.Code
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 2800)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -593,7 +594,7 @@ namespace me.luohuaming.Gacha.Code
                 tasksql.Start();
 
                 CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 2800);
+                SubDiamond(e, 2800);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 10);
                 path = $@"{CQSave.AppDirectory}概率\标配概率.txt";
                 ini = new IniConfig(path);
@@ -641,7 +642,7 @@ namespace me.luohuaming.Gacha.Code
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 if (diamond < 280)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, lowDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -660,7 +661,7 @@ namespace me.luohuaming.Gacha.Code
                 });
                 tasksql.Start();
                 CombinePng cp = new CombinePng();
-                SubDiamond(cq.FromQQ.Id, 280);
+                SubDiamond(e, 280);
                 AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, 1);
                 path = $@"{CQSave.AppDirectory}概率\标配概率.txt";
                 ini = new IniConfig(path);
@@ -707,7 +708,7 @@ namespace me.luohuaming.Gacha.Code
                     return;
                 }
                 diamond = Sign(e);
-                AddCount_Sign(e.FromQQ.Id);
+                AddCount_Sign(e);
                 if (diamond >= 0)
                 {
                     e.CQApi.SendGroupMessage(e.FromGroup, sign1.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -725,9 +726,9 @@ namespace me.luohuaming.Gacha.Code
                 e.Handler = true;
                 if (!exist)
                 {
-                    Register(e.FromQQ.Id);
+                    Register(e);
                     Random rd = new Random();
-                    diamond = GetDiamond(e.FromQQ.Id);
+                    diamond = GetDiamond(e);
                     e.CQApi.SendGroupMessage(e.FromGroup, register.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     str = $"群号:{e.FromGroup.Id} QQ:{e.FromQQ.Id} 注册了抽卡";
                 }
@@ -747,7 +748,7 @@ namespace me.luohuaming.Gacha.Code
                     e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                     return;
                 }
-                diamond = GetDiamond(e.FromQQ.Id);
+                diamond = GetDiamond(e);
                 e.CQApi.SendGroupMessage(e.FromGroup, queryDiamond.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
                 return;
             }
@@ -772,7 +773,7 @@ namespace me.luohuaming.Gacha.Code
                 }
                 if (InGroup)
                 {
-                    SignReset();
+                    SignReset(e);
                     Random rd = new Random();
                     switch (rd.Next(0, 6))
                     {
@@ -870,7 +871,7 @@ namespace me.luohuaming.Gacha.Code
                         int countdia = Convert.ToInt32(temp[2]);
                         try
                         {
-                            if (!IDExist(targetId))
+                            if (!IDExist(e,targetId))
                             {
                                 e.CQApi.SendGroupMessage(e.FromGroup, "操作对象不存在");
                                 return;
@@ -878,10 +879,10 @@ namespace me.luohuaming.Gacha.Code
                             path = $@"{CQSave.AppDirectory}data.db";
                             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
                             cn.Open();
-                            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond WHERE Fromgroup={cq.FromGroup.Id} and qq='{targetId}'", cn);
-                            cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(targetId) + countdia;
+                            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond WHERE Fromgroup={e.FromGroup.Id} and qq='{targetId}'", cn);
+                            cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(e,targetId) + countdia;
                             cmd.ExecuteNonQuery();
-                            e.CQApi.SendGroupMessage(e.FromGroup, $"操作成功,为[CQ:at,qq={targetId}]充值{countdia}水晶,剩余{GetDiamond(targetId)}水晶");
+                            e.CQApi.SendGroupMessage(e.FromGroup, $"操作成功,为[CQ:at,qq={targetId}]充值{countdia}水晶,剩余{GetDiamond(e,targetId)}水晶");
                             return;
                         }
                         catch
@@ -1172,11 +1173,12 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.StartsWith("#更换池子"))
             {
                 e.Handler = true;
-                //if (ini.Object["OCR"]["app_id"].GetValueOrDefault("") == "")
-                //{
-                //    e.CQLog.Warning("参数缺失", $"请到插件数据 Config.ini 下OCR字段填写App_id与App_key。若没有可到插件论坛页面按照提示获取.");
-                //    return;
-                //}
+                if (ini.Object["OCR"]["app_id"].GetValueOrDefault("") == "")
+                {
+                    e.FromGroup.SendGroupMessage("参数缺失，请按照日志提示补全参数");
+                    e.CQLog.Warning("参数缺失", $"请到插件数据 Config.ini 下OCR字段填写App_id与App_key。若没有可到插件论坛页面按照提示获取.");
+                    return;
+                }
                 if (CheckAdmin(e))
                 {
                     string option = e.Message.Text.Substring("#更换池子".Length).Trim();
@@ -1213,16 +1215,16 @@ namespace me.luohuaming.Gacha.Code
                 return;
             }
             else if (e.Message.Text.StartsWith("#抽干家底"))
-            { 
+            {
                 e.Handler = true;
-                if(e.Message.Text.Trim()== "#抽干家底")
+                if (e.Message.Text.Trim() == "#抽干家底")
                 {
-                    e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ),"请指定要抽取的池子，扩充或者精准A/B");
+                    e.CQApi.SendGroupMessage(e.FromGroup, CQApi.CQCode_At(e.FromQQ), "请指定要抽取的池子，扩充或者精准A/B");
                     return;
                 }
-                string order = e.Message.Text.Substring("#抽干家底".Length).Trim().ToUpper().Replace(" ","");
+                string order = e.Message.Text.Substring("#抽干家底".Length).Trim().ToUpper().Replace(" ", "");
                 if (order == "扩充")
-                {                      
+                {
                     if (!exist)
                     {
                         e.CQApi.SendGroupMessage(e.FromGroup, noReg.Replace("<@>", $"[CQ:at,qq={e.FromQQ.Id}]").Replace("<#>", diamond.ToString()));
@@ -1233,19 +1235,19 @@ namespace me.luohuaming.Gacha.Code
                     ini.Load();
                     e.CQApi.SendGroupMessage(e.FromGroup, $"正在抽干家底……抽到<{ini.Object["详情"]["UpS"].GetValueOrDefault("UPS角色")}>就会收手");
 
-                    diamond = GetDiamond(e.FromQQ.Id);
+                    diamond = GetDiamond(e);
                     gc.Read_Kuochong();
                     List<GachaResult> ls = new List<GachaResult>();
                     int count = 0;
-                    for (int i = 0; i < diamond/280; i++)
+                    for (int i = 0; i < diamond / 280; i++)
                     {
                         ls.Add(gc.KC_Gacha());
                         ls.Add(gc.KC_GachaSub());
                         count++;
-                        if(ls.FindIndex(x => x.class_ == "S") != -1)
+                        if (ls.FindIndex(x => x.class_ == "S") != -1)
                         {
                             break;
-                        }                        
+                        }
                     }
                     ls = ls.OrderByDescending(x => x.value).ToList();
                     for (int i = 0; i < ls.Count; i++)
@@ -1264,7 +1266,7 @@ namespace me.luohuaming.Gacha.Code
                     var tasksql = new Task(() =>
                     {
                         AddItem2Repositories(ls, e);
-                    });tasksql.Start();
+                    }); tasksql.Start();
                     for (int i = 0; i < ls.Count; i++)
                     {
                         for (int j = i + 1; j < ls.Count; j++)
@@ -1278,15 +1280,15 @@ namespace me.luohuaming.Gacha.Code
                             }
                         }
                     }
-                    SubDiamond(cq.FromQQ.Id, count*280);
+                    SubDiamond(e, count * 280);
                     AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, count);
                     if (ls.FindIndex(x => x.class_ == "S") == -1)
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"今天不适合你抽卡……\n合计:抽取{count}次\n消耗了{count*280}水晶 折合大约是{count*280/7640+1}单648[CQ:face,id=67]");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"今天不适合你抽卡……\n合计:抽取{count}次\n消耗了{count * 280}水晶 折合大约是{count * 280 / 7640 + 1}单648[CQ:face,id=67]");
                     }
                     else
                     {
-                        e.CQApi.SendGroupMessage(e.FromGroup, $"抽到啦！\n合计:抽取{count}次\n消耗了{count * 280}水晶 折合大约是{count * 280 / 7640+1}单648\n٩( 'ω' )و");
+                        e.CQApi.SendGroupMessage(e.FromGroup, $"抽到啦！\n合计:抽取{count}次\n消耗了{count * 280}水晶 折合大约是{count * 280 / 7640 + 1}单648\n٩( 'ω' )و");
                     }
                     string items = "获取到的物品如下:\n";
                     int count_purple = 0;
@@ -1298,7 +1300,7 @@ namespace me.luohuaming.Gacha.Code
                             count_purple += item.count;
                         }
                     }
-                    items += $"出货率为{(double)count_purple / count*100:f2}%\n平均每10发抽到紫{(double)count_purple / count * 10:f2}个";
+                    items += $"出货率为{(double)count_purple / count * 100:f2}%\n平均每10发抽到紫{(double)count_purple / count * 10:f2}个";
                     e.CQApi.SendGroupMessage(e.FromGroup, items);
                     GC.Collect();
                     return;
@@ -1340,20 +1342,20 @@ namespace me.luohuaming.Gacha.Code
                     UPWeapon = ini.Object["详情"][$"{pool}_UpWeapon"].GetValueOrDefault("四星武器");
                     UPStigmata = ini.Object["详情"][$"{pool}_UpStigmata"].GetValueOrDefault("四星圣痕");
 
-                    diamond = GetDiamond(e.FromQQ.Id);
-                    
+                    diamond = GetDiamond(e);
+
                     List<GachaResult> ls = new List<GachaResult>();
                     int count = 0;
-                    for (int i = 0; i < diamond/280; i++)
+                    for (int i = 0; i < diamond / 280; i++)
                     {
                         ls.Add(gc.JZ_GachaMain());
                         ls.Add(gc.JZ_GachaMaterial());
                         count++;
-                        if(ls.Exists(x => x.name==UPWeapon)&&ls.Exists(x=> x.name==UPStigmata+"上")
+                        if (ls.Exists(x => x.name == UPWeapon) && ls.Exists(x => x.name == UPStigmata + "上")
                             && ls.Exists(x => x.name == UPStigmata + "中") && ls.Exists(x => x.name == UPStigmata + "下"))
                         {
                             break;
-                        }                        
+                        }
                     }
                     ls = ls.OrderByDescending(x => x.value).ToList();
                     for (int i = 0; i < ls.Count; i++)
@@ -1388,29 +1390,29 @@ namespace me.luohuaming.Gacha.Code
                             }
                         }
                     }
-                    SubDiamond(e.FromQQ.Id, count*280);
+                    SubDiamond(e, count * 280);
                     AddCount_Gacha(e.FromGroup.Id, e.FromQQ.Id, count);
 
                     if (ls.Exists(x => x.name == UPWeapon) && ls.Exists(x => x.name == UPStigmata + "上")
                         && ls.Exists(x => x.name == UPStigmata + "中") && ls.Exists(x => x.name == UPStigmata + "下"))
-                    {                        
+                    {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"抽到啦！\n合计:抽取{count}次\n消耗了{count * 280}水晶 折合大约是{count * 280 / 7640 + 1}单648\n٩( 'ω' )و");
                     }
                     else
-                    {                        
+                    {
                         e.CQApi.SendGroupMessage(e.FromGroup, $"嘛，精准池不毕业挺正常……\n合计:抽取{count}次\n消耗了{count * 280}水晶 折合大约是{count * 280 / 7640 + 1}单648[CQ:face,id=67]");
                     }
                     string items = "获取到的物品如下:\n";
                     int count_purple = 0;
                     foreach (var item in ls)
                     {
-                        if ((item.type == TypeS.Weapon.ToString() &&item.quality==2) || (item.type==TypeS.Stigmata.ToString()&&item.quality==2))
+                        if ((item.type == TypeS.Weapon.ToString() && item.quality == 2) || (item.type == TypeS.Stigmata.ToString() && item.quality == 2))
                         {
                             items += $"{item.name} ×{item.count}\n";
-                            count_purple+=item.count;
+                            count_purple += item.count;
                         }
                     }
-                    items += $"出货率为{(double)count_purple / count*100:f2}%\n平均每10发抽到紫{(double)count_purple / count * 10:f2}个";
+                    items += $"出货率为{(double)count_purple / count * 100:f2}%\n平均每10发抽到紫{(double)count_purple / count * 10:f2}个";
                     e.CQApi.SendGroupMessage(e.FromGroup, items);
 
                     GC.Collect();
@@ -1418,12 +1420,29 @@ namespace me.luohuaming.Gacha.Code
 
                 }
             }
-            else
+            else if (e.Message.Text == "#排行榜")
             {
+                e.Handler = true;
+                e.FromGroup.SendGroupMessage(TotalRank.GetRank(e));
                 return;
             }
-            if (controlgroup == 0) return;
-            e.CQApi.SendGroupMessage(controlgroup, str);
+            else if (e.Message.Text == "#周榜")
+            {
+                e.Handler = true;
+                e.FromGroup.SendGroupMessage(WeekRank.GetWeekRank(e));
+                return;
+            }            
+            else
+            {
+                CustomPoolGacha.CustomPool_GroupMsg(e);
+                return;
+            }
+            ini = new IniConfig(e.CQApi.AppDirectory + "Config.ini"); ini.Load();
+            if (ini.Object["ExtraConfig"]["GachaMsg"].GetValueOrDefault("1") == "1")
+            {
+                if (controlgroup == 0) return;
+                e.CQApi.SendGroupMessage(controlgroup, str);
+            }
         }
         #region --工具函数--
         /// <summary>
@@ -1498,7 +1517,7 @@ namespace me.luohuaming.Gacha.Code
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        bool GroupInini(CQGroupMessageEventArgs e)
+        public static bool GroupInini(CQGroupMessageEventArgs e)
         {
             ini = new IniConfig(CQSave.AppDirectory + "Config.ini");
             ini.Load();
@@ -1518,7 +1537,7 @@ namespace me.luohuaming.Gacha.Code
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        bool CheckAdmin(CQGroupMessageEventArgs e)
+        public static bool CheckAdmin(CQGroupMessageEventArgs e)
         {
             string path = e.CQApi.AppDirectory + "Config.ini";
             ini = new IniConfig(path);
@@ -1542,9 +1561,9 @@ namespace me.luohuaming.Gacha.Code
         /// <param name="FromGroup"></param>
         /// <param name="FromQQ"></param>
         /// <returns></returns>
-        bool CheckAdmin(long FromGroup, long FromQQ)
+        public static bool CheckAdmin(long FromGroup, long FromQQ)
         {
-            string path = $@"{cq.CQApi.AppDirectory}Config.ini";
+            string path = $@"{CQSave.AppDirectory}Config.ini";
             ini = new IniConfig(path);
             ini.Load();
 
@@ -1623,7 +1642,7 @@ namespace me.luohuaming.Gacha.Code
         /// </summary>
         /// <param name="dt1">用于判断的时间戳</param>
         /// <param name="dt2">实时时间戳</param>
-        public bool JudgeifTimestampOverday(long dt1, long dt2)
+        public static bool JudgeifTimestampOverday(long dt1, long dt2)
         {
             testTimeLingchen = dt1 - ((dt1 + 8 * 3600) % 86400);
             if (dt2 > dt1)
@@ -1647,7 +1666,7 @@ namespace me.luohuaming.Gacha.Code
         ///获取时间戳
         /// </summary>
         /// <returns></returns>
-        public long GetTimeStamp()
+        public static long GetTimeStamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds);
@@ -1688,7 +1707,7 @@ namespace me.luohuaming.Gacha.Code
                 for (int i = 0; i < PaChonger.JZStigmata.Count; i++)
                 {
                     if (PaChonger.JZStigmata[i] == PaChonger.UPAStigmata) continue;
-                    ini.Object["详情"][$"A_Stigmata_Item{count}"] = new IValue(PaChonger.JZStigmata[i]);                    
+                    ini.Object["详情"][$"A_Stigmata_Item{count}"] = new IValue(PaChonger.JZStigmata[i]);
 
                     count++;
                 }
@@ -1700,7 +1719,7 @@ namespace me.luohuaming.Gacha.Code
                PaChonger.UPBStigmata != "" && PaChonger.UPBWeapon != "")
             {
                 ini.Object["详情"]["B_UpWeapon"] = new IValue(PaChonger.UPBWeapon);
-                ini.Object["详情"]["B_UpStigmata"] = new IValue(PaChonger.UPBStigmata);                
+                ini.Object["详情"]["B_UpStigmata"] = new IValue(PaChonger.UPBStigmata);
 
                 int count = 0;
                 for (int i = 0; i < PaChonger.JZWeapon.Count; i++)
@@ -1746,13 +1765,13 @@ namespace me.luohuaming.Gacha.Code
         /// <summary>
         /// 签到重置
         /// </summary>
-        void SignReset()
+        public static void SignReset(CQGroupMessageEventArgs e)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
             Random rd = new Random();
-            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET timestamp=0 WHERE Fromgroup={cq.FromGroup.Id}", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET timestamp=0 WHERE Fromgroup={e.FromGroup.Id}", cn);
             cmd.ExecuteNonQuery();
             cn.Close();
 
@@ -1762,13 +1781,13 @@ namespace me.luohuaming.Gacha.Code
         /// 注册
         /// </summary>
         /// <param name="id">QQ号</param>
-        void Register(long id)
+        public static void Register(CQGroupMessageEventArgs e)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
             Random rd = new Random();
-            SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES({cq.FromGroup.Id},{id},0,0,{rd.Next(registermin, registermax)},0,0,0,0)", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"INSERT INTO 'UserData' VALUES({e.FromGroup.Id},{e.FromQQ.Id},0,0,{rd.Next(registermin, registermax)},0,0,0,0)", cn);
             cmd.ExecuteNonQuery();
             cn.Close();
         }
@@ -1778,12 +1797,12 @@ namespace me.luohuaming.Gacha.Code
         /// </summary>
         /// <param name="id">QQ号</param>
         /// <returns></returns>
-        bool IDExist(long id)
+        public static bool IDExist(CQGroupMessageEventArgs e)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand($"SELECT count(*) FROM UserData where Fromgroup={cq.FromGroup.Id} and qq={id}", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"SELECT count(*) FROM UserData where Fromgroup={e.FromGroup.Id} and qq={e.FromQQ.Id}", cn);
             SQLiteDataReader sr = cmd.ExecuteReader();
             sr.Read();
             int count = sr.GetInt32(0);
@@ -1792,17 +1811,58 @@ namespace me.luohuaming.Gacha.Code
         }
 
         /// <summary>
+        /// 查询目标QQ号是否已经存在于数据库
+        /// </summary>
+        /// <param name="id">QQ号</param>
+        /// <returns></returns>
+        public static bool IDExist(CQGroupMessageEventArgs e,long qqid)
+        {
+            string path = $@"{CQSave.AppDirectory}data.db";
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            SQLiteCommand cmd = new SQLiteCommand($"SELECT count(*) FROM UserData where Fromgroup={e.FromGroup.Id} and qq={qqid}", cn);
+            SQLiteDataReader sr = cmd.ExecuteReader();
+            sr.Read();
+            int count = sr.GetInt32(0);
+            sr.Close();
+            return count == 1;
+        }
+
+
+        /// <summary>
         /// 获取水晶数
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int GetDiamond(long id)
+        public static int GetDiamond(CQGroupMessageEventArgs e)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             int diamond = 0;
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand($"SELECT diamond FROM UserData WHERE Fromgroup={cq.FromGroup.Id} and qq='{id}'", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"SELECT diamond FROM UserData WHERE Fromgroup={e.FromGroup.Id} and qq='{e.FromQQ.Id}'", cn);
+            SQLiteDataReader sr = cmd.ExecuteReader();
+            while (sr.Read())
+            {
+                diamond = sr.GetInt32(0);
+            }
+            sr.Close();
+            cn.Close();
+            return diamond;
+        }
+
+        /// <summary>
+        /// 获取水晶数
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int GetDiamond(CQGroupMessageEventArgs e,long qqid)
+        {
+            string path = $@"{CQSave.AppDirectory}data.db";
+            int diamond = 0;
+            SQLiteConnection cn = new SQLiteConnection("data source=" + path);
+            cn.Open();
+            SQLiteCommand cmd = new SQLiteCommand($"SELECT diamond FROM UserData WHERE Fromgroup={e.FromGroup.Id} and qq='{qqid}'", cn);
             SQLiteDataReader sr = cmd.ExecuteReader();
             while (sr.Read())
             {
@@ -1819,16 +1879,16 @@ namespace me.luohuaming.Gacha.Code
         /// <param name="id">QQ号</param>
         /// <param name="num">减少目标数量</param>
         /// <returns></returns>
-        int SubDiamond(long id, int num)
+        public static int SubDiamond(CQGroupMessageEventArgs e,int num)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond,total_diamond=total_diamond+{num} WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
-            cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(cq.FromQQ.Id) - num;
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET diamond=@diamond,total_diamond=total_diamond+{num} WHERE Fromgroup={e.FromGroup.Id} and qq='{e.FromQQ.Id}'", cn);
+            cmd.Parameters.Add("diamond", DbType.Int32).Value = GetDiamond(e) - num;
             cmd.ExecuteNonQuery();
             cn.Close();
-            return GetDiamond(cq.FromQQ.Id);
+            return GetDiamond(e);
         }
 
         /// <summary>
@@ -1837,7 +1897,7 @@ namespace me.luohuaming.Gacha.Code
         /// <param name="group">群号</param>
         /// <param name="id">QQ号</param>
         /// <param name="count">目标数量</param>
-        void AddCount_Gacha(long group, long id, int count)
+        public static void AddCount_Gacha(long group, long id, int count)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
@@ -1850,12 +1910,12 @@ namespace me.luohuaming.Gacha.Code
         /// 为数据库 UserData 的 Count_Sign字段加1
         /// </summary>
         /// <param name="id"></param>
-        void AddCount_Sign(long id)
+        public static void AddCount_Sign(CQGroupMessageEventArgs e)
         {
             string path = $@"{CQSave.AppDirectory}data.db";
             SQLiteConnection cn = new SQLiteConnection("data source=" + path);
             cn.Open();
-            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET sign_count=sign_count+1 WHERE Fromgroup={cq.FromGroup.Id} and qq='{cq.FromQQ.Id}'", cn);
+            SQLiteCommand cmd = new SQLiteCommand($"UPDATE UserData SET sign_count=sign_count+1 WHERE Fromgroup={e.FromGroup.Id} and qq='{e.FromQQ.Id}'", cn);
             cmd.ExecuteNonQuery();
         }
 
@@ -1864,7 +1924,7 @@ namespace me.luohuaming.Gacha.Code
         /// </summary>
         /// <param name="ls"></param>
         /// <param name="e"></param>
-        void AddItem2Repositories(List<GachaResult> ls, CQGroupMessageEventArgs e)
+        public static void AddItem2Repositories(List<GachaResult> ls, CQGroupMessageEventArgs e)
         {
             //type 为项目类型（Weapon、Stigmata……；name为名称；class_为A、B或者S；level为等级 ；value为价值；quality为卡片颜色(0=绿，1=蓝，2=紫，3=金；date为项目最后更新时间
             string path = $@"{CQSave.AppDirectory}data.db";
@@ -1895,8 +1955,8 @@ namespace me.luohuaming.Gacha.Code
                     }
                     catch (Exception e1)
                     {
-                        cq.CQLog.Info("抽卡机仓库", str);
-                        cq.CQLog.Info("抽卡机仓库", e1.Message);
+                        CQSave.CQLog.Info("抽卡机仓库", str);
+                        CQSave.CQLog.Info("抽卡机仓库", e1.Message);
                     }
                 }
                 else//为角色卡，武器与圣痕，不可叠加
@@ -1916,8 +1976,8 @@ namespace me.luohuaming.Gacha.Code
                     }
                     catch (Exception e1)
                     {
-                        cq.CQLog.Info("抽卡机仓库", str);
-                        cq.CQLog.Info("抽卡机仓库", e1.Message);
+                        CQSave.CQLog.Info("抽卡机仓库", str);
+                        CQSave.CQLog.Info("抽卡机仓库", e1.Message);
                     }
                 }
             }
@@ -1929,7 +1989,7 @@ namespace me.luohuaming.Gacha.Code
         /// </summary>
         /// <param name="id">QQ号</param>
         /// <returns></returns>
-        int Sign(CQGroupMessageEventArgs e)
+        public static int Sign(CQGroupMessageEventArgs e)
         {
             long timestamp = 0; int money = 0;
             string path = $@"{CQSave.AppDirectory}data.db";
@@ -2077,7 +2137,7 @@ namespace me.luohuaming.Gacha.Code
                 }
                 catch (Exception e2)
                 {
-                    cq.CQLog.Info("抽卡机数据库初始化", $"Error2:插入列失败，信息{e2.Message}");
+                    CQSave.CQLog.Info("抽卡机数据库初始化", $"Error2:插入列失败，信息{e2.Message}");
                 }
                 sr.Close();
             }
