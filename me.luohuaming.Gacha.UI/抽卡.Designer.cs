@@ -139,6 +139,7 @@
             this.自定义指令与回答ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.批量导入群列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AbyssHelper = new System.Windows.Forms.ToolStripMenuItem();
             this.扩展设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1301,6 +1302,7 @@
             this.自定义指令与回答ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开ToolStripMenuItem,
             this.批量导入群列表ToolStripMenuItem,
+            this.AbyssHelper,
             this.扩展设置ToolStripMenuItem});
             this.自定义指令与回答ToolStripMenuItem.Name = "自定义指令与回答ToolStripMenuItem";
             this.自定义指令与回答ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
@@ -1309,21 +1311,28 @@
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.打开ToolStripMenuItem.Text = "自定义指令与回答";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.打开ToolStripMenuItem_Click);
             // 
             // 批量导入群列表ToolStripMenuItem
             // 
             this.批量导入群列表ToolStripMenuItem.Name = "批量导入群列表ToolStripMenuItem";
-            this.批量导入群列表ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.批量导入群列表ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.批量导入群列表ToolStripMenuItem.Text = "批量导入群列表";
             this.批量导入群列表ToolStripMenuItem.Click += new System.EventHandler(this.批量导入群列表ToolStripMenuItem_Click);
+            // 
+            // AbyssHelper
+            // 
+            this.AbyssHelper.Name = "AbyssHelper";
+            this.AbyssHelper.Size = new System.Drawing.Size(180, 22);
+            this.AbyssHelper.Text = "深渊提醒助手";
+            this.AbyssHelper.Click += new System.EventHandler(this.AbyssHelper_Click);
             // 
             // 扩展设置ToolStripMenuItem
             // 
             this.扩展设置ToolStripMenuItem.Name = "扩展设置ToolStripMenuItem";
-            this.扩展设置ToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.扩展设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.扩展设置ToolStripMenuItem.Text = "扩展设置";
             this.扩展设置ToolStripMenuItem.Click += new System.EventHandler(this.扩展设置ToolStripMenuItem_Click);
             // 
@@ -1577,5 +1586,6 @@
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于界面ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 扩展设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem AbyssHelper;
     }
 }

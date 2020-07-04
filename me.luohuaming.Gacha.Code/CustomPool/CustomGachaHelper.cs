@@ -106,8 +106,8 @@ namespace me.luohuaming.Gacha.Code.CustomPool
             }
             Event_GroupMessage.SubDiamond(e, poolInfo.PerGachaConsumption*count);
             PicHelper combine = new PicHelper();
-
-            string CQAt = (poolInfo.ResultAt) ? CQApi.CQCode_At(e.FromQQ).ToSendString() : string.Empty;
+            ls= ls.OrderByDescending(x => x.Value).ToList();
+            string CQAt = poolInfo.ResultAt ? CQApi.CQCode_At(e.FromQQ).ToSendString() : string.Empty;
             return CQAt+combine.GeneratePic(poolInfo,ls, Event_GroupMessage.GetDiamond(e));
         }
 

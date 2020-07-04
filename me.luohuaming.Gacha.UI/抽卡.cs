@@ -2759,5 +2759,11 @@ namespace me.luohuaming.Gacha.UI
             ExtraConfig fm = new ExtraConfig();
             fm.Show();
         }
+
+        private void AbyssHelper_Click(object sender, EventArgs e)
+        {
+            AbyssHelper fm = new AbyssHelper();
+            fm.Show();
+        }
     }
 }

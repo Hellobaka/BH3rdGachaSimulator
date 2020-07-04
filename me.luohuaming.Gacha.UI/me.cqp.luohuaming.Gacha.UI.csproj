@@ -8,9 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>me.luohuaming.Gacha.UI</RootNamespace>
     <AssemblyName>me.luohuaming.Gacha.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,8 +36,13 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Quartz, Version=3.0.7.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Quartz.3.0.7\lib\net452\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +60,14 @@
     <Compile Include="Aboutme.Designer.cs">
       <DependentUpon>Aboutme.cs</DependentUpon>
     </Compile>
+    <Compile Include="AbyssHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbyssHelper.Designer.cs">
+      <DependentUpon>AbyssHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AbyssHelper\AbyssTimer.cs" />
+    <Compile Include="AbyssHelper\AbyssTimerHelper.cs" />
     <Compile Include="AnswerDIY.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +108,9 @@
     <EmbeddedResource Include="Aboutme.resx">
       <DependentUpon>Aboutme.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AbyssHelper.resx">
+      <DependentUpon>AbyssHelper.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AnswerDIY.resx">
       <DependentUpon>AnswerDIY.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +137,7 @@
       <DependentUpon>抽卡.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\AbyssTimer.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -150,5 +168,6 @@
     <None Include="Resources\demo21.jpg" />
     <None Include="Resources\demo11.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

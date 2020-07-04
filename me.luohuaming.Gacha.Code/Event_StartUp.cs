@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Native.Sdk.Cqp.EventArgs;
 using Native.Sdk.Cqp.Interface;
 using Native.Tool;
-using me.luohuaming.Gacha.UI;
 using System.IO;
 using Native.Tool.IniConfig;
 using Native.Tool.IniConfig.Linq;
+using me.luohuaming.Gacha.UI;
 
 namespace me.luohuaming.Gacha.Code
 {
@@ -22,6 +22,7 @@ namespace me.luohuaming.Gacha.Code
             CQSave.AppDirectory = e.CQApi.AppDirectory;
             CQSave.ImageDirectory = GetAppImageDirectory();
             CQSave.CQLog = e.CQLog;
+            CQSave.CQApi = e.CQApi;
             ini = new IniConfig(e.CQApi.AppDirectory + "Config.ini");
             ini.Load();
             string temp = ini.Object["OCR"]["app_id"].GetValueOrDefault("");
@@ -56,13 +57,13 @@ namespace me.luohuaming.Gacha.Code
                     Event_GroupMessage.CheckDB($@"{e.CQApi.AppDirectory}data.db", e);
                 }
             }
-
+            AbyssTimerHelper.Start();
         }
         public static string GetAppImageDirectory()
         {
             var ImageDirectory = Path.Combine(Environment.CurrentDirectory, "data", "image");
             return ImageDirectory;
         }
-
+        
     }
 }

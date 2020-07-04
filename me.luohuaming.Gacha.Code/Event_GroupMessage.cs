@@ -1172,18 +1172,18 @@ namespace me.luohuaming.Gacha.Code
             }
             else if (e.Message.Text.StartsWith("#更换池子"))
             {
-                e.Handler = true;
-                if (ini.Object["OCR"]["app_id"].GetValueOrDefault("") == "")
-                {
-                    e.FromGroup.SendGroupMessage("参数缺失，请按照日志提示补全参数");
-                    e.CQLog.Warning("参数缺失", $"请到插件数据 Config.ini 下OCR字段填写App_id与App_key。若没有可到插件论坛页面按照提示获取.");
-                    return;
-                }
+                e.Handler = true;                
                 if (CheckAdmin(e))
                 {
                     string option = e.Message.Text.Substring("#更换池子".Length).Trim();
                     //ChangePool.PoolName = temp;
                     //e.CQApi.SendGroupMessage(e.FromGroup, ChangePool.GetResult(e));
+                    if (option=="扩充" && ini.Object["OCR"]["app_id"].GetValueOrDefault("") == "")
+                    {
+                        e.FromGroup.SendGroupMessage("参数缺失，请按照日志提示补全参数");
+                        e.CQLog.Warning("参数缺失", $"请到插件数据 Config.ini 下OCR字段填写App_id与App_key。若没有可到插件论坛页面按照提示获取.");
+                        return;
+                    }
                     e.FromGroup.SendGroupMessage("获取中……请耐心等待");
                     str = new PaChonger().GetPoolOnline(option);
                     if (string.IsNullOrEmpty(str))
@@ -1205,7 +1205,14 @@ namespace me.luohuaming.Gacha.Code
             else if (e.Message.Text.ToLower() == "#now")
             {
                 e.Handler = true;
-                e.FromGroup.SendGroupMessage(ChangePool());
+                if (CheckAdmin(e))
+                {
+                    e.FromGroup.SendGroupMessage(ChangePool());
+                }
+                else
+                {
+                    e.FromGroup.SendGroupMessage("权限不足，拒绝操作");
+                }
                 return;
             }
             else if (e.Message.Text.ToLower() == "#time")

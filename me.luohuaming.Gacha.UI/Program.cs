@@ -16,7 +16,7 @@ namespace me.luohuaming.Gacha.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Aboutme());
+            Application.Run(new AbyssHelper());
         }
     }
 }

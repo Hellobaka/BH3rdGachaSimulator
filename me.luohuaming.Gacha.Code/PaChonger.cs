@@ -642,7 +642,7 @@ namespace me.luohuaming.Gacha.Code
         public List<string> GetItem(string str)
         {
             str = HttpUtility.HtmlDecode(str);
-            str = str.Replace("：", ":").Replace(" ", "");
+            str = str.Replace("：", ":").Replace(" ", "").Replace("｜","|").Replace("(","（").Replace(")","）");
             str = str.Substring(str.IndexOf(":") + 1).Trim();
             str = Regex.Replace(str, "（.*）", "");
             if (str.Contains("|"))
