@@ -37,9 +37,13 @@
 - [x] 通过爬取崩坏3官网的公告来实现自动更换卡池
 ### 尚未想到的功能……
 
-## 如何使用
+> 2020.8.2众多第三方机器人框架倒闭. 建议用户转向开源的Mirai框架,可继续使用酷Q插件,本人也会持续维护这个项目
+## 搬家方法
+####https://www.lanzoux.com/b00nt1xjg 文档就从群里搬过来了,也没有改,有问题来群里,大概可能也许能解决
+
+## 插件如何使用(酷Q时代 已过时)
 1.下载插件[本体](https://cqp.cc/t/47221) 扩展名为cpk<br>
-2.下载插件所必须的[数据包](https://lanzous.com/ibietkh) (2020.4.17)<br>
+2.下载插件所必须的[数据包](https://www.lanzoux.com/iHS6Mehbb3g) (2020.7.3)<br>
 3.下载插件需要的[字体](https://www.lanzous.com/i9hl6ve) (2020.2.19)<br>
 4.将cpk复制到酷Q的插件目录 ...\CQP-xiaoi\酷Q Pro\app下<br>
 ![说明图片1](https://i.loli.net/2020/03/21/QfVBumNkZ54j1bP.png)<br>
