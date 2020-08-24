@@ -8,6 +8,7 @@ namespace me.luohuaming.Gacha.Code.CustomPool
     public class CustomPoolForm_Call : IMenuCall
     {
         private MainWindow _mainWindow = null;
+        [STAThread]
         public void MenuCall(object sender, CQMenuCallEventArgs e)
         {
             if (this._mainWindow == null)

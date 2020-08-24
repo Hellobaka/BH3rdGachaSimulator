@@ -45,6 +45,8 @@ namespace me.luohuaming.Gacha.Code
         public static string order_register;
         public static string order_opengacha;
         public static string order_closegacha;
+        public static string order_Rank;
+        public static string order_WeekRank;
 
         public static string KC1;
         public static string KC10;
@@ -1427,13 +1429,13 @@ namespace me.luohuaming.Gacha.Code
 
                     }
                 }
-                else if (e.Message.Text == "#排行榜")
+                else if (e.Message.Text == order_Rank)
                 {
                     e.Handler = true;
                     e.FromGroup.SendGroupMessage(TotalRank.GetRank(e));
                     return;
                 }
-                else if (e.Message.Text == "#周榜")
+                else if (e.Message.Text == order_WeekRank)
                 {
                     e.Handler = true;
                     e.FromGroup.SendGroupMessage(WeekRank.GetWeekRank(e));
@@ -1615,6 +1617,8 @@ namespace me.luohuaming.Gacha.Code
             order_getpool = ini.Object["Order"]["GetPool"].GetValueOrDefault("#获取池子");
             order_closegacha = ini.Object["Order"]["CloseGacha"].GetValueOrDefault("#抽卡关闭");
             order_opengacha = ini.Object["Order"]["OpenGacha"].GetValueOrDefault("#抽卡开启");
+            order_Rank = ini.Object["Order"]["Rank"].GetValueOrDefault("#排行榜");
+            order_WeekRank = ini.Object["Order"]["WeekRank"].GetValueOrDefault("#周榜");
 
             KC1 = ini.Object["Answer"]["KC1"].GetValueOrDefault("少女祈祷中……").Replace("\\n", "\n");
             KC10 = ini.Object["Answer"]["KC10"].GetValueOrDefault("少女祈祷中……").Replace("\\n", "\n"); ;
